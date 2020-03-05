@@ -1,0 +1,71 @@
+{
+  "name": "standard-forestry-operations",
+  "version": "0.1.0-alpha.1",
+  "description": "Apply for a Standard Forestry Operations licence",
+  "author": "Mike Coats <mike.coats@nature.scot>",
+  "repository": "github:Scottish-Natural-Heritage/standard-forestry-operations",
+  "license": "(MIT OR OGL-UK-3.0 OR Apache-2.0)",
+  "type": "module",
+  "scripts": {
+    "prescss": "node --experimental-modules src/pre-scss.js",
+    "scss": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js -o dist build/main.scss",
+    "lint": "xo",
+    "assets": "cp node_modules/naturescot-frontend/naturescot/assets/images/naturescot-logo.png dist/ && cp -R src/assets/* dist/",
+    "postassets": "node --experimental-modules src/post-assets.js",
+    "build": "npm run lint && npm run scss && npm run assets",
+    "prestart": "npm run build",
+    "start": "node --experimental-modules src/server.js",
+    "dev": "SFO_PORT=3999 nodemon --exec \"npm run start\" -e js,njk,scss --ignore build/ --ignore dist/ --ignore cypress/",
+    "cy:run": "cypress run",
+    "test": "start-server-and-test start http://localhost:3002/standard-forestry-operations cy:run",
+    "cy:open": "cypress open"
+  },
+  "engines": {
+    "node": "12.14.1",
+    "npm": "6.13.4"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "govuk-frontend": "^3.5.0",
+    "jimp": "^0.9.3",
+    "memorystore": "^1.6.1",
+    "morgan": "^1.9.1",
+    "naturescot-frontend": "^1.1.1",
+    "node-sass": "^4.13.0",
+    "node-sass-package-importer": "^5.3.2",
+    "nunjucks": "^3.2.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "cypress": "^4.1.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "start-server-and-test": "^1.10.8",
+    "xo": "^0.25.3"
+  },
+  "xo": {
+    "space": 2,
+    "prettier": true,
+    "parser": "babel-eslint",
+    "plugins": [
+      "cypress"
+    ],
+    "envs": [
+      "cypress/globals"
+    ],
+    "rules": {
+      "import/extensions": 0,
+      "new-cap": 0
+    }
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "arrowParens": "always",
+    "bracketSpacing": false
+  }
+}

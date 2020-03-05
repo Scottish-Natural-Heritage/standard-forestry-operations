@@ -1,0 +1,66 @@
+{% extends "_base.njk" %}
+
+{% block head %}
+  {{ super() }}
+  <style>
+    #startTrapExplanations .govuk-accordion__section-content img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+    }
+  </style>
+{% endblock %}
+
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% block content %}
+  <h1 class="govuk-heading-xl">Standard Forestry Operations</h1>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body">Use this service to:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>apply for a Standard Forestry Operations licence</li>
+        <li>repudiandae voluptatum molestias</li>
+        <li>provident saepe dolor quidem est rerum</li>
+      </ul>
+
+      <p class="govuk-body">Applying takes around 5 minutes.</p>
+
+      <form method="post">
+        {{ govukButton({
+        text: "Start now",
+        classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8 naturescot-forward-button",
+        isStartButton: true
+      }) }}
+      </form>
+
+      <h2 class="govuk-heading-m">Before you start</h2>
+
+      <p class="govuk-body">
+        Voluptate rem rem qui doloremque aut fuga nisi ut. Fugit voluptatem eos
+        vitae. Quia recusandae reprehenderit nostrum consequatur. Et temporibus
+        reiciendis nam nesciunt magnam omnis mollitia.
+      </p>
+
+      <p class="govuk-body">
+        If you need assistance with this application, contact the NatureScot Licensing Team.
+      </p>
+
+      <h3 class="govuk-heading-s">Email</h3>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="mailto:licensing@nature.scot">licensing@nature.scot</a></li>
+      </ul>
+      <h3 class="govuk-heading-s">Telephone</h3>
+      <ul class="govuk-list">
+        <li>01463 725 364</li>
+        <li>Monday to Friday, 10am to 4pm (except public holidays)</li>
+      </ul>
+      <p class="govuk-body">
+        <a class="govuk-link" href="https://www.gov.uk/call-charges">Find out about call charges</a>
+      </p>
+    </div>
+  </div>
+
+{% endblock %}

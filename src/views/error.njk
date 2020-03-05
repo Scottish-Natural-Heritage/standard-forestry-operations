@@ -1,0 +1,27 @@
+{% extends "_base.njk" %}
+
+{% set mainClasses = "govuk-main-wrapper--l" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        Sorry, there is a problem with the service
+      </h1>
+      <p class="govuk-body">
+        Try again later.
+      </p>
+      <p class="govuk-body">
+        Contact the NatureScot Licensing Team if you need to speak to someone about applying for a Standard Forestry Operations licence.
+      </p>
+      <p class="govuk-body">
+        Email:<br>
+        <strong class="govuk-!-font-weight-bold">
+          <a class="govuk-link" href="mailto:licensing@nature.scot">
+            licensing@nature.scot
+          </a>
+        </strong>
+      </p>
+    </div>
+  </div>
+{% endblock %}
