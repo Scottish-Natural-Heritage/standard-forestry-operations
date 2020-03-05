@@ -11,22 +11,41 @@
   </style>
 {% endblock %}
 
-{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% block content %}
-  <h1 class="govuk-heading-xl">Standard Forestry Operations</h1>
+  <h1 class="govuk-heading-xl">
+    Standard Forestry Operations
+  </h1>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <p class="govuk-body">Use this service to:</p>
+      <p class="govuk-body">
+        Use this service to apply for a Standard Forestry Operations licence if:
+      </p>
 
       <ul class="govuk-list govuk-list--bullet">
-        <li>apply for a Standard Forestry Operations licence</li>
-        <li>repudiandae voluptatum molestias</li>
-        <li>provident saepe dolor quidem est rerum</li>
+        <li>
+          you are wanting to fell or harvest within 20 metres of badger setts
+          between 1 July and 30 November
+        </li>
+        <li>
+          no vehicular access or heavy machinery is used within this area
+        </li>
+        <li>
+          your proposal meets the
+          <a href="http://gateway.snh.gov.uk/go/?id=29">
+            licence conditions
+          </a>
+        </li>
+        <li>
+          you are the person responsible for carrying out or overseeing the
+          operations
+        </li>
       </ul>
 
-      <p class="govuk-body">Applying takes around 5 minutes.</p>
+      <p class="govuk-body">
+        Applying should take around 10 minutes.
+      </p>
 
       <form method="post">
         {{ govukButton({
@@ -39,9 +58,7 @@
       <h2 class="govuk-heading-m">Before you start</h2>
 
       <p class="govuk-body">
-        Voluptate rem rem qui doloremque aut fuga nisi ut. Fugit voluptatem eos
-        vitae. Quia recusandae reprehenderit nostrum consequatur. Et temporibus
-        reiciendis nam nesciunt magnam omnis mollitia.
+        Please also note that there is a reporting requirement back to the NatureScot Licensing Team upon completion of the works (see condition 17).
       </p>
 
       <p class="govuk-body">
@@ -60,6 +77,41 @@
       <p class="govuk-body">
         <a class="govuk-link" href="https://www.gov.uk/call-charges">Find out about call charges</a>
       </p>
+    </div>
+    <div class="govuk-grid-column-one-third">
+      {{ govukAccordion({
+        id: "startBadgerExplanations",
+        items: [
+          {
+            heading: {
+              text: "What is a badger?"
+            },
+            content: {
+              html:
+                '<p class="govuk-body">' +
+                '  "Badger" means any animal of the species Meles meles.' +
+                '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: "What is a badger sett?"
+            },
+            content: {
+              html:
+                '<p class="govuk-body">' +
+                '  "Badger sett" means any structure or place which displays ' +
+                '  signs indicating current use by a badger.'+
+                '</p>'
+            },
+            expanded: false
+          }
+        ]
+      })}}
+      <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16" href="#top-of-page">
+        Back to top
+      </a>
     </div>
   </div>
 
