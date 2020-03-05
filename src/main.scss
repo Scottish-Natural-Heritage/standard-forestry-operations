@@ -31,3 +31,7 @@ $govuk-assets-path: $path-prefix + '/govuk-frontend/assets/';
 
 $naturescot-logo: $path-prefix + '/dist/naturescot-logo.png';
 @import '~naturescot-frontend/naturescot/all';
+
+.naturescot-latin-name {
+  font-style: italic;
+}
