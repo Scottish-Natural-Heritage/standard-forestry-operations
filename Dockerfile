@@ -53,7 +53,7 @@ ENV SFO_SESSION_SECRET override_this_value
 ENV SFO_API_URL override_this_value
 
 # let docker know about our listening port
-EXPOSE $PORT
+EXPOSE $SFO_PORT
 
 # run the default start script, which kicks off a few pre-start things too
 CMD ["npm", "start"]
