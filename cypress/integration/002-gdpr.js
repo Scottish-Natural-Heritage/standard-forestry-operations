@@ -11,7 +11,7 @@ describe('GDPR page ', function() {
     cy.get('#main-content form button.naturescot-forward-button').click();
   });
 
-  it('should allow access if the user', function() {
+  it('should allow access if the user visits all the pages in order', function() {
     cy.visit('/gdpr');
     cy.get('h1').should('contain', 'How we use your information');
   });
@@ -21,7 +21,4 @@ describe('GDPR page ', function() {
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/conviction');
   });
-
-  cy.get('#main-content form button.naturescot-forward-button').click();
-
 });
