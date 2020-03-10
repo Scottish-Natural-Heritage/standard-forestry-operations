@@ -1,0 +1,289 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        How we use your information
+      </h1>
+
+      {{ govukAccordion({
+        id: "gdprDefinitions",
+        items: [
+          {
+            heading: {
+              text: 'Who collects your personal data'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  The data controller is Scottish Natural Heritage known as NatureScot at:' +
+              '</p>' +
+              '<p class="govuk-body">' +
+              '  Great Glen House<br>' +
+              '  Leachkin Road<br>' +
+              '  Inverness<br>' +
+              '  IV3 8NW' +
+              '</p>' +
+              '<p class="govuk-body">' +
+              '  Send questions about how NatureScot uses your personal data and your' +
+              '  associated rights to the Data Protection Manager at' +
+              '  <a class="govuk-link" href="mailto:dpo@nature.scot">' +
+              '    dpo@nature.scot' +
+              '  </a>' +
+              '  or:' +
+              '</p>' +
+              '<p class="govuk-body">' +
+              '  Data Protection Officer<br>' +
+              '  SNH<br>' +
+              '  Battleby<br>' +
+              '  Redgorton<br>' +
+              '  Perth<br>' +
+              '  PH1 3EW<br>' +
+              '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: 'What personal data\'s collected and how it\'s used'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  NatureScot will use the information on the Standard Forestry Operations form to' +
+              '  undertake its general licensing functions. This will include, but is not' +
+              '  limited to:' +
+              '</p>' +
+              '<ul class="govuk-list govuk-list--bullet">' +
+              '  <li>issuing a Standard Forestry Operations licence</li>' +
+              '  <li>monitoring compliance with licence conditions</li>' +
+              '  <li>collating returns and reports</li>' +
+              '</ul>' +
+              '<p class="govuk-body">' +
+              '  The personal information NatureScot processes will include, but is not' +
+              '  limited to:' +
+              '</p>' +
+              '<ul class="govuk-list govuk-list--bullet">' +
+              '  <li>your name</li>' +
+              '  <li>contact details</li>' +
+              '</ul>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: 'The legal basis for processing your personal data'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  Processing your data is necessary for the:' +
+              '</p>' +
+              '<ul class="govuk-list govuk-list--bullet">' +
+              '  <li>performance of a task carried out in the public interest</li>' +
+              '  <li>exercise of official authority vested in the data controller</li>' +
+              '</ul>' +
+              '<p class="govuk-body">' +
+              '  The task is to conduct the functions in relation to licences as delegated by' +
+              '  The Scottish Ministers to Scottish Natural Heritage under section 10A of The' +
+              '  Protection of Badgers Act 1992 as amended by the Nature Conservation (Scotland) Act 2004.' +
+              '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: 'Consent to process your data'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  The processing of your data is not based on consent. You cannot withdraw it.' +
+              '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: 'Who NatureScot shares your personal data with'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  NatureScot may share your information with third parties:' +
+              '</p>' +
+              '<ul class="govuk-list govuk-list--bullet">' +
+              '  <li>at certain stages of the Standard Forestry Operations license process</li>' +
+              '  <li>for particular licences</li>' +
+              '</ul>' +
+              '<p class="govuk-body">' +
+              '  NatureScot may do this to:' +
+              '</p>' +
+              '<ul class="govuk-list govuk-list--bullet">' +
+              '  <li>check information you provide on a Standard Forestry Operations license application</li>' +
+              '  <li>monitor effects on protected species</li>' +
+              '</ul>' +
+              '<p class="govuk-body">' +
+              '  NatureScot only shares information when necessary and anonymously whenever' +
+              '  possible.' +
+              '</p>' +
+              '<p class="govuk-body">' +
+              '  The table shows the organisations NatureScot shares information with and the' +
+              '  purposes it does this for.' +
+              '</p>' +
+              '<table class="govuk-table">' +
+              '  <thead class="govuk-table__head">' +
+              '    <tr class="govuk-table__row">' +
+              '      <th scope="col" class="govuk-table__header">Organisation</th>' +
+              '      <th scope="col" class="govuk-table__header">Sharing purpose</th>' +
+              '    </tr>' +
+              '  </thead>' +
+              '  <tbody class="govuk-table__body">' +
+              '    <tr class="govuk-table__row">' +
+              '      <th scope="row" class="govuk-table__header">Statutory nature conservation bodies</th>' +
+              '      <td class="govuk-table__cell">Compliance, enforcement, licence assessment</td>' +
+              '    </tr>' +
+              '    <tr class="govuk-table__row">' +
+              '      <th scope="row" class="govuk-table__header">Scottish Government</th>' +
+              '      <td class="govuk-table__cell">Compliance, enforcement, licence assessment</td>' +
+              '    </tr>' +
+              '    <tr class="govuk-table__row">' +
+              '      <th scope="row" class="govuk-table__header">Police Scotland</th>' +
+              '      <td class="govuk-table__cell">Compliance, enforcement activity</td>' +
+              '    </tr>' +
+              '  </tbody>' +
+              '</table>' +
+              '<p class="govuk-body">' +
+              '  NatureScot may make some information available where there\'s public interest' +
+              '  in wildlife licensing and who it issued licences or registrations to.' +
+              '  Information released may include, but is not limited to:' +
+              '</p>' +
+              '<ul class="govuk-list govuk-list--bullet">' +
+              '  <li>your name or business name</li>' +
+              '  <li>application, registration and licence details</li>' +
+              '  <li>reports and returns</li>' +
+              '</ul>' +
+              '<p class="govuk-body">' +
+              '  NatureScot will not release information for licensed activities that are' +
+              '  sensitive or could harm people, species or habitats, for example names and' +
+              '  addresses of individuals, locations of licensed activities.' +
+              '</p>' +
+              '<p class="govuk-body">' +
+              '  NatureScot respects your personal privacy when responding to access to' +
+              '  information requests. NatureScot only shares information when necessary to' +
+              '  meet statutory requirements of the Environmental Information (Scotland)' +
+              '  Regulations 2004 and the Freedom of Information Act 2000.' +
+              '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: 'How long NatureScot holds personal data'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  NatureScot will keep your personal data for 7 years after the expiry of your' +
+              '  license or longer if stated in the licence conditions.' +
+              '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: 'What happens if you do not provide the data'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  NatureScot will be unable to grant your Standard Forestry Operations license' +
+              '  if you do not provide the data.' +
+              '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: 'Use of automated decision-making or profiling'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  The information you provide is not used for:' +
+              '</p>' +
+              '<ul class="govuk-list govuk-list--bullet">' +
+              '  <li>' +
+              '    automated decision making (making a decision by automated means without' +
+              '    any human involvement)' +
+              '  </li>' +
+              '  <li>' +
+              '    profiling (automated processing of personal data to evaluate certain' +
+              '    things about an individual)' +
+              '  </li>' +
+              '</ul>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: 'Transfer of data outside the European Economic Area (EEA)'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  NatureScot will not transfer your data outside the <abbr title="European Economic Area">EEA</abbr>.' +
+              '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: 'Your rights'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  Find out about your' +
+              '  <a class="govuk-link" href="https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/">' +
+              '    individual rights' +
+              '  </a>' +
+              '  under the General Data Protection Regulation (GDPR), the Data Protection Act 2018.' +
+              '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: 'Complaints'
+            },
+            content: {
+              html: '' +
+              '<p class="govuk-body">' +
+              '  You have the right to' +
+              '  <a class="govuk-link" href="https://ico.org.uk/make-a-complaint/">' +
+              '    make a complaint' +
+              '  </a>' +
+              '  to the Information Commissioner’s Office at any time.' +
+              '</p>'
+            },
+            expanded: false
+          }
+        ]
+      }) }}
+
+      <form method="post">
+        <input type="hidden" name="acceptGdpr" value="yes">
+
+        {{ govukButton({
+          text: "Continue",
+          classes: "naturescot-forward-button"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
