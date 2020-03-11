@@ -1,0 +1,102 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% block content %}
+
+  {% if model.convictionError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [{
+        text: "You must select if you have been convicted of a wildlife crime.",
+        href: "#conviction-error"
+      }]
+    }) }}
+  {% endif %}
+
+  <form method="post">
+    {{ govukRadios({
+      classes: "govuk-radios--inline",
+      idPrefix: "conviction",
+      name: "conviction",
+      fieldset: {
+        legend: {
+          text: "Have you been convicted of a wildlife crime?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--xl"
+        }
+      },
+      errorMessage: {
+        text: "You must select if you have been convicted of a wildlife crime."
+      } if model.convictionError,
+      items: [
+        {
+          value: "yes",
+          text: "Yes",
+          checked: model.conviction === true
+        },
+        {
+          value: "no",
+          text: "No",
+          checked: model.conviction === false
+        }
+      ]
+    }) }}
+
+    {{ govukAccordion({
+      id: "crimeExplanations",
+      items: [
+        {
+          heading: {
+            text: "What is a wildlife crime?"
+          },
+          content: {
+            html: '' +
+            '<p class="govuk-body">' +
+            '  "Wildlife crime" means any offence under' +
+            '  the Wildlife &amp; Countryside Act 1981,' +
+            '  the Conservation (Natural Habitats &amp;c.) Regulations 1994,' +
+            '  the Protection of Badgers Act 1992,' +
+            '  the Protection of Wild Mammals (Scotland) Act 2002,' +
+            '  Deer (Scotland) Act 1996,' +
+            '  Agriculture (Scotland) Act 1948,' +
+            '  the Animal Health &amp; Welfare (Scotland) Act 2006,' +
+            '  the Protection of Animals (Scotland) Act 1912' +
+            '  and' +
+            '  the Wild Mammals (Protection) Act 1996' +
+            '  (all as amended).' +
+            '</p>'
+          },
+          expanded: false
+        },
+        {
+          heading: {
+            text: "What does convicted mean?"
+          },
+          content: {
+            html: '' +
+            '<p class="govuk-body">'+
+            '  "Convicted" means convicted of a wildlife crime on or after 1 January 2015 unless,' +
+            '  in respect of that offence, they are a rehabilitated person (for the purposes of ' +
+            '  the Rehabilitation of Offenders Act 1974 and that conviction is spent), or a court ' +
+            '  discharged them absolutely.' +
+            '</p>' +
+            '<p class="govuk-body">' +
+            '  Any person not able to use the Standard Forestry Operations licence can still apply ' +
+            '  for an individual licence.' +
+            '</p>'
+          },
+          expanded: false
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue",
+      classes: "naturescot-forward-button"
+    }) }}
+  </form>
+
+{% endblock %}

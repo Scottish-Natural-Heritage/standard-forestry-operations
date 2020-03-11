@@ -5,6 +5,7 @@ const router = express.Router();
 import {Page} from './controllers/_base.js';
 import StartController from './controllers/start.js';
 import GdprController from './controllers/gdpr.js';
+import ConvictionController from './controllers/conviction.js';
 
 // Configure all of the pages and routes.
 
@@ -22,6 +23,23 @@ router.use(
     back: 'start',
     positiveForward: 'conviction',
     controller: GdprController
+  })
+);
+
+router.use(
+  Page({
+    path: 'conviction',
+    back: 'gdpr',
+    positiveForward: 'eligible',
+    negativeForward: 'conviction-stop',
+    controller: ConvictionController
+  })
+);
+
+router.use(
+  Page({
+    path: 'conviction-stop',
+    back: 'conviction'
   })
 );
 
