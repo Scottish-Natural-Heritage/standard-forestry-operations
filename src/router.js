@@ -6,6 +6,7 @@ import {Page} from './controllers/_base.js';
 import StartController from './controllers/start.js';
 import GdprController from './controllers/gdpr.js';
 import ConvictionController from './controllers/conviction.js';
+import EligibleController from './controllers/eligible.js';
 
 // Configure all of the pages and routes.
 
@@ -33,6 +34,15 @@ router.use(
     positiveForward: 'eligible',
     negativeForward: 'conviction-stop',
     controller: ConvictionController
+  })
+);
+
+router.use(
+  Page({
+    path: 'eligible',
+    back: 'conviction',
+    positiveForward: 'details',
+    controller: EligibleController
   })
 );
 

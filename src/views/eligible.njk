@@ -1,0 +1,21 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% block content %}
+  <h1 class="govuk-heading-xl">
+    You are eligible for a Standard Forestry Operations licence
+  </h1>
+
+  <p class="govuk-body">
+    Based on your answers, you are eligible to apply for a Standard Forestry
+    Operations licence for forestry operations around a badger sett between the
+    dates of 1 July and 30 November inclusive.
+  </p>
+
+  <form method="post">
+    {{ govukButton({
+      text: "Continue",
+      classes: "naturescot-forward-button"
+    }) }}
+  </form>
+{% endblock %}
