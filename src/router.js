@@ -41,7 +41,7 @@ router.use(
   Page({
     path: 'eligible',
     back: 'conviction',
-    positiveForward: 'details',
+    positiveForward: 'comply',
     controller: EligibleController
   })
 );

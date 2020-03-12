@@ -29,9 +29,9 @@ describe('Eligible page ', function() {
     cy.get('h1').should('contain', 'You are eligible');
   });
 
-  it('main button should navigate to details', function() {
+  it('main button should navigate to comply', function() {
     cy.visit('/eligible');
     cy.get('#main-content form button.naturescot-forward-button').click();
-    cy.url().should('include', '/details');
+    cy.url().should('include', '/comply');
   });
 });
