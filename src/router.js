@@ -8,6 +8,7 @@ import GdprController from './controllers/gdpr.js';
 import ConvictionController from './controllers/conviction.js';
 import EligibleController from './controllers/eligible.js';
 import ComplyController from './controllers/comply.js';
+import DetailsController from './controllers/details.js';
 
 // Configure all of the pages and routes.
 
@@ -53,6 +54,15 @@ router.use(
     back: 'eligible',
     positiveForward: 'details',
     controller: ComplyController
+  })
+);
+
+router.use(
+  Page({
+    path: 'details',
+    back: 'comply',
+    positiveForward: 'site-location',
+    controller: DetailsController
   })
 );
 
