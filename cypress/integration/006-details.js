@@ -46,21 +46,21 @@ describe('Details page ', function() {
 
     cy.get('h2#error-summary-title').should('contain', 'There is a problem');
 
-    cy.get('.govuk-error-summary ul li a').
-      should('contain', 'Enter your full name').
-      and('contain', 'Enter your building and street').
-      and('contain', 'Enter your town').
-      and('contain', 'Enter your postcode').
-      and('contain', 'Enter your phone number').
-      and('contain', 'Enter your email address');
+    cy.get('.govuk-error-summary ul li a')
+      .should('contain', 'Enter your full name')
+      .and('contain', 'Enter your building and street')
+      .and('contain', 'Enter your town')
+      .and('contain', 'Enter your postcode')
+      .and('contain', 'Enter your phone number')
+      .and('contain', 'Enter your email address');
 
-    cy.get('form fieldset .govuk-form-group--error').
-      and('contain', 'Enter your full name').
-      and('contain', 'Enter your building and street').
-      and('contain', 'Enter your town').
-      and('contain', 'Enter your postcode').
-      and('contain', 'Enter your phone number').
-      and('contain', 'Enter your email address');
+    cy.get('form fieldset .govuk-form-group--error')
+      .and('contain', 'Enter your full name')
+      .and('contain', 'Enter your building and street')
+      .and('contain', 'Enter your town')
+      .and('contain', 'Enter your postcode')
+      .and('contain', 'Enter your phone number')
+      .and('contain', 'Enter your email address');
   });
 
   it('filled-out entries + main button should navigate to site location page', function() {

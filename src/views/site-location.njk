@@ -1,0 +1,126 @@
+{% extends "_base.njk" %}
+
+{% block head %}
+  {{ super() }}
+  <style>
+    .govuk-table__caption {
+      font-weight: unset;
+    }
+  </style>
+{% endblock %}
+
+
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% block content %}
+  {% if model.siteLocationError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Enter the site name",
+          href: "#site-name-error"
+        } if model.siteNameError,
+        {
+          text: "Add at least one sett",
+          href: "#sett-count-error"
+        } if model.settCountError
+      ]
+    }) }}
+  {% endif %}
+
+
+  <h1 class="govuk-heading-xl">
+    What are the site details?
+  </h1>
+  <form method="post">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{ govukInput({
+          label: {
+            text: "Site name"
+          },
+          classes: "govuk-!-width-one-half",
+          id: "site-name",
+          name: "siteName",
+          value: model.siteName,
+          errorMessage: {
+            text: "Enter the site name"
+          } if model.siteNameError,
+          attributes: {
+            spellcheck: "false"
+          }
+        }) }}
+      </div>
+
+      <div class="govuk-grid-column-full">
+        <table class="govuk-table">
+          <caption class="govuk-table__caption {% if model.settCountError %} govuk-form-group--error {% endif %}">
+            Setts
+            {% if model.settCountError %}
+              <span id="sett-count-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> Add at least one sett
+              </span>
+            {% endif %}
+          </caption>
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Sett ID</th>
+              <th scope="col" class="govuk-table__header">Type</th>
+              <th scope="col" class="govuk-table__header">Grid Reference</th>
+              <th scope="col" class="govuk-table__header">Entrances</th>
+              <th scope="col" class="govuk-table__header"></th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            {% for sett in model.setts %}
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">{{ sett.id }}</th>
+                <td class="govuk-table__cell">
+                  {% if sett.type === 1 %}
+                    Main Sett
+                  {% elif sett.type === 2 %}
+                    Outlying Sett
+                  {% elif sett.type === 3 %}
+                    Annex Sett
+                  {% elif sett.type === 4 %}
+                    Subsidiary Sett
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
+                <td class="govuk-table__cell">{{ sett.gridReference }}</td>
+                <td class="govuk-table__cell">{{ sett.entrances }}</td>
+                <td class="govuk-table__cell">
+                  {{ govukButton({
+                    text: "Edit",
+                    name: "edit-" + loop.index0,
+                    classes: "govuk-button--secondary"
+                  }) }}
+                  {{ govukButton({
+                    text: "Delete",
+                    name: "delete-" + loop.index0,
+                    classes: "govuk-button--secondary"
+                  }) }}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {{ govukButton({
+          text: "Add a Sett",
+          name: "add",
+          classes: "govuk-button--secondary naturescot-button--add"
+        }) }}
+        <br>
+        {{ govukButton({
+          text: "Continue",
+          name: "continue",
+          classes: "naturescot-forward-button"
+        }) }}
+      </div>
+    </div>
+  </form>
+{% endblock %}

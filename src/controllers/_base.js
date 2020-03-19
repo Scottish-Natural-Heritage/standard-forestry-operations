@@ -96,7 +96,9 @@ const renderPage = (req, res, options) => {
 const ReturnState = Object.freeze({
   Positive: 1,
   Negative: 2,
-  Error: 3
+  Error: 3,
+  Secondary: 4,
+  SameAgain: 5
 });
 
 /**
@@ -129,6 +131,8 @@ const Page = (options) => {
         res.redirect(`${config.pathPrefix}/${options.positiveForward}`);
       } else if (decision === ReturnState.Negative) {
         res.redirect(`${config.pathPrefix}/${options.negativeForward}`);
+      } else if (decision === ReturnState.Secondary) {
+        res.redirect(`${config.pathPrefix}/${options.secondaryForward}`);
       } else {
         renderPage(req, res, options);
       }

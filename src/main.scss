@@ -35,3 +35,7 @@ $naturescot-logo: $path-prefix + '/dist/naturescot-logo.png';
 .naturescot-latin-name {
   font-style: italic;
 }
+
+td.govuk-table__cell button.govuk-button {
+  margin-bottom: 0;
+}

@@ -9,6 +9,8 @@ import ConvictionController from './controllers/conviction.js';
 import EligibleController from './controllers/eligible.js';
 import ComplyController from './controllers/comply.js';
 import DetailsController from './controllers/details.js';
+import SiteLocationController from './controllers/site-location.js';
+import SettDetailsController from './controllers/sett-details.js';
 
 // Configure all of the pages and routes.
 
@@ -63,6 +65,25 @@ router.use(
     back: 'comply',
     positiveForward: 'site-location',
     controller: DetailsController
+  })
+);
+
+router.use(
+  Page({
+    path: 'site-location',
+    back: 'details',
+    secondaryForward: 'sett-details',
+    positiveForward: 'confirm',
+    controller: SiteLocationController
+  })
+);
+
+router.use(
+  Page({
+    path: 'sett-details',
+    back: 'site-location',
+    positiveForward: 'site-location',
+    controller: SettDetailsController
   })
 );
 
