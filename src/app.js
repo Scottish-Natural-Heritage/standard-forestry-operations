@@ -28,15 +28,15 @@ nunjucks.configure(['src/views', 'node_modules/naturescot-frontend', 'node_modul
 });
 
 /**
- * WCAG2.1 - 2.2 Enough Time
+ * WCAG2.1 - 2.2 Enough Time.
  * Provide users enough time to read and use content.
  *
- * Success Criterion 2.2.1 Timing Adjustable (Level A)
+ * Success Criterion 2.2.1 Timing Adjustable (Level A).
  * For each time limit that is set by the content, at least one of the following
  * is true:
  * 20 Hour Exception: The time limit is longer than 20 hours.
  *
- * Success Criterion 2.2.6 Timeouts (Level AAA)
+ * Success Criterion 2.2.6 Timeouts (Level AAA).
  * Users are warned of the duration of any user inactivity that could cause data
  * loss, unless the data is preserved for more than 20 hours when the user does
  * not take any actions.

@@ -8,11 +8,11 @@ import config from '../config.js';
  * This will be used to guard access to other pages. This allows us to ensure
  * visitor's can't jump ahead and miss out answers in their registration.
  *
- * @param {Object} session An `express-session` object holding our visitor's
+ * @param {object} session An `express-session` object holding our visitor's
  * session.
  * @param {Array} [session.visitedPages] An array of our visitor's previously
  * visited pages.
- * @param {String} page Our visitor's currently viewed page.
+ * @param {string} page Our visitor's currently viewed page.
  */
 const saveVisitedPage = (session, page) => {
   if (session.visitedPages === undefined) {
@@ -32,13 +32,15 @@ const saveVisitedPage = (session, page) => {
  * isn't. If this page doesn't have a 'back' link then we treat is as a start
  * page and always allow access.
  *
- * @param {Object} session An `express-session` object holding our visitor's
+ * @param {object} session An `express-session` object holding our visitor's
  * session.
  * @param {Array} session.visitedPages An array of our visitor's previously
  * visited pages.
- * @param {Object} options An object containing this page's options.
- * @param {String} [options.back] The page 'before' our current page in the
+ * @param {object} options An object containing this page's options.
+ * @param {string} [options.back] The page 'before' our current page in the
  * application.
+ *
+ * @returns {boolean} Whether the visitor is allowed to visit their current page.
  */
 const guardAllows = (session, options) => {
   // If the current page has no 'back' page then we're on a 'first' page so the
@@ -62,11 +64,11 @@ const guardAllows = (session, options) => {
  * Render this page and send it to the user.
  *
  * @param {Request} req An express Request object.
- * @param {Object} req.session The visitor's session.
+ * @param {object} req.session The visitor's session.
  * @param {Response} res An express Response object.
- * @param {Object} options An object containing this page's options.
- * @param {String} options.path The path to this page.
- * @param {String} [options.back] The path to the previous page.
+ * @param {object} options An object containing this page's options.
+ * @param {string} options.path The path to this page.
+ * @param {string} [options.back] The path to the previous page.
  */
 const renderPage = (req, res, options) => {
   if (guardAllows(req.session, options)) {
@@ -108,12 +110,18 @@ const ReturnState = Object.freeze({
  * This allows use to configure our list of pages and their logic to be cleanly
  * specified in the application's main router.
  *
- * @param {Object} options
- * @param {String} options.path The path to this page.
- * @param {String} [options.back] The path to the previous page.
- * @param {String} [options.positiveForward] The path to the next page if the controller's opinion is positive.
- * @param {String} [options.negativeForward] The path to the next page if the controller's opinion is negative.
- * @param {Function} [options.controller] The logic
+ * @param {object} options A 'POJsO' containing the page's configuration.
+ * @param {string} options.path The path to this page.
+ * @param {string} [options.back] The path to the previous page.
+ * @param {string} [options.positiveForward] The path to the next page if the
+ * controller's opinion is positive.
+ * @param {string} [options.negativeForward] The path to the next page if the
+ * controller's opinion is negative.
+ * @param {string} [options.secondaryForward] The path to the secondary page if
+ * the controller's opinion is appropriate.
+ * @param {Function} [options.controller] The logic to process page requests and
+ * decide what action to take next.
+ *
  * @returns {Router} An express Router middleware.
  */
 const Page = (options) => {

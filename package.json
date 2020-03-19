@@ -40,8 +40,9 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
-    "cypress": "^4.1.0",
+    "cypress": "^4.2.0",
     "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-jsdoc": "^22.1.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "start-server-and-test": "^1.10.8",
@@ -52,14 +53,24 @@
     "prettier": true,
     "parser": "babel-eslint",
     "plugins": [
-      "cypress"
+      "cypress",
+      "jsdoc"
     ],
     "envs": [
       "cypress/globals"
     ],
+    "extends": [
+      "plugin:jsdoc/recommended"
+    ],
     "rules": {
       "import/extensions": 0,
-      "new-cap": 0
+      "new-cap": 0,
+      "jsdoc/check-examples": 1,
+      "jsdoc/check-indentation": 1,
+      "jsdoc/check-syntax": 1,
+      "jsdoc/match-description": 1,
+      "jsdoc/require-description": 1,
+      "jsdoc/require-description-complete-sentence": 1
     }
   },
   "prettier": {
