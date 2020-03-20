@@ -35,12 +35,12 @@ describe('Site Location page ', function() {
 
     // ~GET `/details`~
     // FILL the form
-    cy.get('input[type="text"]#full-name').type('Nature Scot');
-    cy.get('input[type="text"]#address-line-1').type('Great Glen House');
-    cy.get('input[type="text"]#address-town').type('Inverness');
-    cy.get('input[type="text"]#address-postcode').type('IV3 8NW');
-    cy.get('input[type="tel"]#phone-number').type('01463 725 000');
-    cy.get('input[type="text"]#email-address').type('licensing@nature.scot');
+    cy.get('input[type="text"]#full-name').type('Nature Scot', {delay: 1});
+    cy.get('input[type="text"]#address-line-1').type('Great Glen House', {delay: 1});
+    cy.get('input[type="text"]#address-town').type('Inverness', {delay: 1});
+    cy.get('input[type="text"]#address-postcode').type('IV3 8NW', {delay: 1});
+    cy.get('input[type="tel"]#phone-number').type('01463 725 000', {delay: 1});
+    cy.get('input[type="text"]#email-address').type('licensing@nature.scot', {delay: 1});
     // POST `/details`
     cy.get('#main-content form button.naturescot-forward-button').click();
   });

@@ -6,11 +6,14 @@
 FROM node:lts-alpine as builder
 
 # node-gyp runs as part of the npm install, so we need to install dependencies
+# we need git for cypress as it's using a custom version of requests that
+# they're maintaining now that the npm one's deprecated
 USER root
 RUN apk add --no-cache --virtual .build-deps \
     python3 \
     make \
-    g++
+    g++ \
+    git
 
 # by default, we want to do everything in a non-privileged user, so go to their
 # home dir and drop to their account
