@@ -11,6 +11,7 @@ import ComplyController from './controllers/comply.js';
 import DetailsController from './controllers/details.js';
 import SiteLocationController from './controllers/site-location.js';
 import SettDetailsController from './controllers/sett-details.js';
+import ConfirmController from './controllers/confirm.js';
 
 // Configure all of the pages and routes.
 
@@ -84,6 +85,15 @@ router.use(
     back: 'site-location',
     positiveForward: 'site-location',
     controller: SettDetailsController
+  })
+);
+
+router.use(
+  Page({
+    path: 'confirm',
+    back: 'site-location',
+    positiveForward: 'success',
+    controller: ConfirmController
   })
 );
 

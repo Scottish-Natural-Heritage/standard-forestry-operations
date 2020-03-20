@@ -6,6 +6,43 @@ const removeIndex = (array, index) => {
   return before.concat(after);
 };
 
+const buildDisplaySetts = (session) => {
+  const table = [];
+
+  table.push(`
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Sett ID</th>
+          <th scope="col" class="govuk-table__header">Type</th>
+          <th scope="col" class="govuk-table__header">Grid Reference</th>
+          <th scope="col" class="govuk-table__header">Entrances</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+  `);
+
+  session.setts.forEach((sett) => {
+    const type = ['-', 'Main', 'Outlying', 'Annex', 'Subsidiary'][sett.type];
+
+    table.push(`
+      <tr class="govuk-table__row">
+        <th scope="row" class="govuk-table__header">${sett.id}</th>
+        <td class="govuk-table__cell">${type}</td>
+        <td class="govuk-table__cell">${sett.gridReference}</td>
+        <td class="govuk-table__cell">${sett.entrances}</td>
+      </tr>
+    `);
+  });
+
+  table.push(`
+      </tbody>
+    </table>
+  `);
+
+  return table.join('');
+};
+
 const siteLocationController = (req) => {
   const formKeys = Object.keys(req.body);
 
@@ -71,6 +108,8 @@ const siteLocationController = (req) => {
     if (req.session.siteLocationError) {
       return ReturnState.Error;
     }
+
+    req.session.displaySetts = buildDisplaySetts(req.session);
 
     return ReturnState.Positive;
   }
