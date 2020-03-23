@@ -51,7 +51,7 @@ describe('Success page ', function() {
     // ~GET `/sett-details`~
     // FILL the form
     cy.get('input[type="text"]#current-sett-id').type('ABC123', {delay: 1});
-    cy.get('input[type="text"]#current-grid-reference').type('NH600400', {delay: 1});
+    cy.get('input[type="text"]#current-grid-reference').type('NH60004000', {delay: 1});
     cy.get('input[type="radio"][value="2"]').click();
     cy.get('input[type="text"]#current-entrances').type('3', {delay: 1});
     // POST `/sett-details`

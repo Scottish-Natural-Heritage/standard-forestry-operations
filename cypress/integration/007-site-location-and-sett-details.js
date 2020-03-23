@@ -93,7 +93,7 @@ describe('Site Location page ', function() {
     cy.url().should('include', '/sett-details');
 
     cy.get('input[type="text"]#current-sett-id').type('ABC123');
-    cy.get('input[type="text"]#current-grid-reference').type('NH600400');
+    cy.get('input[type="text"]#current-grid-reference').type('NH60004000');
     cy.get('input[type="radio"][value="2"]').click();
     cy.get('input[type="text"]#current-entrances').type('3');
 
@@ -107,7 +107,7 @@ describe('Site Location page ', function() {
     cy.url().should('include', '/sett-details');
 
     cy.get('input[type="text"]#current-sett-id').type('ABC123');
-    cy.get('input[type="text"]#current-grid-reference').type('NH600400');
+    cy.get('input[type="text"]#current-grid-reference').type('NH60004000');
     cy.get('input[type="radio"][value="2"]').click();
     cy.get('input[type="text"]#current-entrances').type('3');
 
