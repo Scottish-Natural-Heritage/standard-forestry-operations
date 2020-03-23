@@ -2,7 +2,7 @@ import {ReturnState} from './_base.js';
 
 const confirmController = async (req) => {
   try {
-    req.session.licenseNo = `NS-SFO-${Math.ceil(Math.random() * 99999)}`;
+    req.session.licenceNo = `NS-SFO-${Math.ceil(Math.random() * 99999)}`;
     req.session.expiryDate = `30/11/${new Date().getFullYear()}`;
 
     // Let them know it all went well.

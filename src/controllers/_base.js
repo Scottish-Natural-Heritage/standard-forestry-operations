@@ -43,6 +43,12 @@ const saveVisitedPage = (session, page) => {
  * @returns {boolean} Whether the visitor is allowed to visit their current page.
  */
 const guardAllows = (session, options) => {
+  // Unless the user has a completed licence number they are not allowed to
+  // visit the success page.
+  if (session.licenceNo === undefined && options.path === 'success') {
+    return false;
+  }
+
   // If the current page has no 'back' page then we're on a 'first' page so the
   // visitors are always allowed access.
   if (options.back === undefined || options.back.length === 0) {
