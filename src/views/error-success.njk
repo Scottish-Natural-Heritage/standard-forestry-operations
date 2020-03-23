@@ -1,0 +1,49 @@
+{% extends "_base.njk" %}
+
+{% set mainClasses = "govuk-main-wrapper--l" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        Application complete
+      </h1>
+      <p class="govuk-body">
+        The application you are trying to access has been completed.
+      </p>
+      <p class="govuk-body">
+        You will have been sent an email containing your licence number at the
+        time of completion.
+      </p>
+      <p class="govuk-body">
+        Contact the NatureScot Licensing Team if you need to speak to someone
+        about felling or harvesting within 20 metres of a badger sett between
+        1 July and 30 November.
+      </p>
+
+      <h3 class="govuk-heading-s">
+        Email
+      </h3>
+      <ul class="govuk-list">
+        <li>
+          <a class="govuk-link" href="mailto:licensing@nature.scot">licensing@nature.scot</a>
+        </li>
+      </ul>
+
+      <h3 class="govuk-heading-s">
+        Telephone
+      </h3>
+      <ul class="govuk-list">
+        <li>
+          01463 725 364
+        </li>
+        <li>
+          Monday to Friday, 10am to 4pm (except public holidays)
+        </li>
+      </ul>
+      <p class="govuk-body">
+        <a class="govuk-link" href="https://www.gov.uk/call-charges">Find out about call charges</a>
+      </p>
+    </div>
+  </div>
+{% endblock %}

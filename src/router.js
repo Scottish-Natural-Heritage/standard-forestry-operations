@@ -99,6 +99,12 @@ router.use(
 
 router.use(
   Page({
+    path: 'success'
+  })
+);
+
+router.use(
+  Page({
     path: 'conviction-stop',
     back: 'conviction'
   })
