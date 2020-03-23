@@ -128,7 +128,7 @@ const ReturnState = Object.freeze({
  * @param {Function} [options.controller] The logic to process page requests and
  * decide what action to take next.
  *
- * @returns {Router} An express Router middleware.
+ * @returns {express.Router} An express Router middleware.
  */
 const Page = (options) => {
   const router = express.Router();
