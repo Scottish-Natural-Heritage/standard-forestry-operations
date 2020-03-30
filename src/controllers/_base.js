@@ -134,7 +134,14 @@ const Page = (options) => {
   const router = express.Router();
 
   router.get(`${config.pathPrefix}/${options.path}`, (req, res) => {
+    // Render the page.
     renderPage(req, res, options);
+
+    // If we've just rendered the success page...
+    if (options.path === 'success') {
+      // Kill the user session, so they cannot re-submit.
+      req.session.destroy();
+    }
   });
 
   router.post(`${config.pathPrefix}/${options.path}`, async (req, res) => {
