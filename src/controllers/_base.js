@@ -69,20 +69,20 @@ const guardAllows = (session, options) => {
 /**
  * Render this page and send it to the user.
  *
- * @param {Request} req An express Request object.
- * @param {object} req.session The visitor's session.
- * @param {Response} res An express Response object.
+ * @param {Request} request An express Request object.
+ * @param {object} request.session The visitor's session.
+ * @param {Response} response An express Response object.
  * @param {object} options An object containing this page's options.
  * @param {string} options.path The path to this page.
  * @param {string} [options.back] The path to the previous page.
  */
-const renderPage = (req, res, options) => {
-  if (guardAllows(req.session, options)) {
-    saveVisitedPage(req.session, options.path);
-    res.render(`${options.path}.njk`, {
+const renderPage = (request, response, options) => {
+  if (guardAllows(request.session, options)) {
+    saveVisitedPage(request.session, options.path);
+    response.render(`${options.path}.njk`, {
       pathPrefix: config.pathPrefix,
       backUrl: options.back,
-      model: req.session
+      model: request.session
     });
     return;
   }
@@ -91,11 +91,11 @@ const renderPage = (req, res, options) => {
   // user may have bookmarked this page, thinking they could see their
   // registration code again. Give them an error page that says otherwise.
   if (options.path === 'success') {
-    res.status(403).render('error-success.njk', {pathPrefix: config.pathPrefix});
+    response.status(403).render('error-success.njk', {pathPrefix: config.pathPrefix});
     return;
   }
 
-  res.status(403).render('error.njk', {pathPrefix: config.pathPrefix});
+  response.status(403).render('error.njk', {pathPrefix: config.pathPrefix});
 };
 
 /**
@@ -133,33 +133,33 @@ const ReturnState = Object.freeze({
 const Page = (options) => {
   const router = express.Router();
 
-  router.get(`${config.pathPrefix}/${options.path}`, (req, res) => {
+  router.get(`${config.pathPrefix}/${options.path}`, (request, response) => {
     // Render the page.
-    renderPage(req, res, options);
+    renderPage(request, response, options);
 
     // If we've just rendered the success page...
     if (options.path === 'success') {
       // Kill the user session, so they cannot re-submit.
-      req.session.destroy();
+      request.session.destroy();
     }
   });
 
-  router.post(`${config.pathPrefix}/${options.path}`, async (req, res) => {
+  router.post(`${config.pathPrefix}/${options.path}`, async (request, response) => {
     let decision;
     try {
-      decision = await options.controller(req, options);
+      decision = await options.controller(request, options);
       if (decision === ReturnState.Positive) {
-        res.redirect(`${config.pathPrefix}/${options.positiveForward}`);
+        response.redirect(`${config.pathPrefix}/${options.positiveForward}`);
       } else if (decision === ReturnState.Negative) {
-        res.redirect(`${config.pathPrefix}/${options.negativeForward}`);
+        response.redirect(`${config.pathPrefix}/${options.negativeForward}`);
       } else if (decision === ReturnState.Secondary) {
-        res.redirect(`${config.pathPrefix}/${options.secondaryForward}`);
+        response.redirect(`${config.pathPrefix}/${options.secondaryForward}`);
       } else {
-        renderPage(req, res, options);
+        renderPage(request, response, options);
       }
     } catch (error) {
       console.log(error);
-      res.status(500).render('error.njk', {pathPrefix: config.pathPrefix});
+      response.status(500).render('error.njk', {pathPrefix: config.pathPrefix});
     }
   });
 

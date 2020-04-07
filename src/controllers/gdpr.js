@@ -1,16 +1,16 @@
 import {ReturnState} from './_base.js';
 
-const gdprController = (req) => {
+const gdprController = (request) => {
   // Technically, this is the only possible valid decision as it's coming
   // from a hidden input.
-  if (req.body.acceptGdpr === 'yes') {
+  if (request.body.acceptGdpr === 'yes') {
     // We should just move on.
     return ReturnState.Positive;
   }
 
   // This option will allow for actually checking the user consent to GDPR
   // questions if and when we need it later.
-  if (req.body.acceptGdpr === 'no') {
+  if (request.body.acceptGdpr === 'no') {
     // Send them to down the STOP path.
     return ReturnState.Negative;
   }

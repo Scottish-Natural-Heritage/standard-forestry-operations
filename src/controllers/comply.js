@@ -1,20 +1,20 @@
 import {ReturnState} from './_base.js';
 
-const complyController = (req) => {
+const complyController = (request) => {
   // Did the user tell us they'll comply with the terms.
-  if (req.body.comply !== undefined && req.body.comply === 'yes') {
+  if (request.body.comply !== undefined && request.body.comply === 'yes') {
     // Then we don't have any errors. This clears any previous errors.
-    req.session.complyError = false;
+    request.session.complyError = false;
     // Save the agreement to comply.
-    req.session.comply = true;
+    request.session.comply = true;
     // Follow the 'happy path'.
     return ReturnState.Positive;
   }
 
   // The user submitted the form without selecting an option, this is an error!
-  req.session.complyError = true;
+  request.session.complyError = true;
   // Unset any saved value.
-  req.session.comply = false;
+  request.session.comply = false;
   // Reload the page to highlight errors.
   return ReturnState.Error;
 };

@@ -74,14 +74,14 @@ app.use(
   express.static(path.join(__dirname, '..', '/node_modules/govuk-frontend/govuk'))
 );
 
-app.all(`${config.pathPrefix}/`, (req, res) => {
-  res.redirect(`${config.pathPrefix}/start`);
+app.all(`${config.pathPrefix}/`, (request, response) => {
+  response.redirect(`${config.pathPrefix}/start`);
 });
 
 app.use(router);
 
-app.use((req, res) => {
-  res.status(404).render('error-404.njk', {pathPrefix: config.pathPrefix});
+app.use((request, response) => {
+  response.status(404).render('error-404.njk', {pathPrefix: config.pathPrefix});
 });
 
 export {app as default};

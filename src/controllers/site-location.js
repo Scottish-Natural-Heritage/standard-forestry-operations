@@ -43,32 +43,32 @@ const buildDisplaySetts = (session) => {
   return table.join('');
 };
 
-const siteLocationController = (req) => {
-  const formKeys = Object.keys(req.body);
+const siteLocationController = (request) => {
+  const formKeys = Object.keys(request.body);
 
   const editMode = formKeys.filter((key) => key.startsWith('edit-')).length === 1;
   const deleteMode = formKeys.filter((key) => key.startsWith('delete-')).length === 1;
   const addMode = formKeys.filter((key) => key.startsWith('add')).length === 1;
   const continueMode = formKeys.filter((key) => key.startsWith('continue')).length === 1;
 
-  req.session.siteName = req.body.siteName === undefined ? undefined : req.body.siteName.trim();
+  request.session.siteName = request.body.siteName === undefined ? undefined : request.body.siteName.trim();
 
   if (editMode) {
     const editKeys = formKeys.filter((key) => key.startsWith('edit-'));
     const editIndex = Number.parseInt(editKeys[0].split('edit-')[1], 10);
 
-    req.session.currentSettIndex = editIndex;
+    request.session.currentSettIndex = editIndex;
 
-    req.session.currentSettId = req.session.setts[editIndex].id;
-    req.session.currentSettType = req.session.setts[editIndex].type;
-    req.session.currentGridReference = req.session.setts[editIndex].gridReference;
-    req.session.currentEntrances = req.session.setts[editIndex].entrances;
+    request.session.currentSettId = request.session.setts[editIndex].id;
+    request.session.currentSettType = request.session.setts[editIndex].type;
+    request.session.currentGridReference = request.session.setts[editIndex].gridReference;
+    request.session.currentEntrances = request.session.setts[editIndex].entrances;
 
-    req.session.settDetailsError = false;
-    req.session.currentSettIdError = false;
-    req.session.currentGridReferenceError = false;
-    req.session.currentSettTypeError = false;
-    req.session.currentEntrancesError = false;
+    request.session.settDetailsError = false;
+    request.session.currentSettIdError = false;
+    request.session.currentGridReferenceError = false;
+    request.session.currentSettTypeError = false;
+    request.session.currentEntrancesError = false;
 
     return ReturnState.Secondary;
   }
@@ -77,39 +77,39 @@ const siteLocationController = (req) => {
     const deleteKeys = formKeys.filter((key) => key.startsWith('delete-'));
     const deleteIndex = Number.parseInt(deleteKeys[0].split('delete-')[1], 10);
 
-    req.session.setts = removeIndex(req.session.setts, deleteIndex);
+    request.session.setts = removeIndex(request.session.setts, deleteIndex);
 
     return ReturnState.SameAgain;
   }
 
   if (addMode) {
-    req.session.currentSettIndex = -1;
+    request.session.currentSettIndex = -1;
 
-    req.session.currentSettId = '';
-    req.session.currentSettType = undefined;
-    req.session.currentGridReference = '';
-    req.session.currentEntrances = '';
+    request.session.currentSettId = '';
+    request.session.currentSettType = undefined;
+    request.session.currentGridReference = '';
+    request.session.currentEntrances = '';
 
-    req.session.settDetailsError = false;
-    req.session.currentSettIdError = false;
-    req.session.currentGridReferenceError = false;
-    req.session.currentSettTypeError = false;
-    req.session.currentEntrancesError = false;
+    request.session.settDetailsError = false;
+    request.session.currentSettIdError = false;
+    request.session.currentGridReferenceError = false;
+    request.session.currentSettTypeError = false;
+    request.session.currentEntrancesError = false;
 
     return ReturnState.Secondary;
   }
 
   if (continueMode) {
-    req.session.siteNameError = req.session.siteName === undefined || req.session.siteName.length === 0;
-    req.session.settCountError = req.session.setts === undefined || req.session.setts.length === 0;
+    request.session.siteNameError = request.session.siteName === undefined || request.session.siteName.length === 0;
+    request.session.settCountError = request.session.setts === undefined || request.session.setts.length === 0;
 
-    req.session.siteLocationError = req.session.siteNameError || req.session.settCountError;
+    request.session.siteLocationError = request.session.siteNameError || request.session.settCountError;
 
-    if (req.session.siteLocationError) {
+    if (request.session.siteLocationError) {
       return ReturnState.Error;
     }
 
-    req.session.displaySetts = buildDisplaySetts(req.session);
+    request.session.displaySetts = buildDisplaySetts(request.session);
 
     return ReturnState.Positive;
   }

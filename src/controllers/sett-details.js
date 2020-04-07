@@ -21,7 +21,7 @@ const validSettId = (settId) => {
  * @returns {string} A nice tidy version of the grid ref.
  */
 const formatGridReference = (gridRef) => {
-  return gridRef.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  return gridRef.toUpperCase().replace(/[^A-Z\d]/g, '');
 };
 
 /**
@@ -88,47 +88,52 @@ const validEntrances = (entrances) => {
   return true;
 };
 
-const settDetailsController = (req) => {
-  req.session.currentSettIdError = !validSettId(req.body.currentSettId);
-  req.session.currentGridReferenceError = !validGridReference(req.body.currentGridReference);
-  req.session.currentSettTypeError = !validSettType(req.body.currentSettType);
-  req.session.currentEntrancesError = !validEntrances(req.body.currentEntrances);
+const settDetailsController = (request) => {
+  request.session.currentSettIdError = !validSettId(request.body.currentSettId);
+  request.session.currentGridReferenceError = !validGridReference(request.body.currentGridReference);
+  request.session.currentSettTypeError = !validSettType(request.body.currentSettType);
+  request.session.currentEntrancesError = !validEntrances(request.body.currentEntrances);
 
-  req.session.settDetailsError =
-    req.session.currentSettIdError ||
-    req.session.currentGridReferenceError ||
-    req.session.currentSettTypeError ||
-    req.session.currentEntrancesError;
+  request.session.settDetailsError =
+    request.session.currentSettIdError ||
+    request.session.currentGridReferenceError ||
+    request.session.currentSettTypeError ||
+    request.session.currentEntrancesError;
 
-  if (req.session.settDetailsError) {
-    req.session.currentSettId = req.body.currentSettId.trim();
-    req.session.currentSettType = Number.parseInt(req.body.currentSettType, 10);
+  if (request.session.settDetailsError) {
+    request.session.currentSettId = request.body.currentSettId.trim();
+    request.session.currentSettType = Number.parseInt(request.body.currentSettType, 10);
     // Don't return the 'formatted' one here, just send back the original one. It's too confusing otherwise.
-    req.session.currentGridReference = req.body.currentGridReference.trim();
-    req.session.currentEntrances = req.body.currentEntrances;
+    request.session.currentGridReference = request.body.currentGridReference.trim();
+    request.session.currentEntrances = request.body.currentEntrances;
 
     return ReturnState.Error;
   }
 
-  if (req.session.currentSettIndex === -1) {
+  if (request.session.currentSettIndex === -1) {
     const newSett = {
-      id: req.body.currentSettId.trim(),
-      type: Number.parseInt(req.body.currentSettType, 10),
-      gridReference: formatGridReference(req.body.currentGridReference),
-      entrances: Number.parseInt(req.body.currentEntrances, 10)
+      id: request.body.currentSettId.trim(),
+      type: Number.parseInt(request.body.currentSettType, 10),
+      gridReference: formatGridReference(request.body.currentGridReference),
+      entrances: Number.parseInt(request.body.currentEntrances, 10)
     };
 
-    if (!Array.isArray(req.session.setts)) {
-      req.session.setts = [];
+    if (!Array.isArray(request.session.setts)) {
+      request.session.setts = [];
     }
 
-    req.session.setts.push(newSett);
-    req.session.settCountError = false;
+    request.session.setts.push(newSett);
+    request.session.settCountError = false;
   } else {
-    req.session.setts[req.session.currentSettIndex].id = req.body.currentSettId.trim();
-    req.session.setts[req.session.currentSettIndex].type = Number.parseInt(req.body.currentSettType, 10);
-    req.session.setts[req.session.currentSettIndex].gridReference = formatGridReference(req.body.currentGridReference);
-    req.session.setts[req.session.currentSettIndex].entrances = Number.parseInt(req.body.currentEntrances, 10);
+    request.session.setts[request.session.currentSettIndex].id = request.body.currentSettId.trim();
+    request.session.setts[request.session.currentSettIndex].type = Number.parseInt(request.body.currentSettType, 10);
+    request.session.setts[request.session.currentSettIndex].gridReference = formatGridReference(
+      request.body.currentGridReference
+    );
+    request.session.setts[request.session.currentSettIndex].entrances = Number.parseInt(
+      request.body.currentEntrances,
+      10
+    );
   }
 
   return ReturnState.Positive;

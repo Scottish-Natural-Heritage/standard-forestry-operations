@@ -1,11 +1,11 @@
-describe('Confirm page directly', function() {
-  it('should prevent access', function() {
+describe('Confirm page directly', function () {
+  it('should prevent access', function () {
     cy.visit('/confirm', {failOnStatusCode: false});
     cy.get('h1').should('contain', 'there is a problem with the service');
   });
 });
 
-describe('Confirm page ', function() {
+describe('Confirm page ', function () {
   beforeEach(() => {
     // GET `/start`
     cy.visit('/start');
@@ -64,12 +64,12 @@ describe('Confirm page ', function() {
     cy.get('#main-content form button.naturescot-forward-button').click();
   });
 
-  it('should allow access if the user visits all the pages in order', function() {
+  it('should allow access if the user visits all the pages in order', function () {
     cy.visit('/confirm');
     cy.get('h1').should('contain', 'answers before sending');
   });
 
-  it('main button should navigate to success', function() {
+  it('main button should navigate to success', function () {
     cy.visit('/confirm');
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/success');

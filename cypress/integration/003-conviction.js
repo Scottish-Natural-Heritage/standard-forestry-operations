@@ -1,11 +1,11 @@
-describe('Conviction page directly', function() {
-  it('should prevent access', function() {
+describe('Conviction page directly', function () {
+  it('should prevent access', function () {
     cy.visit('/conviction', {failOnStatusCode: false});
     cy.get('h1').should('contain', 'there is a problem with the service');
   });
 });
 
-describe('Conviction page ', function() {
+describe('Conviction page ', function () {
   beforeEach(() => {
     // GET `/start`
     cy.visit('/start');
@@ -18,12 +18,12 @@ describe('Conviction page ', function() {
     cy.get('#main-content form button.naturescot-forward-button').click();
   });
 
-  it('should allow access if the user visits all the pages in order', function() {
+  it('should allow access if the user visits all the pages in order', function () {
     cy.visit('/conviction');
     cy.get('h1').should('contain', 'Have you been convicted of a wildlife crime?');
   });
 
-  it('"no" radio + main button should navigate to eligible', function() {
+  it('"no" radio + main button should navigate to eligible', function () {
     cy.visit('/conviction');
     cy.get('#main-content form input[type="radio"][value="no"]').click();
     cy.get('#main-content form button.naturescot-forward-button').click();
@@ -31,7 +31,7 @@ describe('Conviction page ', function() {
     cy.url().should('not.include', '/conviction-stop');
   });
 
-  it('"yes" radio + main button should navigate to conviction-stop', function() {
+  it('"yes" radio + main button should navigate to conviction-stop', function () {
     cy.visit('/conviction');
     cy.get('#main-content form input[type="radio"][value="yes"]').click();
     cy.get('#main-content form button.naturescot-forward-button').click();

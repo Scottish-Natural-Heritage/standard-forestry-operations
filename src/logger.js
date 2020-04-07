@@ -8,8 +8,8 @@ const logger = winston.createLogger({
 });
 
 logger.stream = {
-  write: (msg) => {
-    logger.info(msg);
+  write: (message) => {
+    logger.info(message);
   }
 };
 

@@ -1,11 +1,11 @@
-describe('Comply page directly', function() {
-  it('should prevent access', function() {
+describe('Comply page directly', function () {
+  it('should prevent access', function () {
     cy.visit('/comply', {failOnStatusCode: false});
     cy.get('h1').should('contain', 'there is a problem with the service');
   });
 });
 
-describe('Comply page ', function() {
+describe('Comply page ', function () {
   beforeEach(() => {
     // GET `/start`
     cy.visit('/start');
@@ -28,12 +28,12 @@ describe('Comply page ', function() {
     cy.get('#main-content form button.naturescot-forward-button').click();
   });
 
-  it('should allow access if the user visits all the pages in order', function() {
+  it('should allow access if the user visits all the pages in order', function () {
     cy.visit('/comply');
     cy.get('h1').should('contain', 'confirm that you agree to comply');
   });
 
-  it('"no" checkbox + main button should navigate to same page with error', function() {
+  it('"no" checkbox + main button should navigate to same page with error', function () {
     cy.visit('/comply');
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/comply');
@@ -41,7 +41,7 @@ describe('Comply page ', function() {
     cy.get('span#comply-error').should('contain', 'You must confirm');
   });
 
-  it('"yes" checkbox + main button should navigate to details page', function() {
+  it('"yes" checkbox + main button should navigate to details page', function () {
     cy.visit('/comply');
     cy.get('#main-content form input[type="checkbox"]#comply').click();
     cy.get('#main-content form button.naturescot-forward-button').click();

@@ -1,11 +1,11 @@
-describe('Eligible page directly', function() {
-  it('should prevent access', function() {
+describe('Eligible page directly', function () {
+  it('should prevent access', function () {
     cy.visit('/eligible', {failOnStatusCode: false});
     cy.get('h1').should('contain', 'there is a problem with the service');
   });
 });
 
-describe('Eligible page ', function() {
+describe('Eligible page ', function () {
   beforeEach(() => {
     // GET `/start`
     cy.visit('/start');
@@ -24,12 +24,12 @@ describe('Eligible page ', function() {
     cy.get('#main-content form button.naturescot-forward-button').click();
   });
 
-  it('should allow access if the user visits all the pages in order', function() {
+  it('should allow access if the user visits all the pages in order', function () {
     cy.visit('/eligible');
     cy.get('h1').should('contain', 'You are eligible');
   });
 
-  it('main button should navigate to comply', function() {
+  it('main button should navigate to comply', function () {
     cy.visit('/eligible');
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/comply');

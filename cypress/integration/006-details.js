@@ -1,11 +1,11 @@
-describe('Details page directly', function() {
-  it('should prevent access', function() {
+describe('Details page directly', function () {
+  it('should prevent access', function () {
     cy.visit('/details', {failOnStatusCode: false});
     cy.get('h1').should('contain', 'there is a problem with the service');
   });
 });
 
-describe('Details page ', function() {
+describe('Details page ', function () {
   beforeEach(() => {
     // GET `/start`
     cy.visit('/start');
@@ -34,12 +34,12 @@ describe('Details page ', function() {
     cy.get('#main-content form button.naturescot-forward-button').click();
   });
 
-  it('should allow access if the user visits all the pages in order', function() {
+  it('should allow access if the user visits all the pages in order', function () {
     cy.visit('/details');
     cy.get('h1').should('contain', 'personal details');
   });
 
-  it('blank entries + main button should navigate to same page with error', function() {
+  it('blank entries + main button should navigate to same page with error', function () {
     cy.visit('/details');
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/details');
@@ -63,7 +63,7 @@ describe('Details page ', function() {
       .and('contain', 'Enter your email address');
   });
 
-  it('filled-out entries + main button should navigate to site location page', function() {
+  it('filled-out entries + main button should navigate to site location page', function () {
     cy.visit('/details');
 
     cy.get('input[type="text"]#full-name').type('Nature Scot');

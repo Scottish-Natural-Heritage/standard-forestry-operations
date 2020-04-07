@@ -1,11 +1,11 @@
-describe('Site Location page directly', function() {
-  it('should prevent access', function() {
+describe('Site Location page directly', function () {
+  it('should prevent access', function () {
     cy.visit('/site-location', {failOnStatusCode: false});
     cy.get('h1').should('contain', 'there is a problem with the service');
   });
 });
 
-describe('Site Location page ', function() {
+describe('Site Location page ', function () {
   beforeEach(() => {
     // GET `/start`
     cy.visit('/start');
@@ -45,12 +45,12 @@ describe('Site Location page ', function() {
     cy.get('#main-content form button.naturescot-forward-button').click();
   });
 
-  it('should allow access if the user visits all the pages in order', function() {
+  it('should allow access if the user visits all the pages in order', function () {
     cy.visit('/site-location');
     cy.get('h1').should('contain', 'site details');
   });
 
-  it('blank entries + main button should navigate to same page with error', function() {
+  it('blank entries + main button should navigate to same page with error', function () {
     cy.visit('/site-location');
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/site-location');
@@ -66,13 +66,13 @@ describe('Site Location page ', function() {
       .and('contain', 'Add at least one sett');
   });
 
-  it('add button should navigate to sett details', function() {
+  it('add button should navigate to sett details', function () {
     cy.visit('/site-location');
     cy.get('#main-content form button.naturescot-button--add').click();
     cy.url().should('include', '/sett-details');
   });
 
-  it('add button then main button should navigate to same page with error', function() {
+  it('add button then main button should navigate to same page with error', function () {
     cy.visit('/site-location');
     cy.get('#main-content form button.naturescot-button--add').click();
     cy.url().should('include', '/sett-details');
@@ -87,7 +87,7 @@ describe('Site Location page ', function() {
       .and('contain', 'Enter the number of Entrances');
   });
 
-  it('add button then filled-out entries + main button should navigate back to site location page', function() {
+  it('add button then filled-out entries + main button should navigate back to site location page', function () {
     cy.visit('/site-location');
     cy.get('#main-content form button.naturescot-button--add').click();
     cy.url().should('include', '/sett-details');
@@ -101,7 +101,7 @@ describe('Site Location page ', function() {
     cy.url().should('include', '/site-location');
   });
 
-  it('add a sett then enter name + main button should navigate to confirm page', function() {
+  it('add a sett then enter name + main button should navigate to confirm page', function () {
     cy.visit('/site-location');
     cy.get('#main-content form button.naturescot-button--add').click();
     cy.url().should('include', '/sett-details');
