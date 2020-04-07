@@ -25,6 +25,20 @@ const formatGridReference = (gridRef) => {
 };
 
 /**
+ * Clean a string to remove any html-ish characters.
+ *
+ * Takes something like
+ * '<script>alert("hello");</script><p>this & that</p>' and returns
+ * '&lt;script&gt;alert('hello');&lt;/script&gt;&lt;p&gt;this &amp; that&lt;/p&gt;'.
+ *
+ * @param {string} id A user supplied string of dubious quality.
+ * @returns {string} A nice tidy version of the string.
+ */
+const formatId = (id) => {
+  return id.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+};
+
+/**
  * Check to see if the user supplied string looks like a grid ref.
  *
  * We first tidy up the user input, so that it's close to being a grid ref,
@@ -112,7 +126,7 @@ const settDetailsController = (request) => {
 
   if (request.session.currentSettIndex === -1) {
     const newSett = {
-      id: request.body.currentSettId.trim(),
+      id: formatId(request.body.currentSettId.trim()),
       type: Number.parseInt(request.body.currentSettType, 10),
       gridReference: formatGridReference(request.body.currentGridReference),
       entrances: Number.parseInt(request.body.currentEntrances, 10)
@@ -125,7 +139,7 @@ const settDetailsController = (request) => {
     request.session.setts.push(newSett);
     request.session.settCountError = false;
   } else {
-    request.session.setts[request.session.currentSettIndex].id = request.body.currentSettId.trim();
+    request.session.setts[request.session.currentSettIndex].id = formatId(request.body.currentSettId.trim());
     request.session.setts[request.session.currentSettIndex].type = Number.parseInt(request.body.currentSettType, 10);
     request.session.setts[request.session.currentSettIndex].gridReference = formatGridReference(
       request.body.currentGridReference

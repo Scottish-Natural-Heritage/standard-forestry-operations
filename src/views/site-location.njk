@@ -7,14 +7,14 @@
       font-weight: unset;
     }
   </style>
+  <link rel="stylesheet" href="{{pathPrefix}}/dist/map-preview.css">
 {% endblock %}
-
-
 
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% block content %}
+
   {% if model.siteLocationError %}
     {{ govukErrorSummary({
       titleText: "There is a problem",
@@ -77,7 +77,7 @@
           <tbody class="govuk-table__body">
             {% for sett in model.setts %}
               <tr class="govuk-table__row">
-                <th scope="row" class="govuk-table__header">{{ sett.id }}</th>
+                <th scope="row" class="govuk-table__header">{{ sett.id | safe }}</th>
                 <td class="govuk-table__cell">
                   {% if sett.type === 1 %}
                     Main Sett
@@ -115,6 +115,16 @@
           classes: "govuk-button--secondary naturescot-button--add"
         }) }}
         <br>
+        <label class="govuk-label" for="map-preview-container">
+          Map Preview
+        </label>
+        <div id="map-preview-container">
+          <div id="map-preview"></div>
+          <div id="map-preview-overlay">
+            <p class="govuk-body govuk-!-font-size-36">Add setts to enable map preview</p>
+          </div>
+        </div>
+        <br>
         {{ govukButton({
           text: "Continue",
           name: "continue",
@@ -123,4 +133,11 @@
       </div>
     </div>
   </form>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+  <script src="{{pathPrefix}}/dist/map-preview.js"></script>
+  <script>
+    window.initMapPreview('map-preview', 'map-preview-overlay', {{ model.setts | dump | safe }});
+  </script>
 {% endblock %}

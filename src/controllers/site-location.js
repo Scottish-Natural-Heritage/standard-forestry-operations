@@ -43,6 +43,20 @@ const buildDisplaySetts = (session) => {
   return table.join('');
 };
 
+/**
+ * Dirty a string to re-add any html-ish characters.
+ *
+ * Takes something like
+ * &lt;script&gt;alert('hello');&lt;/script&gt;&lt;p&gt;this &amp; that&lt;/p&gt;'
+ * and returns '<script>alert("hello");</script><p>this & that</p>'.
+ *
+ * @param {string} id A user supplied string of dubious quality.
+ * @returns {string} A nice tidy version of the string.
+ */
+const unFormatId = (id) => {
+  return id.replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&amp;/g, '&');
+};
+
 const siteLocationController = (request) => {
   const formKeys = Object.keys(request.body);
 
@@ -59,7 +73,7 @@ const siteLocationController = (request) => {
 
     request.session.currentSettIndex = editIndex;
 
-    request.session.currentSettId = request.session.setts[editIndex].id;
+    request.session.currentSettId = unFormatId(request.session.setts[editIndex].id);
     request.session.currentSettType = request.session.setts[editIndex].type;
     request.session.currentGridReference = request.session.setts[editIndex].gridReference;
     request.session.currentEntrances = request.session.setts[editIndex].entrances;
