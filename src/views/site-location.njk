@@ -132,7 +132,4 @@
 {% block bodyEnd %}
   {{ super() }}
   <script src="{{pathPrefix}}/dist/map-preview.js"></script>
-  <script>
-    window.initMapPreview('map-preview', 'map-preview-overlay', {{ model.setts | dump | safe }});
-  </script>
 {% endblock %}

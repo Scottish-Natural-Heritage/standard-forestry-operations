@@ -1,0 +1,8 @@
+window.addEventListener('load', (event) => {
+  if (window.GOVUKFrontend) {
+    window.GOVUKFrontend.initAll();
+  }
+  if (window.initMapPreview) {
+    window.initMapPreview('map-preview', 'map-preview-overlay', {{ model.setts | dump | safe }});
+  }
+});

@@ -111,9 +111,5 @@
 
 {% block bodyEnd %}
   <script src="{{pathPrefix}}/govuk-frontend/all.js"></script>
-  <script>
-    window
-      .GOVUKFrontend
-      .initAll();
-  </script>
+  <script src="{{pathPrefix}}/init.js"></script>
 {% endblock %}

@@ -81,6 +81,15 @@ app.all(`${config.pathPrefix}/`, (request, response) => {
   response.redirect(`${config.pathPrefix}/start`);
 });
 
+// To initialise the maps we need to get some json objects out of the express
+// session and in to the browser's javascript, so we have to 'render' a
+// javascript file to do it.
+app.get(`${config.pathPrefix}/init.js`, (request, response) => {
+  response.set('Content-type', 'application/javascript').render(`_init.js.njk`, {
+    model: request.session
+  });
+});
+
 app.use(router);
 
 app.use((request, response) => {
