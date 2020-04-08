@@ -5,20 +5,6 @@
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block head %}
-  {{ super() }}
-  <style>
-    #crimeExplanations .govuk-accordion__controls {
-      display: none;
-    }
-
-    dd.govuk-summary-list__value table.govuk-table tbody tr:last-child *
-    {
-      border-bottom: unset;
-    }
-  </style>
-{% endblock %}
-
 {% block content %}
   <form method="post">
     <h1 class="govuk-heading-xl">

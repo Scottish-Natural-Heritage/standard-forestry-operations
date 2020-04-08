@@ -16,6 +16,7 @@ for (const l in lines) {
     lines[l] = `$path-prefix: '${config.pathPrefix}';`;
   }
 }
+
 const fixedFile = lines.join('\n');
 
 // Render the SCSS.

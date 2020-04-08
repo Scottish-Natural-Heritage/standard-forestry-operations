@@ -32,10 +32,32 @@ $govuk-assets-path: $path-prefix + '/govuk-frontend/assets/';
 $naturescot-logo: $path-prefix + '/dist/naturescot-logo.png';
 @import '~naturescot-frontend/naturescot/all';
 
+.naturescot-cookie-bar {
+  display: block;
+  width: 100%;
+  padding-top:20px;
+}
+
 .naturescot-latin-name {
   font-style: italic;
 }
 
+// The normal bottom margin on a govuk-button works for when it's supposed to be
+// mixed in with normal content, but when it's in a table row it's already the
+// tallest item and adding more vertical space just plain looks wrong. This
+// shrinks the table row to a more sensible size.
 td.govuk-table__cell button.govuk-button {
   margin-bottom: 0;
+}
+
+.govuk-table__caption--naturescot-normal {
+  font-weight: unset;
+}
+
+// When you embed a govuk-table inside a govuk-summary-list you'll end up with
+// two bottom borders - one for the table and another for the summary list item.
+// This removes the 'visually unnecessary' bottom border on the table.
+dd.govuk-summary-list__value table.govuk-table tbody tr:last-child *
+{
+  border-bottom: unset;
 }

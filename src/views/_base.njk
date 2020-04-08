@@ -29,15 +29,6 @@
 
 {% block head %}
   <link rel="stylesheet" href="{{pathPrefix}}/dist/main.css">
-  {% if (not model) or (model and (not model.seenCookie)) %}
-    <style>
-      .cookie-bar {
-        display: block;
-        width: 100%;
-        padding-top:20px;
-      }
-    </style>
-  {% endif %}
 {% endblock %}
 
 {% block skipLink %}
@@ -49,7 +40,7 @@
 
 {% block header %}
   {% if (not model) or (model and (not model.seenCookie)) %}
-    <div class="cookie-bar">
+    <div class="naturescot-cookie-bar">
       <div class="govuk-width-container">
         <p class="govuk-body">
           NatureScot uses essential session cookies to remember your progress

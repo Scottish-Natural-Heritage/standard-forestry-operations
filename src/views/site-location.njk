@@ -2,11 +2,6 @@
 
 {% block head %}
   {{ super() }}
-  <style>
-    .govuk-table__caption {
-      font-weight: unset;
-    }
-  </style>
   <link rel="stylesheet" href="{{pathPrefix}}/dist/map-preview.css">
 {% endblock %}
 
@@ -57,7 +52,7 @@
 
       <div class="govuk-grid-column-full" id="sett-details">
         <table class="govuk-table">
-          <caption class="govuk-table__caption {% if model.settCountError %} govuk-form-group--error {% endif %}">
+          <caption class="govuk-table__caption govuk-table__caption--naturescot-normal {% if model.settCountError %} govuk-form-group--error {% endif %}">
             Setts
             {% if model.settCountError %}
               <span id="sett-count-error" class="govuk-error-message">
