@@ -68,10 +68,13 @@ app.use(
   })
 );
 
-app.use(`${config.pathPrefix}/dist`, express.static(path.join(__dirname, '..', '/dist')));
+app.use(
+  `${config.pathPrefix}/dist`,
+  express.static(path.join(__dirname, '..', '/dist'), {immutable: true, maxAge: '30 minutes'})
+);
 app.use(
   `${config.pathPrefix}/govuk-frontend`,
-  express.static(path.join(__dirname, '..', '/node_modules/govuk-frontend/govuk'))
+  express.static(path.join(__dirname, '..', '/node_modules/govuk-frontend/govuk'), {immutable: true, maxAge: '3 hours'})
 );
 
 app.all(`${config.pathPrefix}/`, (request, response) => {
