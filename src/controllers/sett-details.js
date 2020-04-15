@@ -65,26 +65,16 @@ const validGridReference = (gridRef) => {
 
   // Check that the gridRef is in the AA00000000 format, and fail them if
   // it's not.
-  return /^[A-Z]{2}\d{8,}$/g.test(formattedGridRef);
+  return /^[A-Z]{2}\d{8,10}$/g.test(formattedGridRef);
 };
 
-const validSettType = (settType) => {
-  const testParse = Number.parseInt(settType, 10);
-  if (Number.isNaN(testParse)) {
-    return false;
-  }
-
-  if (testParse < 1) {
-    return false;
-  }
-
-  if (testParse > 4) {
-    return false;
-  }
-
-  return true;
-};
-
+/**
+ * Check to see if the user supplied string looks like a number of entrances.
+ *
+ * @param {string} entrances A candidate number of entrances.
+ * @returns {boolean} True if this looks like a valid number of entrances,
+ * otherwise false.
+ */
 const validEntrances = (entrances) => {
   if (entrances === undefined) {
     return false;
@@ -105,18 +95,15 @@ const validEntrances = (entrances) => {
 const settDetailsController = (request) => {
   request.session.currentSettIdError = !validSettId(request.body.currentSettId);
   request.session.currentGridReferenceError = !validGridReference(request.body.currentGridReference);
-  request.session.currentSettTypeError = !validSettType(request.body.currentSettType);
   request.session.currentEntrancesError = !validEntrances(request.body.currentEntrances);
 
   request.session.settDetailsError =
     request.session.currentSettIdError ||
     request.session.currentGridReferenceError ||
-    request.session.currentSettTypeError ||
     request.session.currentEntrancesError;
 
   if (request.session.settDetailsError) {
     request.session.currentSettId = request.body.currentSettId.trim();
-    request.session.currentSettType = Number.parseInt(request.body.currentSettType, 10);
     // Don't return the 'formatted' one here, just send back the original one. It's too confusing otherwise.
     request.session.currentGridReference = request.body.currentGridReference.trim();
     request.session.currentEntrances = request.body.currentEntrances;
@@ -127,7 +114,6 @@ const settDetailsController = (request) => {
   if (request.session.currentSettIndex === -1) {
     const newSett = {
       id: formatId(request.body.currentSettId.trim()),
-      type: Number.parseInt(request.body.currentSettType, 10),
       gridReference: formatGridReference(request.body.currentGridReference),
       entrances: Number.parseInt(request.body.currentEntrances, 10)
     };
@@ -140,7 +126,6 @@ const settDetailsController = (request) => {
     request.session.settCountError = false;
   } else {
     request.session.setts[request.session.currentSettIndex].id = formatId(request.body.currentSettId.trim());
-    request.session.setts[request.session.currentSettIndex].type = Number.parseInt(request.body.currentSettType, 10);
     request.session.setts[request.session.currentSettIndex].gridReference = formatGridReference(
       request.body.currentGridReference
     );

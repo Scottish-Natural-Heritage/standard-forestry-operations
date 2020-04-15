@@ -12,41 +12,16 @@ import 'proj4leaflet'; // eslint-disable-line import/no-unassigned-import
 import * as MapUtils from './map-utils.js';
 
 /**
- * Render a 'Sett' object, which contains an ID, Grid Reference, Type and
- * number of Entrances, into some HTML for the LeafletJS Marker popup.
+ * Render a 'Sett' object, which contains an ID, Grid Reference and
+ * number of Entrances into some HTML for the LeafletJS Marker popup.
  *
  * @param {object} sett A Sett.
  * @param {string} sett.id The ID of the Sett.
  * @param {string} sett.gridReference The Grid Reference of the Sett.
- * @param {string} sett.type The Type of the Sett.
  * @param {string} sett.entrances The number of Entrances to the Sett.
  * @returns {string} A string of HTML for LeafletJS' marker popup.
  */
 const renderSettPopup = (sett) => {
-  let settType;
-
-  switch (sett.type) {
-    case 1:
-      settType = 'Main Sett';
-      break;
-
-    case 2:
-      settType = 'Outlying Sett';
-      break;
-
-    case 3:
-      settType = 'Annex Sett';
-      break;
-
-    case 4:
-      settType = 'Subsidiary Sett';
-      break;
-
-    default:
-      settType = '-';
-      break;
-  }
-
   return `
   <dl>
     <div>
@@ -56,10 +31,6 @@ const renderSettPopup = (sett) => {
     <div>
       <dt class="govuk-heading-s">Grid Reference</dt>
       <dd class="govuk-body-s">${sett.gridReference}</dd>
-    </div>
-    <div>
-      <dt class="govuk-heading-s">Type</dt>
-      <dd class="govuk-body-s">${settType}</dd>
     </div>
     <div>
       <dt class="govuk-heading-s">Entrances</dt>
@@ -142,7 +113,6 @@ const buildAndBindMap = (element) => {
  * @param {object[]} setts An array of Setts.
  * @param {string} setts[].id The ID of each Sett.
  * @param {string} setts[].gridReference The Grid Reference of each Sett.
- * @param {string} setts[].type The Type of each Sett.
  * @param {string} setts[].entrances The number of Entrances to each Sett.
  */
 window.initMapPreview = (mapElement, overlayElement, setts) => {

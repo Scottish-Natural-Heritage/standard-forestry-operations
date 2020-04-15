@@ -83,7 +83,6 @@ describe('Site Location page ', function () {
     cy.get('.govuk-error-summary ul li a')
       .should('contain', 'Enter a Sett ID')
       .and('contain', 'Enter a Grid Reference')
-      .and('contain', 'Choose a sett type')
       .and('contain', 'Enter the number of Entrances');
   });
 
@@ -94,7 +93,6 @@ describe('Site Location page ', function () {
 
     cy.get('input[type="text"]#current-sett-id').type('ABC123');
     cy.get('input[type="text"]#current-grid-reference').type('NH60004000');
-    cy.get('input[type="radio"][value="2"]').click();
     cy.get('input[type="text"]#current-entrances').type('3');
 
     cy.get('#main-content form button.naturescot-forward-button').click();
@@ -108,7 +106,6 @@ describe('Site Location page ', function () {
 
     cy.get('input[type="text"]#current-sett-id').type('ABC123');
     cy.get('input[type="text"]#current-grid-reference').type('NH60004000');
-    cy.get('input[type="radio"][value="2"]').click();
     cy.get('input[type="text"]#current-entrances').type('3');
 
     cy.get('#main-content form button.naturescot-forward-button').click();

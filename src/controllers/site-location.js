@@ -14,7 +14,6 @@ const buildDisplaySetts = (session) => {
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
           <th scope="col" class="govuk-table__header">Sett ID</th>
-          <th scope="col" class="govuk-table__header">Type</th>
           <th scope="col" class="govuk-table__header">Grid Reference</th>
           <th scope="col" class="govuk-table__header">Entrances</th>
         </tr>
@@ -23,12 +22,9 @@ const buildDisplaySetts = (session) => {
   `);
 
   session.setts.forEach((sett) => {
-    const type = ['-', 'Main', 'Outlying', 'Annex', 'Subsidiary'][sett.type];
-
     table.push(`
       <tr class="govuk-table__row">
         <th scope="row" class="govuk-table__header">${sett.id}</th>
-        <td class="govuk-table__cell">${type}</td>
         <td class="govuk-table__cell">${sett.gridReference}</td>
         <td class="govuk-table__cell">${sett.entrances}</td>
       </tr>
@@ -74,14 +70,12 @@ const siteLocationController = (request) => {
     request.session.currentSettIndex = editIndex;
 
     request.session.currentSettId = unFormatId(request.session.setts[editIndex].id);
-    request.session.currentSettType = request.session.setts[editIndex].type;
     request.session.currentGridReference = request.session.setts[editIndex].gridReference;
     request.session.currentEntrances = request.session.setts[editIndex].entrances;
 
     request.session.settDetailsError = false;
     request.session.currentSettIdError = false;
     request.session.currentGridReferenceError = false;
-    request.session.currentSettTypeError = false;
     request.session.currentEntrancesError = false;
 
     return ReturnState.Secondary;
@@ -100,14 +94,12 @@ const siteLocationController = (request) => {
     request.session.currentSettIndex = -1;
 
     request.session.currentSettId = '';
-    request.session.currentSettType = undefined;
     request.session.currentGridReference = '';
     request.session.currentEntrances = '';
 
     request.session.settDetailsError = false;
     request.session.currentSettIdError = false;
     request.session.currentGridReferenceError = false;
-    request.session.currentSettTypeError = false;
     request.session.currentEntrancesError = false;
 
     return ReturnState.Secondary;

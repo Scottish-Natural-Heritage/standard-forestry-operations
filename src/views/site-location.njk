@@ -63,7 +63,6 @@
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header">Sett ID</th>
-              <th scope="col" class="govuk-table__header">Type</th>
               <th scope="col" class="govuk-table__header">Grid Reference</th>
               <th scope="col" class="govuk-table__header">Entrances</th>
               <th scope="col" class="govuk-table__header"></th>
@@ -73,19 +72,6 @@
             {% for sett in model.setts %}
               <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">{{ sett.id | safe }}</th>
-                <td class="govuk-table__cell">
-                  {% if sett.type === 1 %}
-                    Main Sett
-                  {% elif sett.type === 2 %}
-                    Outlying Sett
-                  {% elif sett.type === 3 %}
-                    Annex Sett
-                  {% elif sett.type === 4 %}
-                    Subsidiary Sett
-                  {% else %}
-                    -
-                  {% endif %}
-                </td>
                 <td class="govuk-table__cell">{{ sett.gridReference }}</td>
                 <td class="govuk-table__cell">{{ sett.entrances }}</td>
                 <td class="govuk-table__cell">
