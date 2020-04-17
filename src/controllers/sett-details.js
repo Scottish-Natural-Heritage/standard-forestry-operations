@@ -123,7 +123,6 @@ const settDetailsController = (request) => {
     }
 
     request.session.setts.push(newSett);
-    request.session.settCountError = false;
   } else {
     request.session.setts[request.session.currentSettIndex].id = formatId(request.body.currentSettId.trim());
     request.session.setts[request.session.currentSettIndex].gridReference = formatGridReference(
@@ -135,6 +134,8 @@ const settDetailsController = (request) => {
     );
   }
 
+  request.session.settDetailsError = false;
+  request.session.settCountError = false;
   return ReturnState.Positive;
 };
 

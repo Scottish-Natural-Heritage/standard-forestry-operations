@@ -23,7 +23,6 @@ const confirmController = async (request) => {
       addressPostcode: request.session.addressPostcode,
       phoneNumber: request.session.phoneNumber,
       emailAddress: request.session.emailAddress,
-      siteName: request.session.siteName,
       setts: request.session.setts
     };
 

@@ -57,8 +57,6 @@ describe('Confirm page ', function () {
     cy.get('#main-content form button.naturescot-forward-button').click();
 
     // ~GET `/site-location`~
-    // FILL the form
-    cy.get('input[type="text"]#site-name').type('Hundred Acre Wood', {delay: 1});
     // POST continue to `/site-location`
     cy.get('#main-content form button.naturescot-forward-button').click();
   });

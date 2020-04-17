@@ -56,14 +56,8 @@ describe('Site Location page ', function () {
     cy.url().should('include', '/site-location');
 
     cy.get('h2#error-summary-title').should('contain', 'There is a problem');
-
-    cy.get('.govuk-error-summary ul li a')
-      .should('contain', 'Enter the site name')
-      .and('contain', 'Add at least one sett');
-
-    cy.get('form .govuk-form-group--error')
-      .should('contain', 'Enter the site name')
-      .and('contain', 'Add at least one sett');
+    cy.get('.govuk-error-summary ul li a').should('contain', 'Add at least one sett');
+    cy.get('form .govuk-form-group--error').should('contain', 'Add at least one sett');
   });
 
   it('add button should navigate to sett details', function () {
@@ -99,7 +93,7 @@ describe('Site Location page ', function () {
     cy.url().should('include', '/site-location');
   });
 
-  it('add a sett then enter name + main button should navigate to confirm page', function () {
+  it('add a sett then main button should navigate to confirm page', function () {
     cy.visit('/site-location');
     cy.get('#main-content form button.naturescot-button--add').click();
     cy.url().should('include', '/sett-details');
@@ -110,8 +104,6 @@ describe('Site Location page ', function () {
 
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/site-location');
-
-    cy.get('input[type="text"]#site-name').type('Hundred Acre Wood');
 
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/confirm');

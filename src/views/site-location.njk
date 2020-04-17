@@ -10,45 +10,23 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% block content %}
 
-  {% if model.siteLocationError %}
+  {% if model.settCountError %}
     {{ govukErrorSummary({
       titleText: "There is a problem",
       errorList: [
         {
-          text: "Enter the site name",
-          href: "#site-name-error"
-        } if model.siteNameError,
-        {
           text: "Add at least one sett",
           href: "#sett-count-error"
-        } if model.settCountError
+        }
       ]
     }) }}
   {% endif %}
-
 
   <h1 class="govuk-heading-xl">
     What are the site details?
   </h1>
   <form method="post">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        {{ govukInput({
-          label: {
-            text: "Site name"
-          },
-          classes: "govuk-!-width-one-half",
-          id: "site-name",
-          name: "siteName",
-          value: model.siteName,
-          errorMessage: {
-            text: "Enter the site name"
-          } if model.siteNameError,
-          attributes: {
-            spellcheck: "false"
-          }
-        }) }}
-      </div>
 
       <div class="govuk-grid-column-full" id="sett-details">
         <table class="govuk-table">

@@ -61,8 +61,6 @@ const siteLocationController = (request) => {
   const addMode = formKeys.filter((key) => key.startsWith('add')).length === 1;
   const continueMode = formKeys.filter((key) => key.startsWith('continue')).length === 1;
 
-  request.session.siteName = request.body.siteName === undefined ? undefined : request.body.siteName.trim();
-
   if (editMode) {
     const editKeys = formKeys.filter((key) => key.startsWith('edit-'));
     const editIndex = Number.parseInt(editKeys[0].split('edit-')[1], 10);
@@ -106,12 +104,9 @@ const siteLocationController = (request) => {
   }
 
   if (continueMode) {
-    request.session.siteNameError = request.session.siteName === undefined || request.session.siteName.length === 0;
     request.session.settCountError = request.session.setts === undefined || request.session.setts.length === 0;
 
-    request.session.siteLocationError = request.session.siteNameError || request.session.settCountError;
-
-    if (request.session.siteLocationError) {
+    if (request.session.settCountError) {
       return ReturnState.Error;
     }
 
