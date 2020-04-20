@@ -3,7 +3,7 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% block content %}
   {{ govukPanel({
-    titleText: "Application complete",
+    titleHtml: "Application complete<br><br>Licence granted",
     html: "Your licence number is<br><strong>"+model.licenceNo+"</strong><br><br>" +
           "Expiry date<br><strong>"+model.expiryDate+"</strong>"
   }) }}
