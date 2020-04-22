@@ -14,12 +14,11 @@
 
       <ul class="govuk-list govuk-list--bullet">
         <li>
-          you want to fell or harvest within 20 metres of a badger sett between
-          1 July and 30 November
+          you want to fell or harvest within 20 metres of badger setts that are
+          currently in use between 1 July and 30 November
         </li>
         <li>
-          there will be no vehicular access or heavy machinery used within 20
-          metres of a badger sett
+          no vehicular access or heavy machinery will be used within this area
         </li>
         <li>
           your proposal meets the
@@ -47,7 +46,8 @@
       <h2 class="govuk-heading-m">Before you start</h2>
 
       <p class="govuk-body">
-        Please also note that there is a reporting requirement upon completion of the works (see condition 17).
+        Guidance on badger setts and current use can be found
+        <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="http://gateway.snh.gov.uk/go/?id=31">here&nbsp;(opens in new tab)</a>.
       </p>
 
       <p class="govuk-body">
@@ -67,6 +67,7 @@
         <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/call-charges">Find out about call charges&nbsp;(opens in new tab)</a>
       </p>
     </div>
+
     <div class="govuk-grid-column-one-third">
       {{ govukAccordion({
         id: "startBadgerExplanations",
@@ -96,6 +97,23 @@
                 '<p class="govuk-body">' +
                 '  "Badger sett" means any structure or place which displays ' +
                 '  signs indicating current use by a badger.'+
+                '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: "What is current use?"
+            },
+            content: {
+              html:
+                '<p class="govuk-body">' +
+                '  The presence of field signs such as bedding, fresh spoil ' +
+                '  heaps, signs of recent digging, hair, latrines, or ' +
+                '  footprints in or around the potential sett or evidence of ' +
+                '  badgers entering or exiting the structure or place in ' +
+                '  question would indicate "current use" of the structure / ' +
+                '  place by a badger.' +
                 '</p>'
             },
             expanded: false
