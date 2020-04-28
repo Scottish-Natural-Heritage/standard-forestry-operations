@@ -17,6 +17,12 @@ describe('Details page ', function () {
     // POST `/gdpr`
     cy.get('#main-content form button.naturescot-forward-button').click();
 
+    // ~GET `/other`~
+    // CLICK self
+    cy.get('#main-content form input[type="radio"][value="self"]').click();
+    // POST `/other`
+    cy.get('#main-content form button.naturescot-forward-button').click();
+
     // ~GET `/conviction`~
     // CLICK no
     cy.get('#main-content form input[type="radio"][value="no"]').click();

@@ -16,9 +16,9 @@ describe('GDPR page ', function () {
     cy.get('h1').should('contain', 'How we use your information');
   });
 
-  it('main button should navigate to conviction', function () {
+  it('main button should navigate to other', function () {
     cy.visit('/gdpr');
     cy.get('#main-content form button.naturescot-forward-button').click();
-    cy.url().should('include', '/conviction');
+    cy.url().should('include', '/other');
   });
 });
