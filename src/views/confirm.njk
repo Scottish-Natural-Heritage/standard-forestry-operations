@@ -19,6 +19,23 @@
       rows: [
         {
           key: {
+            text: "Applicant"
+          },
+          value: {
+            text: "I am the applicant." if model.other === false
+          },
+          actions: {
+            items: [
+              {
+                href: pathPrefix + "/other#other",
+                text: "Change",
+                visuallyHiddenText: "who is the applicant"
+              }
+            ]
+          }
+        },
+        {
+          key: {
             text: "Criminal Convictions"
           },
           value: {
