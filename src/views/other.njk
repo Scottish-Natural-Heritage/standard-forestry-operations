@@ -1,0 +1,54 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% block content %}
+
+  {% if model.otherError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [{
+        text: "You must select if you are applying for a licence for yourself or on behalf of another.",
+        href: "#other-error"
+      }]
+    }) }}
+  {% endif %}
+
+  <form method="post">
+
+    {{ govukRadios({
+      idPrefix: "other",
+      name: "other",
+      fieldset: {
+        legend: {
+          text: "Are you applying for a licence for yourself or on behalf of another?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--xl"
+        }
+      },
+      errorMessage: {
+        text: "You must select if you are applying for a licence for yourself or on behalf of another."
+      } if model.otherError,
+      items: [
+        {
+          value: "self",
+          text: "For myself",
+          checked: model.other === false
+        },
+        {
+          value: "other",
+          text: "On behalf of another",
+          checked: model.other === true
+        }
+      ]
+    }) }}
+
+    {{ govukButton({
+      text: "Continue",
+      classes: "naturescot-forward-button"
+    }) }}
+  </form>
+
+{% endblock %}
