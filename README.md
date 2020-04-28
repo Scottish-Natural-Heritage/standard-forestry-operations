@@ -17,7 +17,7 @@ npm run test
 ## Build
 
 ```sh
-docker build -t naturescot/standard-forestry-operations -t .
+docker build -t naturescot/standard-forestry-operations .
 ```
 
 ## Run
