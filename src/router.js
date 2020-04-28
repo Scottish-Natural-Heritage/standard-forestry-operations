@@ -55,6 +55,12 @@ router.use(
 
 router.use(
   Page({
+    path: 'other-success'
+  })
+);
+
+router.use(
+  Page({
     path: 'conviction',
     back: 'other',
     positiveForward: 'eligible',

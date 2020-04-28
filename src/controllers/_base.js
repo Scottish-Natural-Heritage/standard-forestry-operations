@@ -137,8 +137,8 @@ const Page = (options) => {
     // Render the page.
     renderPage(request, response, options);
 
-    // If we've just rendered the success page...
-    if (options.path === 'success') {
+    // If we've just rendered a success page...
+    if (options.path === 'success' || options.path === 'other-success') {
       // Kill the user session, so they cannot re-submit.
       request.session.destroy();
     }
