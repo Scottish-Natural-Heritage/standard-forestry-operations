@@ -6,6 +6,7 @@ import {Page} from './controllers/_base.js';
 import StartController from './controllers/start.js';
 import GdprController from './controllers/gdpr.js';
 import OtherController from './controllers/other.js';
+import OtherEmailController from './controllers/other-email.js';
 import ConvictionController from './controllers/conviction.js';
 import EligibleController from './controllers/eligible.js';
 import ComplyController from './controllers/comply.js';
@@ -40,6 +41,15 @@ router.use(
     positiveForward: 'conviction',
     negativeForward: 'other-email',
     controller: OtherController
+  })
+);
+
+router.use(
+  Page({
+    path: 'other-email',
+    back: 'other',
+    positiveForward: 'other-success',
+    controller: OtherEmailController
   })
 );
 
