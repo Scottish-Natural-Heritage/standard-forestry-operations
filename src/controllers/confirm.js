@@ -5,7 +5,7 @@ import {ReturnState} from './_base.js';
 const confirmController = async (request) => {
   try {
     // Allocate a new application.
-    const newAppResponse = await axios.post(config.apiEndpoint);
+    const newAppResponse = await axios.post(config.apiEndpoint + '/applications');
 
     // Determine where the back-end's saved it.
     const newAppUrl = newAppResponse.headers.location;

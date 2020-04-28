@@ -26,7 +26,7 @@ docker build -t naturescot/standard-forestry-operations .
 docker run \
   --name standard-forestry-operations \
   --env SFO_SESSION_SECRET=override_this_value \
-  --env SFO_API_URL=http://standard-forestry-operations-api:3003/standard-forestry-operations-api/v1/licenses \
+  --env SFO_API_URL=http://standard-forestry-operations-api:3003/standard-forestry-operations-api/v1 \
   --network licensing \
   -p "3002:3002" \
   --detach \
