@@ -17,7 +17,7 @@ describe('Conviction stop page ', function () {
     // POST `/gdpr`
     cy.get('#main-content form button.naturescot-forward-button').click();
 
-        // ~GET `/other`~
+    // ~GET `/other`~
     // CLICK self
     cy.get('#main-content form input[type="radio"][value="self"]').click();
     // POST `/other`
@@ -28,7 +28,6 @@ describe('Conviction stop page ', function () {
     cy.get('#main-content form input[type="radio"][value="yes"]').click();
     // POST `/conviction`
     cy.get('#main-content form button.naturescot-forward-button').click();
-
   });
 
   it('should allow access if the user visits all the pages in order', function () {
