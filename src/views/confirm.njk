@@ -19,17 +19,17 @@
       rows: [
         {
           key: {
-            text: "Applicant"
+            text: "Licence Holder"
           },
           value: {
-            text: "I am the applicant." if model.other === false
+            text: "I will be the named licence holder." if model.other === false
           },
           actions: {
             items: [
               {
                 href: pathPrefix + "/other#other",
                 text: "Change",
-                visuallyHiddenText: "who is the applicant"
+                visuallyHiddenText: "who will be the named licence holder."
               }
             ]
           }

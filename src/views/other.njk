@@ -10,7 +10,7 @@
     {{ govukErrorSummary({
       titleText: "There is a problem",
       errorList: [{
-        text: "You must select if you are applying for a licence for yourself or on behalf of another.",
+        text: "You must select if you will be the named licence holder.",
         href: "#other-error"
       }]
     }) }}
@@ -23,23 +23,23 @@
       name: "other",
       fieldset: {
         legend: {
-          text: "Are you applying for a licence for yourself or on behalf of another?",
+          text: "Will you be the named licence holder?",
           isPageHeading: true,
           classes: "govuk-fieldset__legend--xl"
         }
       },
       errorMessage: {
-        text: "You must select if you are applying for a licence for yourself or on behalf of another."
+        text: "You must select if you will be the named licence holder."
       } if model.otherError,
       items: [
         {
           value: "self",
-          text: "For myself",
+          text: "Yes",
           checked: model.other === false
         },
         {
           value: "other",
-          text: "On behalf of another",
+          text: "No",
           checked: model.other === true
         }
       ]
