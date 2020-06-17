@@ -116,7 +116,7 @@
             text: "Address"
           },
           value: {
-            html: model.displayAddress
+            text: model.addressLine1
           },
           actions: {
             items: [
@@ -126,14 +126,51 @@
                 visuallyHiddenText: "contact information"
               }
             ]
-          }
+          },
+          classes: "naturescot-summary-list__condensed-first-row"
+        },
+        {
+          key: {
+            text: ""
+          },
+          value: {
+            text: model.addressLine2
+          },
+          classes: "naturescot-summary-list__condensed-row"
+        },
+        {
+          key: {
+            text: ""
+          },
+          value: {
+            text: model.addressTown
+          },
+          classes: "naturescot-summary-list__condensed-row"
+        },
+        {
+          key: {
+            text: ""
+          },
+          value: {
+            text: model.addressCounty
+          },
+          classes: "naturescot-summary-list__condensed-row"
+        },
+        {
+          key: {
+            text: ""
+          },
+          value: {
+            text: model.addressPostcode
+          },
+          classes: "naturescot-summary-list__condensed-last-row"
         },
         {
           key: {
             text: "Contact details"
           },
           value: {
-            html: model.displayContact
+            text: model.phoneNumber
           },
           actions: {
             items: [
@@ -143,7 +180,17 @@
                 visuallyHiddenText: "contact details"
               }
             ]
-          }
+          },
+          classes: "naturescot-summary-list__condensed-first-row"
+        },
+        {
+          key: {
+            text: ""
+          },
+          value: {
+            text: model.emailAddress
+          },
+          classes: "naturescot-summary-list__condensed-last-row"
         }
       ]
     }) }}
