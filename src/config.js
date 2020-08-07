@@ -12,6 +12,7 @@ const config = Object.freeze({
   port: process.env.SFO_PORT,
   sessionSecret: process.env.SFO_SESSION_SECRET,
   apiEndpoint: process.env.SFO_API_URL,
+  hostPrefix: process.env.SFO_HOST_PREFIX ? `${process.env.SFO_HOST_PREFIX}` : `http://localhost:${process.env.SFO_PORT}`,
   pathPrefix: process.env.SFO_PATH_PREFIX ? `/${process.env.SFO_PATH_PREFIX}` : '',
   cookiePrefix: process.env.COOKIE_PREFIX || '__Secure'
 });
