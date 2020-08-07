@@ -102,7 +102,7 @@ app.get(`${config.pathPrefix}/init.js`, (request, response) => {
 app.use(router);
 
 app.use((request, response) => {
-  response.status(404).render('error-404.njk', {pathPrefix: config.pathPrefix});
+  response.status(404).render('error-404.njk', {hostPrefix: config.hostPrefix, pathPrefix: config.pathPrefix});
 });
 
 export {app as default};
