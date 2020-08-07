@@ -24,33 +24,6 @@ const cleanInput = (body) => {
   };
 };
 
-const buildDisplayAddress = (session) => {
-  // Build the address array, ignoring any blank fields.
-  const address = [];
-
-  if (session.addressLine1 !== undefined && session.addressLine1.trim() !== '') {
-    address.push(session.addressLine1);
-  }
-
-  if (session.addressLine2 !== undefined && session.addressLine2.trim() !== '') {
-    address.push(session.addressLine2);
-  }
-
-  if (session.addressTown !== undefined && session.addressTown.trim() !== '') {
-    address.push(session.addressTown);
-  }
-
-  if (session.addressCounty !== undefined && session.addressCounty.trim() !== '') {
-    address.push(session.addressCounty);
-  }
-
-  if (session.addressPostcode !== undefined && session.addressPostcode.trim() !== '') {
-    address.push(session.addressPostcode);
-  }
-
-  return address.join('<br>');
-};
-
 const detailsController = (request) => {
   // Clean up the user's input before we store it in the session.
   const cleanForm = cleanInput(request.body);
@@ -105,10 +78,6 @@ const detailsController = (request) => {
   if (request.session.detailsError) {
     return ReturnState.Error;
   }
-
-  // Create the display versions of the visitors address and contact info.
-  request.session.displayAddress = buildDisplayAddress(request.session);
-  request.session.displayContact = `${request.session.phoneNumber}<br>${request.session.emailAddress}`;
 
   // The request passed all our validation, we've stored copies of everything we
   // need, so it's time to go on.
