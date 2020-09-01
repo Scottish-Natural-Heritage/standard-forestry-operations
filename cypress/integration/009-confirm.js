@@ -72,9 +72,4 @@ describe('Confirm page ', function () {
     cy.get('h1').should('contain', 'answers before sending');
   });
 
-  it('main button should navigate to success', function () {
-    cy.visit('/confirm');
-    cy.get('#main-content form button.naturescot-forward-button').click();
-    cy.url().should('include', '/success');
-  });
 });
