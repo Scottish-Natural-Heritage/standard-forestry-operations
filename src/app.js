@@ -77,6 +77,12 @@ app.use(
   express.static(path.join(__dirname, '..', '/node_modules/govuk-frontend/govuk'), {immutable: true, maxAge: '3 hours'})
 );
 
+// `health` is a simple health-check end-point to test whether the service is
+// up.
+app.get(`${config.pathPrefix}/health`, async (request, response) => {
+  response.status(200).send({message: 'OK'});
+});
+
 // All of our static assets are served above and have the appropriate caching
 // time-outs set. From this point down, we're serving rendered pages which may
 // contain user data. Ask the user to not cache these as they may be updated

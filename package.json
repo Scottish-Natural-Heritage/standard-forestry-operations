@@ -18,7 +18,7 @@
     "start": "node --experimental-modules src/server.js",
     "dev": "SFO_PORT=3999 COOKIE_PREFIX=_ nodemon --exec \"npm run lint && npm run start\" -e js,njk,scss --ignore build/ --ignore dist/ --ignore cypress/",
     "cy:run": "cypress run",
-    "test": "COOKIE_PREFIX=_ start-server-and-test start http://localhost:3002/standard-forestry-operations cy:run",
+    "test": "SFO_PORT=3002 SFO_PATH_PREFIX=standard-forestry-operations COOKIE_PREFIX=_ start-server-and-test start http://localhost:3002/standard-forestry-operations/health cy:run",
     "cy:open": "cypress open"
   },
   "engines": {
