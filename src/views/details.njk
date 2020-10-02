@@ -89,7 +89,8 @@
         value: model.addressLine1,
         errorMessage: {
           text: "Enter your building and street"
-        } if model.addressError
+        } if model.addressError,
+        autocomplete: "address-line1"
       }) }}
 
       {{ govukInput({
@@ -99,7 +100,8 @@
         classes: "govuk-!-width-two-thirds",
         id: "address-line-2",
         name: "addressLine2",
-        value: model.addressLine2
+        value: model.addressLine2,
+        autocomplete: "address-line2"
       }) }}
 
       {{ govukInput({
@@ -112,7 +114,8 @@
         value: model.addressTown,
         errorMessage: {
           text: "Enter your town"
-        } if model.townError
+        } if model.townError,
+        autocomplete: "address-level2"
       }) }}
 
       {{ govukInput({
@@ -122,7 +125,8 @@
         classes: "govuk-!-width-one-half",
         id: "address-county",
         name: "addressCounty",
-        value: model.addressCounty
+        value: model.addressCounty,
+        autocomplete: "address-level1"
       }) }}
 
       {{ govukInput({
@@ -135,7 +139,8 @@
         value: model.addressPostcode,
         errorMessage: {
           text: "Enter your postcode"
-        } if model.postcodeError
+        } if model.postcodeError,
+        autocomplete: "postal-code"
       }) }}
 
       {{ govukInput({
@@ -163,7 +168,8 @@
         value: model.emailAddress,
         errorMessage: {
           text: "Enter your email address"
-        } if model.emailError
+        } if model.emailError,
+        autocomplete: "email"
       }) }}
 
     {% endcall %}
