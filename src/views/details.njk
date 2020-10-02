@@ -1,0 +1,176 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% block content %}
+
+  {% if model.detailsError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Enter your full name",
+          href: "#full-name-error"
+        } if model.nameError,
+        {
+          text: "Enter your building and street",
+          href: "#address-line-1-error"
+        } if model.addressError,
+        {
+          text: "Enter your town",
+          href: "#address-town-error"
+        } if model.townError,
+        {
+          text: "Enter your postcode",
+          href: "#address-postcode-error"
+        } if model.postcodeError,
+        {
+          text: "Enter your phone number",
+          href: "#phone-number-error"
+        } if model.phoneError,
+        {
+          text: "Enter your email address",
+          href: "#email-address-error"
+        } if model.emailError
+      ]
+    }) }}
+  {% endif %}
+
+  <form method="post">
+
+    {% call govukFieldset({
+      legend: {
+        text: "What are your personal details?",
+        classes: "govuk-fieldset__legend--xl",
+        isPageHeading: true
+      }
+    }) %}
+
+      {{ govukInput({
+        label: {
+          text: "Full name"
+        },
+        classes: "govuk-!-width-one-half",
+        id: "full-name",
+        name: "fullName",
+        value: model.fullName,
+        errorMessage: {
+          text: "Enter your full name"
+        } if model.nameError,
+        autocomplete: "name",
+        attributes: {
+          spellcheck: "false"
+        }
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Company or Organisation"
+        },
+        classes: "govuk-!-width-one-half",
+        id: "company-organisation",
+        name: "companyOrganisation",
+        value: model.companyOrganisation,
+        autocomplete: "organization",
+        attributes: {
+          spellcheck: "false"
+        }
+      }) }}
+
+      {{ govukInput({
+        label: {
+          html: 'Building and street <span class="govuk-visually-hidden">line 1 of 2</span>'
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "address-line-1",
+        name: "addressLine1",
+        value: model.addressLine1,
+        errorMessage: {
+          text: "Enter your building and street"
+        } if model.addressError
+      }) }}
+
+      {{ govukInput({
+        label: {
+          html: '<span class="govuk-visually-hidden">Building and street line 2 of 2</span>'
+        },
+        classes: "govuk-!-width-two-thirds",
+        id: "address-line-2",
+        name: "addressLine2",
+        value: model.addressLine2
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Town or city"
+        },
+        classes: "govuk-!-width-one-half",
+        id: "address-town",
+        name: "addressTown",
+        value: model.addressTown,
+        errorMessage: {
+          text: "Enter your town"
+        } if model.townError
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "County"
+        },
+        classes: "govuk-!-width-one-half",
+        id: "address-county",
+        name: "addressCounty",
+        value: model.addressCounty
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Postcode"
+        },
+        classes: "govuk-!-width-one-quarter",
+        id: "address-postcode",
+        name: "addressPostcode",
+        value: model.addressPostcode,
+        errorMessage: {
+          text: "Enter your postcode"
+        } if model.postcodeError
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Phone number"
+        },
+        classes: "govuk-!-width-one-half",
+        id: "phone-number",
+        name: "phoneNumber",
+        value: model.phoneNumber,
+        errorMessage: {
+          text: "Enter your phone number"
+        } if model.phoneError,
+        type: "tel",
+        autocomplete: "tel"
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Email address"
+        },
+        classes: "govuk-!-width-one-half",
+        id: "email-address",
+        name: "emailAddress",
+        value: model.emailAddress,
+        errorMessage: {
+          text: "Enter your email address"
+        } if model.emailError
+      }) }}
+
+    {% endcall %}
+
+    {{ govukButton({
+      text: "Continue",
+      classes: "naturescot-forward-button"
+    }) }}
+  </form>
+{% endblock %}

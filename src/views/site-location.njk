@@ -1,0 +1,99 @@
+{% extends "_base.njk" %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{pathPrefix}}/dist/map-preview.css">
+{% endblock %}
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% block content %}
+
+  {% if model.settCountError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Add at least one sett",
+          href: "#sett-count-error"
+        }
+      ]
+    }) }}
+  {% endif %}
+
+  <h1 class="govuk-heading-xl">
+    What are the site details?
+  </h1>
+  <form method="post">
+    <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-full" id="sett-details">
+        <table class="govuk-table">
+          <caption class="govuk-table__caption govuk-table__caption--naturescot-normal {% if model.settCountError %} govuk-form-group--error {% endif %}">
+            Setts
+            {% if model.settCountError %}
+              <span id="sett-count-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> Add at least one sett
+              </span>
+            {% endif %}
+          </caption>
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Sett ID</th>
+              <th scope="col" class="govuk-table__header">Grid Reference</th>
+              <th scope="col" class="govuk-table__header">Entrances</th>
+              <th scope="col" class="govuk-table__header"></th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            {% for sett in model.setts %}
+              <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">{{ sett.id | safe }}</th>
+                <td class="govuk-table__cell">{{ sett.gridReference }}</td>
+                <td class="govuk-table__cell">{{ sett.entrances }}</td>
+                <td class="govuk-table__cell">
+                  {{ govukButton({
+                    text: "Edit",
+                    name: "edit-" + loop.index0,
+                    classes: "govuk-button--secondary"
+                  }) }}
+                  {{ govukButton({
+                    text: "Delete",
+                    name: "delete-" + loop.index0,
+                    classes: "govuk-button--secondary"
+                  }) }}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {{ govukButton({
+          text: "Add a Sett",
+          name: "add",
+          classes: "govuk-button--secondary naturescot-button--add"
+        }) }}
+        <br>
+        <label class="govuk-label" for="map-preview-container">
+          Map Preview
+        </label>
+        <div id="map-preview-container">
+          <div id="map-preview"></div>
+          <div id="map-preview-overlay">
+            <p class="govuk-body govuk-!-font-size-36">Add setts to enable map preview</p>
+          </div>
+        </div>
+        <br>
+        {{ govukButton({
+          text: "Continue",
+          name: "continue",
+          classes: "naturescot-forward-button"
+        }) }}
+      </div>
+    </div>
+  </form>
+{% endblock %}
+{% block bodyEnd %}
+  {{ super() }}
+  <script src="{{pathPrefix}}/dist/map-preview.js"></script>
+{% endblock %}

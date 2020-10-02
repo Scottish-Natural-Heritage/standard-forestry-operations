@@ -1,0 +1,68 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% block content %}
+  {{ govukPanel({
+    titleHtml: "Application complete<br><br>Licence granted",
+    html: "Your licence number is<br><strong>"+model.licenceNo+"</strong><br><br>" +
+          "Expiry date<br><strong>"+model.expiryDate+"</strong>"
+  }) }}
+
+  <p class="govuk-body">
+    We have sent you a confirmation email.
+  </p>
+  <p class="govuk-body">
+    This email will contain your licence details and provide you with a
+    copy of the Standard Forestry Operations conditions.
+  </p>
+
+  <h2 class="govuk-heading-m">
+    What happens next
+  </h2>
+
+  <p class="govuk-body">
+    You must understand and comply with the conditions attached to your
+    licence.
+  </p>
+
+  <p class="govuk-body">
+    You must submit a return within one month of works being completed
+    using <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="http://gateway.snh.gov.uk/go/?id=30">this form&nbsp;(opens in new tab)</a>.
+  </p>
+
+  <p class="govuk-body">
+    Please make sure you keep a record of:
+  </p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>
+      the date the works were undertaken
+    </li>
+    <li>
+      a clear photograph of one sett before works commence
+    </li>
+    <li>
+      a clear photograph of the same sett as soon as works are
+      completed clearly showing the protection zone
+    </li>
+    <li>
+      whether the licence conditions were met
+    </li>
+  </ul>
+
+  <p class="govuk-body">
+    We will contact you before your licence expires to remind you to
+    submit this information.
+  </p>
+
+  <p class="govuk-body">
+    Email:<br>
+    <strong class="govuk-!-font-weight-bold">
+      <a class="govuk-link" href="mailto:licensing@nature.scot">licensing@nature.scot</a>
+    </strong>
+  </p>
+
+  <p class="govuk-body">
+    <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="#">What do you think of this service?&nbsp;(opens in new tab)</a>
+    (takes 30 seconds)
+  </p>
+{% endblock %}

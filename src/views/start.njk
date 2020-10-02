@@ -1,0 +1,129 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% block content %}
+  <h1 class="govuk-heading-xl">
+    Standard Forestry Operations
+  </h1>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body">
+        Use this service to apply for a Standard Forestry Operations licence if:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          you want to fell or harvest within 20 metres of badger setts that are
+          currently in use between 1 July and 30 November
+        </li>
+        <li>
+          no vehicular access or heavy machinery will be used within this area
+        </li>
+        <li>
+          your proposal meets the
+          <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="http://gateway.snh.gov.uk/go/?id=29">
+            licence conditions&nbsp;(opens in new tab)
+          </a>
+        </li>
+        <li>
+          you are responsible for carrying out or overseeing the operations
+        </li>
+      </ul>
+
+      <p class="govuk-body">
+        Applying takes around 10 minutes.
+      </p>
+
+      <form method="post">
+        {{ govukButton({
+          text: "Start now",
+          classes: "govuk-!-margin-top-2 govuk-!-margin-bottom-8 naturescot-forward-button",
+          isStartButton: true
+        }) }}
+      </form>
+
+      <h2 class="govuk-heading-m">Before you start</h2>
+
+      <p class="govuk-body">
+        Guidance on badger setts and current use can be found
+        <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="http://gateway.snh.gov.uk/go/?id=31">here&nbsp;(opens in new tab)</a>.
+      </p>
+
+      <p class="govuk-body">
+        If you need assistance with this application, contact the NatureScot Licensing Team.
+      </p>
+
+      <h3 class="govuk-heading-s">Email</h3>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="mailto:licensing@nature.scot">licensing@nature.scot</a></li>
+      </ul>
+      <h3 class="govuk-heading-s">Telephone</h3>
+      <ul class="govuk-list">
+        <li>01463 725 364</li>
+        <li>Monday to Friday, 10am to 4pm (except public holidays)</li>
+      </ul>
+      <p class="govuk-body">
+        <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/call-charges">Find out about call charges&nbsp;(opens in new tab)</a>
+      </p>
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+      {{ govukAccordion({
+        id: "startBadgerExplanations",
+        items: [
+          {
+            heading: {
+              text: "What is a badger?"
+            },
+            content: {
+              html:
+                '<p class="govuk-body">' +
+                '  "Badger" means any animal of the species '+
+                '  <span class="naturescot-latin-name">'+
+                '    Meles meles'+
+                '  </span>'+
+                '  .' +
+                '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: "What is a badger sett?"
+            },
+            content: {
+              html:
+                '<p class="govuk-body">' +
+                '  "Badger sett" means any structure or place which displays ' +
+                '  signs indicating current use by a badger.'+
+                '</p>'
+            },
+            expanded: false
+          },
+          {
+            heading: {
+              text: "What is current use?"
+            },
+            content: {
+              html:
+                '<p class="govuk-body">' +
+                '  The presence of field signs such as bedding, fresh spoil ' +
+                '  heaps, signs of recent digging, hair, latrines, or ' +
+                '  footprints in or around the potential sett or evidence of ' +
+                '  badgers entering or exiting the structure or place in ' +
+                '  question would indicate "current use" of the structure / ' +
+                '  place by a badger.' +
+                '</p>'
+            },
+            expanded: false
+          }
+        ]
+      })}}
+      <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-16" href="#top-of-page">
+        Back to top
+      </a>
+    </div>
+  </div>
+
+{% endblock %}

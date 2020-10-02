@@ -1,0 +1,107 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% block content %}
+
+  {% if model.settDetailsError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Enter a Sett ID",
+          href: "#current-sett-id-error"
+        } if model.currentSettIdError,
+        {
+          text: "Enter a Grid Reference",
+          href: "#current-grid-reference-error"
+        } if model.currentGridReferenceError,
+        {
+          text: "Enter the number of Entrances",
+          href: "#current-entrances-error"
+        } if model.currentEntrancesError
+      ]
+    }) }}
+  {% endif %}
+
+  <form method="post">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+    {% call govukFieldset({
+      legend: {
+        text: "What are the sett details?",
+        classes: "govuk-fieldset__legend--xl",
+        isPageHeading: true
+      }
+    }) %}
+
+      {{ govukInput({
+        label: {
+          text: "Sett ID"
+        },
+        hint: {
+          text: "The name of this sett on the site. e.g. 123, ABC or West Gate."
+        },
+        classes: "govuk-!-width-one-half",
+        id: "current-sett-id",
+        name: "currentSettId",
+        value: model.currentSettId,
+        errorMessage: {
+          text: "Enter a Sett ID"
+        } if model.currentSettIdError,
+        attributes: {
+          spellcheck: "false"
+        }
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Grid Reference"
+        },
+        hint: {
+          html: "An 8 or 10 digit grid reference. e.g. NH&nbsp;6381&nbsp;4403 or NO&nbsp;08529&nbsp;29128."
+        },
+        classes: "govuk-!-width-one-half",
+        id: "current-grid-reference",
+        name: "currentGridReference",
+        value: model.currentGridReference,
+        errorMessage: {
+          text: "Enter a Grid Reference"
+        } if model.currentGridReferenceError,
+        attributes: {
+          spellcheck: "false"
+        }
+      }) }}
+
+      {{ govukInput({
+        label: {
+          text: "Number of Entrances"
+        },
+        hint: {
+          text: "How many entrances this sett has."
+        },
+        classes: "govuk-!-width-one-half",
+        id: "current-entrances",
+        name: "currentEntrances",
+        value: model.currentEntrances,
+        errorMessage: {
+          text: "Enter the number of Entrances"
+        } if model.currentEntrancesError,
+        attributes: {
+          spellcheck: "false"
+        }
+      }) }}
+
+    {% endcall %}
+
+    {{ govukButton({
+      text: "Continue",
+      classes: "naturescot-forward-button"
+    }) }}
+    </div></div>
+  </form>
+{% endblock %}

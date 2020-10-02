@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Roboto'),
+    local('Roboto-Regular'),
+    url('./Roboto-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Roboto Bold'),
+    local('Roboto-Bold'),
+    url('./Roboto-Bold.woff2') format('woff2');
+}
+
+$path-prefix: '';
+
+$govuk-font-family: 'Roboto', sans-serif;
+
+$govuk-assets-path: $path-prefix + '/govuk-frontend/assets/';
+@import '~govuk-frontend/govuk/all';
+
+$naturescot-logo: $path-prefix + '/dist/naturescot-logo.png';
+@import '~naturescot-frontend/naturescot/all';
+
+.naturescot-cookie-bar {
+  display: block;
+  width: 100%;
+  padding-top:20px;
+}
+
+.naturescot-latin-name {
+  font-style: italic;
+}
+
+// The normal bottom margin on a govuk-button works for when it's supposed to be
+// mixed in with normal content, but when it's in a table row it's already the
+// tallest item and adding more vertical space just plain looks wrong. This
+// shrinks the table row to a more sensible size.
+td.govuk-table__cell button.govuk-button {
+  margin-bottom: 0;
+}
+
+.govuk-table__caption--naturescot-normal {
+  font-weight: unset;
+}
+
+// When you embed a govuk-table inside a govuk-summary-list you'll end up with
+// two bottom borders - one for the table and another for the summary list item.
+// This removes the 'visually unnecessary' bottom border on the table.
+dd.govuk-summary-list__value table.govuk-table tbody tr:last-child *
+{
+  border-bottom: unset;
+}
+
+// To remove the need for concatenating strings and raw <br> for multi-line/
+// multi-value fields we need to be able to turn off some of the govuk summary
+// list styling (padding and borders between each row).
+
+// The top row of our field shouldn't have any bottom borders or padding.
+.naturescot-summary-list__condensed-first-row {
+  .govuk-summary-list__key, .govuk-summary-list__value, .govuk-summary-list__actions {
+    padding-bottom: unset;
+    border-bottom: unset;
+  }
+}
+
+// Any middle rows of our field shouldn't have bottom or top padding or a bottom
+// border.
+.naturescot-summary-list__condensed-row {
+  .govuk-summary-list__key, .govuk-summary-list__value, .govuk-summary-list__actions {
+    padding-top: unset;
+    padding-bottom: unset;
+    border-bottom: unset;
+  }
+}
+
+// The bottom row of our field should keep most of the default govuk styling,
+// just remove the top padding.
+.naturescot-summary-list__condensed-last-row {
+  .govuk-summary-list__key, .govuk-summary-list__value, .govuk-summary-list__actions {
+    padding-top: unset;
+  }
+}

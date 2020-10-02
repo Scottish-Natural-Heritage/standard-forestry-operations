@@ -1,0 +1,48 @@
+#map-preview-container {
+  width: 100%;
+  height: 480px;
+}
+
+#map-preview {
+  width: 100%;
+  height: 100%;
+}
+
+#map-preview-overlay {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+  top: -100%;
+
+  z-index: 1234567;
+
+  background: rgba(32, 32, 32, 0.75);
+
+  display: flex;
+  align-items: center;
+}
+
+#map-preview-overlay > p {
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+#map-preview dl {
+  margin-top: 19px;
+  margin-bottom: 19px;
+}
+
+#map-preview dl > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+#map-preview dl > div:last-of-type > dt.govuk-heading-s {
+  margin-bottom: 0;
+}
+
+#map-preview dl > div:last-of-type > dd.govuk-body-s {
+  margin-bottom: 0;
+}
