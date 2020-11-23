@@ -73,16 +73,19 @@ const buildAndBindMap = (element) => {
     resolutions: [1000, 500, 200, 100, 50, 25, 10, 5, 2.5, 1.25]
   });
 
-  const natureScotOsTiles = L.tileLayer.wms('https://cagmap.snh.gov.uk/basemap/wms/viaosma', {
-    layers: 'viaEuropa_m0102',
-    format: 'image/png',
-    maxZoom: 11,
-    minZoom: 0,
-    continuousWorld: true,
-    transparent: true,
-    version: '1.3.0',
-    attribution: `Contains OS data &copy; Crown copyright and database rights [${new Date().getFullYear()}]`
-  });
+  const natureScotOsTiles = L.tileLayer.wms(
+    'https://map.publicsectormapping.gov.scot/osmao-snh00-00004-19b94/service',
+    {
+      layers: 'viaEuropa_m0102',
+      format: 'image/png',
+      maxZoom: 11,
+      minZoom: 0,
+      continuousWorld: true,
+      transparent: true,
+      version: '1.3.0',
+      attribution: `Contains OS data &copy; Crown copyright and database rights [${new Date().getFullYear()}]`
+    }
+  );
 
   const map = new L.map(element, {
     crs: osCRS,
