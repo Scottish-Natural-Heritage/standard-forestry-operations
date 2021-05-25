@@ -12,19 +12,32 @@
 {% block pageTitle %}NatureScot - Licensing - Standard Forestry Operations{% endblock %}
 
 {% block headIcons %}
-  <link rel="shortcut icon" type="image/png" sizes="192x192" href="{{pathPrefix}}/dist/icon-192x192.png">
-  <link rel="apple-touch-icon" href="{{pathPrefix}}/dist/icon-192x192.png">
+  <link rel="shortcut icon" type="image/png" sizes="192x192" href="{{hostPrefix}}{{pathPrefix}}/dist/icon-192x192.png">
 
-  <meta property="og:site_name" content="NatureScot - Licensing">
-  <meta property="og:url" content="{{pathPrefix}}">
-  <link rel="canonical" href="{{pathPrefix}}" />
-  <meta property="og:title" content="NatureScot - Licensing - Standard Forestry Operations">
+  <link rel="apple-touch-icon" sizes="192x192" href="{{hostPrefix}}{{pathPrefix}}/dist/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{hostPrefix}}{{pathPrefix}}/dist/icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="{{hostPrefix}}{{pathPrefix}}/dist/icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="{{hostPrefix}}{{pathPrefix}}/dist/icon-152x152.png">
+  <link rel="apple-touch-icon" href="{{hostPrefix}}{{pathPrefix}}/dist/icon-120x120.png">
+
+  <link rel="canonical" href="{{hostPrefix}}{{pathPrefix}}" />
   <meta name="description" content="Use this service to apply for a Standard Forestry Operations licence.">
-  <meta property="og:description" content="Use this service to apply for a Standard Forestry Operations licence.">
-  <meta property="og:image" content="{{pathPrefix}}/dist/naturescot-logo.png">
-  <meta name="twitter:image:alt" content="NatureScot Logo">
+
+  <!-- OpenGraph Data -->
+  <meta property="og:title" content="NatureScot - Licensing - Standard Forestry Operations">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="{{hostPrefix}}{{pathPrefix}}/dist/naturescot-opengraph-image.png">
+  <meta property="og:url" content="{{hostPrefix}}{{pathPrefix}}">
+  <meta property="og:site_name" content="NatureScot - Licensing">
+  <meta property="og:description" content="Use this service to apply for a Standard Forestry Operations licence.">
+  <meta property="og:image:width" content="1039">
+  <meta property="og:image:height" content="544">
+  <meta property="og:image:alt" content="NatureScot Logo">
+
+  <!-- Twitter Card Data -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@nature_scot">
+
 {% endblock %}
 
 {% block head %}
@@ -73,7 +86,7 @@
       tag: {
         text: "alpha"
       },
-      html: 'This is a new service – your <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="#">feedback&nbsp;(opens in new tab)</a> will help us to improve it.'
+      html: 'This is a new service – your <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="http://gateway.snh.gov.uk/go/?id=32">feedback&nbsp;(opens in new tab)</a> will help us to improve it.'
     }) }}
     {% if backUrl %}
       {{ govukBackLink({
