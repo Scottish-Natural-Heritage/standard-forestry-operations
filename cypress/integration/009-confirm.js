@@ -71,5 +71,4 @@ describe('Confirm page ', function () {
     cy.visit('/confirm');
     cy.get('h1').should('contain', 'answers before sending');
   });
-
 });

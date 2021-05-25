@@ -1,19 +1,10 @@
-import assert from 'assert';
-
-// Declare up front what env vars we need to continue and ensure they're set.
-assert(process.env.SFO_PORT !== undefined, 'A port number (SFO_PORT) is required.');
-assert(process.env.SFO_SESSION_SECRET !== undefined, 'A secret for sessions (SFO_SESSION_SECRET) is required.');
-assert(
-  process.env.SFO_API_URL !== undefined,
-  'A URL for the standard-forestry-operations api service (SFO_API_URL) is required.'
-);
-
+// Grab our config from the env vars, or set some defaults if they're missing.
 const config = Object.freeze({
-  port: process.env.SFO_PORT,
-  sessionSecret: process.env.SFO_SESSION_SECRET,
-  apiEndpoint: process.env.SFO_API_URL,
-  hostPrefix: process.env.SFO_HOST_PREFIX ? `${process.env.SFO_HOST_PREFIX}` : `http://localhost:${process.env.SFO_PORT}`,
-  pathPrefix: process.env.SFO_PATH_PREFIX ? `/${process.env.SFO_PATH_PREFIX}` : '',
+  port: process.env.SFO_PORT || 3002,
+  sessionSecret: process.env.SFO_SESSION_SECRET || 'override_this_value',
+  apiEndpoint: process.env.SFO_API_URL || 'http://localhost:3003/standard-forestry-operations-api/v1',
+  hostPrefix: process.env.SFO_HOST_PREFIX || `http://localhost:${process.env.TR_PORT}`,
+  pathPrefix: process.env.SFO_PATH_PREFIX ? `/${process.env.SFO_PATH_PREFIX}` : '/standard-forestry-operations',
   cookiePrefix: process.env.COOKIE_PREFIX || '__Secure'
 });
 

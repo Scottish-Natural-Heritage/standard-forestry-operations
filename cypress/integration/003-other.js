@@ -20,7 +20,7 @@ describe('Other page ', function () {
 
   it('should allow access if the user visits all the pages in order', function () {
     cy.visit('/other');
-    cy.get('h1').should('contain', 'Are you applying for a licence for yourself');
+    cy.get('h1').should('contain', 'Will you be the named licence holder?');
   });
 
   it('"self" radio + main button should navigate to conviction', function () {
