@@ -25,6 +25,13 @@ const cleanInput = (body) => {
 };
 
 const detailsController = (request) => {
+  // Clear errors.
+  request.session.nameError = false;
+  request.session.addressError = false;
+  request.session.townError = false;
+  request.session.postcodeError = false;
+  request.session.phoneError = false;
+  request.session.emailError = false;
   // Clean up the user's input before we store it in the session.
   const cleanForm = cleanInput(request.body);
   request.session.fullName = cleanForm.fullName;
