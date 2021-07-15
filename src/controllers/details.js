@@ -1,4 +1,5 @@
 import {ReturnState} from './_base.js';
+import utils from 'naturescot-utils';
 
 /**
  * Clean the incoming POST request body to make it more compatible with the
@@ -25,6 +26,13 @@ const cleanInput = (body) => {
 };
 
 const detailsController = (request) => {
+  // Clear errors.
+  request.session.nameError = false;
+  request.session.addressError = false;
+  request.session.townError = false;
+  request.session.postcodeError = false;
+  request.session.phoneError = false;
+  request.session.emailError = false;
   // Clean up the user's input before we store it in the session.
   const cleanForm = cleanInput(request.body);
   request.session.fullName = cleanForm.fullName;
@@ -42,13 +50,11 @@ const detailsController = (request) => {
     request.session.addressLine1 === undefined || request.session.addressLine1.trim() === '';
   request.session.townError = request.session.addressTown === undefined || request.session.addressTown.trim() === '';
 
-  // The shortest UK postcode is 'N19GU'.
-  // The longest should be something like 'IV30 6GR', but we're not going to
-  // check for too much data at this time.
+  // Call natureScot utils to check validity of postcode
   request.session.postcodeError =
-    request.session.addressPostcode === undefined ||
-    request.session.addressPostcode.trim() === '' ||
-    request.session.addressPostcode.trim().length < 5;
+    request.session.addressPostcode === undefined
+      ? true
+      : !utils.postalAddress.isaRealUkPostcode(request.session.addressPostcode);
 
   // The smallest, non-local, non-shortcode UK phone number is '08001111'.
   // The longest could be something like 	'+44 (01234) 567 890', but we're not
@@ -58,11 +64,15 @@ const detailsController = (request) => {
     request.session.phoneNumber.trim() === '' ||
     request.session.phoneNumber.trim().length < 8;
 
-  request.session.emailError =
-    request.session.emailAddress === undefined ||
-    request.session.emailAddress.trim() === '' ||
-    request.session.emailAddress.trim().includes(' ') ||
-    !request.session.emailAddress.includes('@');
+  if (request.session.emailAddress === undefined) {
+    request.session.emailError = true;
+  } else {
+    try {
+      utils.recipients.validateEmailAddress(request.session.emailAddress);
+    } catch {
+      request.session.emailError = true;
+    }
+  }
 
   // Check that any of the fields are invalid.
   request.session.detailsError =
