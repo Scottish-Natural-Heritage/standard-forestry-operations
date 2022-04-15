@@ -22,8 +22,8 @@
     "cy:open": "cypress open"
   },
   "engines": {
-    "node": "12.14.1",
-    "npm": "6.13.4"
+    "node": "16.14.2",
+    "npm": "8.5.0"
   },
   "dependencies": {
     "axios": "^0.19.2",
