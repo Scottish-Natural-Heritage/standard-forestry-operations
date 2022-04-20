@@ -1,0 +1,18 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">
+    Before You Start
+  </h1>
+
+  <form method="post">
+    {{ govukButton({
+      text: "Continue",
+      classes: "naturescot-forward-button"
+    }) }}
+  </form>
+
+
+{% endblock %}
