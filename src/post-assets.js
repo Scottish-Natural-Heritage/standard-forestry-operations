@@ -5,6 +5,9 @@ import Jimp from 'jimp';
 /**
  * Create a 'small' version of the NatureScot logo as a favicon or for when
  * someone bookmarks the page or saves it to their smartphone's home screen.
+ *
+ * @param {any} fileName The file name of the logo file.
+ * @param {any} size The size of the logo file.
  */
 const buildIcon = async (fileName, size) => {
   const orig = await Jimp.read(fileName);
@@ -18,6 +21,8 @@ const buildIcon = async (fileName, size) => {
 /**
  * Create a padded version of the NatureScot logo for when someone shares the
  * page on facebook, twitter, whatsapp, imessage, etc.
+ *
+ * @param {any} fileName The file name of the logo file.
  */
 const buildSocial = async (fileName) => {
   const orig = await Jimp.read(fileName);

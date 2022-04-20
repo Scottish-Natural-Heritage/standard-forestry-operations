@@ -13,4 +13,17 @@
       classes: "naturescot-forward-button"
     }) }}
   </form>
+
+  <form method="post">
+    <input type="hidden" name="address" value="0">
+
+    {{ govukButton({
+      text: "Address not found",
+      classes: "govuk-button--secondary",
+      name:"addressFound",
+      value:"no",
+      preventDoubleClick: true
+    }) }}
+  </form>
+
 {% endblock %}
