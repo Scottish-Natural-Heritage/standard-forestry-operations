@@ -3,14 +3,12 @@ import config from '../config.js';
 import {ReturnState} from './_base.js';
 
 const confirmController = async (request) => {
-
   if (request.body.declaration !== undefined && request.body.declaration === 'yes') {
     // Then we don't have any errors. This clears any previous errors.
     request.session.declarationError = false;
     // Save the agreement to comply.
     request.session.declaration = true;
     // Follow the 'happy path'.
-
 
     try {
       // Allocate a new application.
@@ -53,14 +51,12 @@ const confirmController = async (request) => {
     }
   }
 
-
   // The user submitted the form without selecting an option, this is an error!
   request.session.declarationError = true;
   // Unset any saved value.
   request.session.declaration = false;
   // Reload the page to highlight errors.
   return ReturnState.Error;
-
 };
 
 export {confirmController as default};
