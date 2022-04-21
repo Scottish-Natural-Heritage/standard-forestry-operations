@@ -13,30 +13,14 @@ describe('Details page ', function () {
     // POST `/start`
     cy.get('#main-content form button.naturescot-forward-button').click();
 
-    // ~GET `/gdpr`~
-    // POST `/gdpr`
-    cy.get('#main-content form button.naturescot-forward-button').click();
-
-    // ~GET `/other`~
-    // CLICK self
-    cy.get('#main-content form input[type="radio"][value="self"]').click();
-    // POST `/other`
+    // ~GET `/before-you-start``~
+    // POST `/before-you-start``
     cy.get('#main-content form button.naturescot-forward-button').click();
 
     // ~GET `/conviction`~
     // CLICK no
     cy.get('#main-content form input[type="radio"][value="no"]').click();
     // POST `/conviction`
-    cy.get('#main-content form button.naturescot-forward-button').click();
-
-    // ~GET `/eligible`~
-    // POST `/eligible`
-    cy.get('#main-content form button.naturescot-forward-button').click();
-
-    // ~GET `/comply`~
-    // CLICK yes
-    cy.get('#main-content form input[type="checkbox"]#comply').click();
-    // POST `/comply`
     cy.get('#main-content form button.naturescot-forward-button').click();
   });
 
@@ -72,6 +56,6 @@ describe('Details page ', function () {
 
     cy.get('#main-content form button.naturescot-forward-button').click();
 
-    cy.url().should('include', '/site-location');
+    cy.url().should('include', '/postcode');
   });
 });

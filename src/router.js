@@ -4,13 +4,12 @@ const router = express.Router();
 // Import all the controllers.
 import {Page} from './controllers/_base.js';
 import StartController from './controllers/start.js';
-import GdprController from './controllers/gdpr.js';
-import OtherController from './controllers/other.js';
-import OtherEmailController from './controllers/other-email.js';
+import BeforeYouStartController from './controllers/before-you-start.js';
 import ConvictionController from './controllers/conviction.js';
-import EligibleController from './controllers/eligible.js';
-import ComplyController from './controllers/comply.js';
 import DetailsController from './controllers/details.js';
+import PostcodeController from './controllers/postcode.js';
+import ChooseAddressController from './controllers/choose-address.js';
+import ManualAddressController from './controllers/manual-address.js';
 import SiteLocationController from './controllers/site-location.js';
 import SettDetailsController from './controllers/sett-details.js';
 import ConfirmController from './controllers/confirm.js';
@@ -20,50 +19,25 @@ import ConfirmController from './controllers/confirm.js';
 router.use(
   Page({
     path: 'start',
-    positiveForward: 'gdpr',
+    positiveForward: 'before-you-start',
     controller: StartController
   })
 );
 
 router.use(
   Page({
-    path: 'gdpr',
+    path: 'before-you-start',
     back: 'start',
-    positiveForward: 'other',
-    controller: GdprController
-  })
-);
-
-router.use(
-  Page({
-    path: 'other',
-    back: 'gdpr',
     positiveForward: 'conviction',
-    negativeForward: 'other-email',
-    controller: OtherController
-  })
-);
-
-router.use(
-  Page({
-    path: 'other-email',
-    back: 'other',
-    positiveForward: 'other-success',
-    controller: OtherEmailController
-  })
-);
-
-router.use(
-  Page({
-    path: 'other-success'
+    controller: BeforeYouStartController
   })
 );
 
 router.use(
   Page({
     path: 'conviction',
-    back: 'other',
-    positiveForward: 'eligible',
+    back: 'before-you-start',
+    positiveForward: 'details',
     negativeForward: 'conviction-stop',
     controller: ConvictionController
   })
@@ -71,35 +45,45 @@ router.use(
 
 router.use(
   Page({
-    path: 'eligible',
-    back: 'conviction',
-    positiveForward: 'comply',
-    controller: EligibleController
-  })
-);
-
-router.use(
-  Page({
-    path: 'comply',
-    back: 'eligible',
-    positiveForward: 'details',
-    controller: ComplyController
-  })
-);
-
-router.use(
-  Page({
     path: 'details',
-    back: 'comply',
-    positiveForward: 'site-location',
+    back: 'conviction',
+    positiveForward: 'postcode',
     controller: DetailsController
   })
 );
 
 router.use(
   Page({
-    path: 'site-location',
+    path: 'postcode',
     back: 'details',
+    positiveForward: 'choose-address',
+    controller: PostcodeController
+  })
+);
+
+router.use(
+  Page({
+    path: 'choose-address',
+    back: 'postcode',
+    positiveForward: 'site-location',
+    secondaryForward: 'manual-address',
+    controller: ChooseAddressController
+  })
+);
+
+router.use(
+  Page({
+    path: 'manual-address',
+    back: 'choose-address',
+    positiveForward: 'site-location',
+    controller: ManualAddressController
+  })
+);
+
+router.use(
+  Page({
+    path: 'site-location',
+    back: 'choose-address',
     secondaryForward: 'sett-details',
     positiveForward: 'confirm',
     controller: SiteLocationController
