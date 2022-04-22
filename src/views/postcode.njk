@@ -1,17 +1,27 @@
 {% extends "_base.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
 
 {% block content %}
+
+<div class="govuk-width-container ">
   <h1 class="govuk-heading-xl">
-    Postcode
+    What is your postcode?
   </h1>
 
   <form method="post">
+
+    {{ govukInput({
+      id: "postcode",
+      name: "postcode"
+    }) }}
+
     {{ govukButton({
       text: "Continue",
       classes: "naturescot-forward-button"
     }) }}
   </form>
-
+</div>
 {% endblock %}
