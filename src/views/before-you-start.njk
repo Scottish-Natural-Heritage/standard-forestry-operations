@@ -1,18 +1,40 @@
 {% extends "_base.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% block content %}
-  <h1 class="govuk-heading-xl">
-    Before You Start
-  </h1>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">
+          Before You Start
+        </h1>
 
-  <form method="post">
-    {{ govukButton({
-      text: "Continue",
-      classes: "naturescot-forward-button"
-    }) }}
-  </form>
+        <!-- The page content -->
+        <p class="govuk-body">To complete this application you will need to provide:</p>
+
+        <!-- Add a list  -->
+        <ul class="govuk-list govuk-list--bullet">
+          <li>an 8 or 10 digit grid reference</li>
+          <li>the number of entrances for each sett</li>
+        </ul>
+
+        <p class="govuk-body">Completing this application should take less than 10 mins.</p>
+
+        {{ govukWarningText({
+          text: "Make sure you have the necessary information to hand before you start your application — you will not be able to save and return to it at a later date.",
+          iconFallbackText: "Warning"
+        }) }}
+
+        <form method="post">
+          {{ govukButton({
+            text: "Start now",
+            classes: "naturescot-forward-button",
+            isStartButton: true
+          }) }}
+        </form>
+  </div>
+</div>
 
 
 {% endblock %}
