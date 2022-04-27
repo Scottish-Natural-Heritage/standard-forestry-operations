@@ -1,0 +1,129 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% set postcodeErrors %}
+  {% if model.postcodeError %}
+    <p>Enter the postcode</p>
+  {% elif model.invalidPostcodeError %}
+    <p>Enter a valid postcode</p>
+  {% endif %}
+{% endset -%}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">
+    What is your address?
+  </h1>
+
+  {% if model.addressError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Enter the building and street",
+          href: "#addressLine1"
+        } if model.addressLine1Error,
+        {
+          text: "Enter the town or city",
+          href: "#addressTown"
+        } if model.addressTownError,
+        {
+          text: "Enter the county",
+          href: "#addressCounty"
+        } if model.addressCountyError,
+        {
+          text: "Enter the postcode",
+          href: "#postcode"
+        } if model.postcodeError,
+        {
+          text: "Enter a valid postcode",
+          href: "#postcode"
+        } if model.invalidPostcodeError
+      ]
+    })}}
+  {% endif %}
+
+  <form method="post">
+
+  {{ govukInput({
+      label: {
+        text: "Building and street"
+      },
+      id: "addressLine1",
+      name: "addressLine1",
+      classes: "govuk-!-width-two-thirds",
+      value: model.addressLine1,
+      spellcheck: false,
+      autocomplete: "address-line1",
+      errorMessage: {
+        text: "Enter the building and street"
+      } if model.addressLine1Error
+    }) }}
+
+    {{ govukInput({
+      id: "addressLine2",
+      name: "addressLine2",
+      classes: "govuk-!-width-two-thirds",
+      label: {
+        html: '<span class="govuk-visually-hidden">Building and street line 2</span>'
+      },
+      value: model.addressLine2,
+      spellcheck: false,
+      autocomplete: "address-line2"
+    }) }}
+
+    {{ govukInput({
+      label: {
+        text: "Town or city"
+      },
+      id: "addressTown",
+      name: "addressTown",
+      classes: "govuk-!-width-one-half",
+      value: model.addressTown,
+      spellcheck: false,
+      autocomplete: "address-level2",
+      errorMessage: {
+        text: "Enter the town or city"
+      } if model.addressTownError
+    }) }}
+
+    {{ govukInput({
+      label: {
+        text: "County"
+      },
+      id: "addressCounty",
+      name: "addressCounty",
+      classes: "govuk-!-width-one-half",
+      value: model.addressCounty,
+      spellcheck: false,
+      autocomplete: "address-level1",
+      errorMessage: {
+        text: "Enter the county"
+      } if model.addressCountyError
+    }) }}
+
+    {{ govukInput({
+      label: {
+        text: "Postcode"
+      },
+      id: "postcode",
+      name: "addressPostcode",
+      classes: "govuk-!-width-one-quarter",
+      value: model.addressPostcode,
+      spellcheck: false,
+      autocomplete: "postal-code",
+      errorMessage: {
+        html: postcodeErrors
+      } if model.postcodeError or model.invalidPostcodeError
+    }) }}
+
+
+    {{ govukButton({
+      text: "Continue",
+      classes: "naturescot-forward-button"
+    }) }}
+  </form>
+
+{% endblock %}

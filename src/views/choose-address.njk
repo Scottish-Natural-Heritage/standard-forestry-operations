@@ -1,0 +1,29 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">
+    Choose your address
+  </h1>
+
+  <form method="post">
+    {{ govukButton({
+      text: "Continue",
+      classes: "naturescot-forward-button"
+    }) }}
+  </form>
+
+  <form method="post">
+    <input type="hidden" name="address" value="0">
+
+    {{ govukButton({
+      text: "Address not found",
+      classes: "govuk-button--secondary",
+      name:"addressFound",
+      value:"no",
+      preventDoubleClick: true
+    }) }}
+  </form>
+
+{% endblock %}

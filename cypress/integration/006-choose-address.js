@@ -1,11 +1,11 @@
-describe('Confirm page directly', function () {
+describe('Choose address page directly', function () {
   it('should prevent access', function () {
-    cy.visit('/confirm', {failOnStatusCode: false});
+    cy.visit('/choose-address', {failOnStatusCode: false});
     cy.get('h1').should('contain', 'there is a problem with the service');
   });
 });
 
-describe('Confirm page ', function () {
+describe('choose address page', function () {
   beforeEach(() => {
     // GET `/start`
     cy.visit('/start');
@@ -33,27 +33,22 @@ describe('Confirm page ', function () {
     // POST `/postcode`
     cy.get('#main-content form button.naturescot-forward-button').click();
     // ~GET `/choose-address`~
-    // POST `/choose-address`
-    cy.get('#main-content form button.naturescot-forward-button').click();
-    // ~GET `/site-location`~
-    // POST add to `/site-location`
-    cy.get('#main-content form button.naturescot-button--add').click();
-
-    // ~GET `/sett-details`~
-    // FILL the form
-    cy.get('input[type="text"]#current-sett-id').type('ABC123', {delay: 1});
-    cy.get('input[type="text"]#current-grid-reference').type('NH60004000', {delay: 1});
-    cy.get('input[type="text"]#current-entrances').type('3', {delay: 1});
-    // POST `/sett-details`
-    cy.get('#main-content form button.naturescot-forward-button').click();
-
-    // ~GET `/site-location`~
-    // POST continue to `/site-location`
-    cy.get('#main-content form button.naturescot-forward-button').click();
   });
 
   it('should allow access if the user visits all the pages in order', function () {
-    cy.visit('/confirm');
-    cy.get('h1').should('contain', 'answers before sending');
+    cy.visit('/choose-address');
+    cy.get('h1').should('contain', 'Choose your address');
+  });
+
+  it('main button should navigate to manual address page', function () {
+    cy.visit('/choose-address');
+    cy.get('#main-content form button.govuk-button--secondary').click();
+    cy.url().should('include', '/manual-address');
+  });
+
+  it('main button should navigate to site location page', function () {
+    cy.visit('/choose-address');
+    cy.get('#main-content form button.naturescot-forward-button').click();
+    cy.url().should('include', '/site-location');
   });
 });
