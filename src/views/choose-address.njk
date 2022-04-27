@@ -1,6 +1,7 @@
 {% extends "_base.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
 
 {% block content %}
   <h1 class="govuk-heading-xl">
@@ -8,6 +9,17 @@
   </h1>
 
   <form method="post">
+
+    {{ govukSelect({
+      id: "address",
+      name: "address",
+      classes: "govuk-!-width-full",
+      label: {
+        text: "Address"
+      },
+      items: uprnAddresses
+    }) }}
+
     {{ govukButton({
       text: "Continue",
       classes: "naturescot-forward-button"
