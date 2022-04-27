@@ -29,10 +29,8 @@ const manualAddressController = (request) => {
   request.session.addressCountyError = false;
   request.session.postcodeError = false;
   request.session.invalidPostcodeError = false;
-  console.log(request.body);
   // Clean up the user's input before we store it in the session.
   const cleanForm = cleanInput(request.body);
-  console.log(cleanForm);
   request.session.addressLine1 = cleanForm.addressLine1;
   request.session.addressLine2 = cleanForm.addressLine2;
   request.session.addressTown = cleanForm.addressTown;
