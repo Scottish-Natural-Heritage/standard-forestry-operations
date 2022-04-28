@@ -1,5 +1,5 @@
 import express from 'express';
-
+import axios from 'axios';
 import config from '../config.js';
 
 /**
@@ -67,6 +67,39 @@ const guardAllows = (session, options) => {
 };
 
 /**
+ * Find addresses by postcode.
+ *
+ * @param {string} postcode The postcode to find addresses by.
+ */
+const findAddressesByPostcode = async (postcode) =>  {
+  // Lookup the postcode in our Gazetteer API.
+  const apiResponse = await axios.get(config.gazetteerApiEndpoint, {
+    params: {
+      postcode,
+    },
+    headers: {
+      Authorization: `Bearer ${config.gazetteerApiKey}`,
+    },
+    timeout: 10_000,
+  });
+
+  // Grab just the json payload.
+  const apiData = apiResponse.data;
+
+  // A single string in the array rather than an array of objects indicates an
+  // error where no addresses have been found.
+  if (apiData.metadata.count === 0 || (apiData.results.length === 1 && typeof apiData.results[0] === 'string')) {
+    throw new Error('No matching addresses found.');
+  }
+
+  // Treat the json blob as a typed response.
+  const gazetteerResponse = apiData;
+
+  // Dig out the right array from the returned json blob.
+  return gazetteerResponse.results[0].address;
+};
+
+/**
  * Render this page and send it to the user.
  *
  * @param {Request} request An express Request object.
@@ -76,7 +109,29 @@ const guardAllows = (session, options) => {
  * @param {string} options.path The path to this page.
  * @param {string} [options.back] The path to the previous page.
  */
-const renderPage = (request, response, options) => {
+const renderPage = async (request, response, options) => {
+  request.session.postcode = 'IV12 5LE'; // Temporary hard-coded postcode
+  if (options.path === 'choose-address' && request.session.postcode) {
+    try {
+      let gazetteerAddresses = await findAddressesByPostcode(postcode);
+      console.log("gazetteer address"+gazetteerAddresses);
+
+      request.session.uprnAddresses = gazetteerAddresses.map((address) => {
+        return {
+          value: address.uprn,
+          text: address.summary_address,
+          selected: address.uprn === model.uprn,
+        };
+      });
+      console.log("uprn gazetteer"+request.session.uprnAddresses);
+    } catch {
+      request.session.uprnAddresses = [{value: 0, text: 'No addresses found.', selected: true}];
+    }
+
+  // Return our extended ChooseAddressViewModel.
+  //return chooseAddressViewModel;
+  }
+
   if (guardAllows(request.session, options)) {
     saveVisitedPage(request.session, options.path);
     response.render(`${options.path}.njk`, {
@@ -87,6 +142,8 @@ const renderPage = (request, response, options) => {
     });
     return;
   }
+
+
 
   // Handle un-session-ed accesses to '/success' a little differently. The
   // user may have bookmarked this page, thinking they could see their

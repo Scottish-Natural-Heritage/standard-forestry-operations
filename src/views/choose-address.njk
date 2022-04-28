@@ -17,12 +17,13 @@
       label: {
         text: "Address"
       },
-      items: uprnAddresses
+      items: model.uprnAddresses
     }) }}
 
     {{ govukButton({
       text: "Continue",
-      classes: "naturescot-forward-button"
+      classes: "naturescot-forward-button",
+      isStartButton: true
     }) }}
   </form>
 
