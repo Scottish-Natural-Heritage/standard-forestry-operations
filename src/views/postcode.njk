@@ -3,16 +3,31 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
+{% set postcodeErrorMessage %}
+  {% if model.emptyPostcodeError %}
+    Enter a postcode
+  {% elif model.invalidPostcodeError %}
+    Enter a valid postcode
+  {% else %}
+    {# Blank. Not an error. #}
+  {% endif %}
+{% endset -%}
 
 {% block content %}
 
 {% if model.postcodeError %}
     {{ govukErrorSummary({
       titleText: "There is a problem",
-      errorList: [{
+      errorList: [
+      {
+        text: "Please enter a postcode.",
+        href: "#addressPostcode-error"
+      } if model.emptyPostcodeError,
+      {
         text: "Please enter a valid postcode.",
         href: "#addressPostcode-error"
-      }]
+      } if model.invalidPostcodeError
+      ]
     }) }}
   {% endif %}
 
@@ -28,9 +43,8 @@
       name: "addressPostcode",
       value: model.addressPostcode,
       errorMessage: {
-        text: "Enter a valid postcode"
+        text: postcodeErrorMessage
       } if model.postcodeError
-
     }) }}
 
     {{ govukButton({
