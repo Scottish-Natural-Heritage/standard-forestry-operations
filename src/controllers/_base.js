@@ -72,8 +72,11 @@ const guardAllows = (session, options) => {
  * @param {string} postcode The postcode to find addresses by.
  */
 const findAddressesByPostcode = async (postcode) =>  {
+  let apiResponse;
+
+  try{
   // Lookup the postcode in our Gazetteer API.
-  const apiResponse = await axios.get(config.gazetteerApiEndpoint, {
+  apiResponse = await axios.get(config.gazetteerApiEndpoint, {
     params: {
       postcode,
     },
@@ -82,6 +85,9 @@ const findAddressesByPostcode = async (postcode) =>  {
     },
     timeout: 10_000,
   });
+ } catch (error) {
+   console.log(error);
+ };
 
   // Grab just the json payload.
   const apiData = apiResponse.data;
@@ -113,23 +119,24 @@ const renderPage = async (request, response, options) => {
   request.session.postcode = 'IV12 5LE'; // Temporary hard-coded postcode
   if (options.path === 'choose-address' && request.session.postcode) {
     try {
-      let gazetteerAddresses = await findAddressesByPostcode(postcode);
-      console.log("gazetteer address"+gazetteerAddresses);
+      let gazetteerAddresses = await findAddressesByPostcode(request.session.postcode);
+
+      request.session.uprnAddresses = [];
 
       request.session.uprnAddresses = gazetteerAddresses.map((address) => {
         return {
           value: address.uprn,
           text: address.summary_address,
-          selected: address.uprn === model.uprn,
+          selected: address.uprn === request.session.uprn ? request.session.uprn : undefined,
         };
       });
-      console.log("uprn gazetteer"+request.session.uprnAddresses);
-    } catch {
+    } catch (error){
+      console.log(error);
       request.session.uprnAddresses = [{value: 0, text: 'No addresses found.', selected: true}];
     }
 
   // Return our extended ChooseAddressViewModel.
-  //return chooseAddressViewModel;
+  //return request.session.uprnAddresses;
   }
 
   if (guardAllows(request.session, options)) {
