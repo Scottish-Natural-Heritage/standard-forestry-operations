@@ -5,16 +5,16 @@ import utils from 'naturescot-utils';
  * Clean the incoming postcode to make it more compatible with the
  * database and its validation rules.
  *
- * @param {any} body the incoming request's body
- * @returns {any} a json object that's just got our cleaned up postcode in it
+ * @param {any} body The incoming request's body.
+ * @returns {any} A json object that's just got our cleaned up postcode in it.
  */
-const cleanInput = (body) =>{
-  return{
-  addressPostcode: body.addressPostcode === undefined ? undefined : body.addressPostcode.trim()
+const cleanInput = (body) => {
+  return {
+    addressPostcode: body.addressPostcode === undefined ? undefined : body.addressPostcode.trim()
   };
 };
 
-const postcodeController = () => {
+const postcodeController = (request) => {
   // Clear errors.
   request.session.postcodeError = false;
   request.session.invalidPostcodeError = false;
@@ -23,7 +23,8 @@ const postcodeController = () => {
   const cleanForm = cleanInput(request.body);
   request.session.addressPostcode = cleanForm.addressPostcode;
 
-  request.session.emptyPostcodeError = request.session.addressPostcode === undefined || request.session.addressPostcode.trim() === '';
+  request.session.emptyPostcodeError =
+    request.session.addressPostcode === undefined || request.session.addressPostcode.trim() === '';
 
   // Call natureScot utils to check validity of postcode
   request.session.invalidPostcodeError = !utils.postalAddress.isaRealUkPostcode(request.session.addressPostcode);
