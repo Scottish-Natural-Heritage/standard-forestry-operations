@@ -37,21 +37,21 @@ describe('Postcode page', function () {
     cy.get('h1').should('contain', 'What is your postcode?');
   });
 
-  it("throws error after a blank submission", () => {
+  it('throws error after a blank submission', () => {
     cy.get('button.govuk-button').click();
     cy.get('h1').contains('postcode', {matchCase: false});
     cy.get('.govuk-error-summary__title').contains('problem', {matchCase: false});
   });
 
-  it("throws error after an invalid submission", () => {
-    cy.get('input[type=text][name=postcode]').type('XM4');
+  it('throws error after an invalid submission', () => {
+    cy.get('input[type=text][name=addressPostcode]').type('XM4');
     cy.get('button.govuk-button').click();
     cy.get('h1').contains('postcode', {matchCase: false});
     cy.get('.govuk-error-summary__title').contains('problem', {matchCase: false});
   });
 
   it('takes us to choose-address after a successful form submission', () => {
-    cy.get('input[type=text][name=postcode]').type('IV3 8NW');
+    cy.get('input[type=text][name=addressPostcode]').type('IV3 8NW');
     cy.get('button.govuk-button').click();
     cy.get('h1').contains('choose', {matchCase: false});
     cy.get('h1').contains('address', {matchCase: false});

@@ -31,6 +31,7 @@ describe('choose address page', function () {
     cy.get('#main-content form button.naturescot-forward-button').click();
     // ~GET `/postcode`~
     // POST `/postcode`
+    cy.get('input[type=text][name=addressPostcode]').type('IV3 8NW');
     cy.get('#main-content form button.naturescot-forward-button').click();
     // ~GET `/choose-address`~
     // POST `/choose-address`
