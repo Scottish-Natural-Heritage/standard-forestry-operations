@@ -17,23 +17,25 @@ const confirmController = async (request) => {
       addressPostcode: request.session.addressPostcode,
       phoneNumber: request.session.phoneNumber,
       emailAddress: request.session.emailAddress,
-      setts: request.session.setts,
+      setts: request.session.setts
     };
 
     // Send the back-end our application.
     const newAppResponse = await axios.post(config.apiEndpoint + '/applications', newApp);
 
     // Get the application number from the response's location header.
-    const applicationId = newAppResponse.headers.location.substr(newAppResponse.headers.location.lastIndexOf('/') + 1);
+    const appNo = newAppResponse.headers.location.slice(newAppResponse.headers.location.lastIndexOf('/') + 1);
 
     // Pad with leading zeroes as required.
-    const appId = applicationId.padStart(5, applicationId);
+    const appId = appNo.padStart(5, appNo);
 
     // Get the application ID from the location in the response.
     request.session.licenceNo = `NS-SFO-${appId}`;
 
     // If the month is December add 1 year to the expiry date.
-    request.session.expiryDate = `30/11/${new Date().getMonth() === 11 ? new Date().getFullYear() + 1 : new Date().getFullYear()}`
+    request.session.expiryDate = `30/11/${
+      new Date().getMonth() === 11 ? new Date().getFullYear() + 1 : new Date().getFullYear()
+    }`;
 
     // Let them know it all went well.
     return ReturnState.Positive;
