@@ -71,23 +71,23 @@ const guardAllows = (session, options) => {
  *
  * @param {string} postcode The postcode to find addresses by.
  */
-const findAddressesByPostcode = async (postcode) =>  {
+const findAddressesByPostcode = async (postcode) => {
   let apiResponse;
 
-  try{
-  // Lookup the postcode in our Gazetteer API.
-  apiResponse = await axios.get(config.gazetteerApiEndpoint, {
-    params: {
-      postcode,
-    },
-    headers: {
-      Authorization: `Bearer ${config.gazetteerApiKey}`,
-    },
-    timeout: 10_000,
-  });
- } catch (error) {
-   console.log(error);
- };
+  try {
+    // Lookup the postcode in our Gazetteer API.
+    apiResponse = await axios.get(config.gazetteerApiEndpoint, {
+      params: {
+        postcode
+      },
+      headers: {
+        Authorization: `Bearer ${config.gazetteerApiKey}`
+      },
+      timeout: 10_000
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
   // Grab just the json payload.
   const apiData = apiResponse.data;
@@ -119,7 +119,7 @@ const renderPage = async (request, response, options) => {
   request.session.postcode = 'IV12 5LE'; // Temporary hard-coded postcode
   if (options.path === 'choose-address' && request.session.postcode) {
     try {
-      let gazetteerAddresses = await findAddressesByPostcode(request.session.postcode);
+      const gazetteerAddresses = await findAddressesByPostcode(request.session.postcode);
 
       request.session.uprnAddresses = [];
 
@@ -127,16 +127,13 @@ const renderPage = async (request, response, options) => {
         return {
           value: address.uprn,
           text: address.summary_address,
-          selected: address.uprn === request.session.uprn ? request.session.uprn : undefined,
+          selected: address.uprn === request.session.uprn ? request.session.uprn : undefined
         };
       });
-    } catch (error){
+    } catch (error) {
       console.log(error);
       request.session.uprnAddresses = [{value: 0, text: 'No addresses found.', selected: true}];
     }
-
-  // Return our extended ChooseAddressViewModel.
-  //return request.session.uprnAddresses;
   }
 
   if (guardAllows(request.session, options)) {
@@ -149,8 +146,6 @@ const renderPage = async (request, response, options) => {
     });
     return;
   }
-
-
 
   // Handle un-session-ed accesses to '/success' a little differently. The
   // user may have bookmarked this page, thinking they could see their

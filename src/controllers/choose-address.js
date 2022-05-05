@@ -1,28 +1,30 @@
 import {ReturnState} from './_base.js';
+import axios from 'axios';
+import config from '../config.js';
 
 /**
  * Find addresses by postcode.
  *
  * @param {number} uprn The UPRN to find addresses by.
  */
-const findFullAddressesByUprn = async (uprn) =>  {
+const findFullAddressesByUprn = async (uprn) => {
   let apiResponse;
 
-  try{
-  // Lookup the postcode in our Gazetteer API.
-  apiResponse = await axios.get(config.gazetteerApiEndpoint, {
-    params: {
-      uprn,
-      fieldset: 'all',
-    },
-    headers: {
-      Authorization: `Bearer ${config.gazetteerApiKey}`,
-    },
-    timeout: 10_000,
-  });
- } catch (error) {
-   console.log(error);
- };
+  try {
+    // Lookup the postcode in our Gazetteer API.
+    apiResponse = await axios.get(config.gazetteerApiEndpoint, {
+      params: {
+        uprn,
+        fieldset: 'all'
+      },
+      headers: {
+        Authorization: `Bearer ${config.gazetteerApiKey}`
+      },
+      timeout: 10_000
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
   // Grab just the json payload.
   const apiData = apiResponse.data;
@@ -40,9 +42,8 @@ const findFullAddressesByUprn = async (uprn) =>  {
   return gazetteerResponse.results[0].address;
 };
 
-
 const chooseAddressController = async (request) => {
-  try{
+  try {
     // Get full address uprn
     const gazetteerAddresses = await findFullAddressesByUprn(request.session.uprn ?? 0);
 
@@ -63,7 +64,6 @@ const chooseAddressController = async (request) => {
     request.session.uprnAddress.addressLine2 = gazetteerAddresses[0].street_description;
     request.session.uprnAddress.addressTown = gazetteerAddresses[0].post_town;
     request.session.uprnAddress.addressCounty = gazetteerAddresses[0].administrative_area;
-
   } catch (error) {
     console.log(error);
   }
@@ -73,6 +73,7 @@ const chooseAddressController = async (request) => {
     // Go down the 'SecondaryForward' path.
     return ReturnState.Secondary;
   }
+
   // Much like the start page, the only way out of the choose address page is onwards,
   // so return success and continue the form.
   return ReturnState.Positive;
