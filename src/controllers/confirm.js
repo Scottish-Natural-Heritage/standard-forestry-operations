@@ -4,12 +4,6 @@ import {ReturnState} from './_base.js';
 
 const confirmController = async (request) => {
   try {
-    // Allocate a new application.
-    const newAppResponse = await axios.post(config.apiEndpoint + '/applications');
-
-    // Determine where the back-end's saved it.
-    const newAppUrl = newAppResponse.headers.location;
-
     // Get our application object ready for submission.
     const newApp = {
       convictions: request.session.conviction,
@@ -23,15 +17,23 @@ const confirmController = async (request) => {
       addressPostcode: request.session.addressPostcode,
       phoneNumber: request.session.phoneNumber,
       emailAddress: request.session.emailAddress,
-      setts: request.session.setts
+      setts: request.session.setts,
     };
 
     // Send the back-end our application.
-    const updatedAppResponse = await axios.put(newAppUrl, newApp);
+    const newAppResponse = await axios.post(config.apiEndpoint + '/applications', newApp);
 
-    // Save the licence details from the successful application.
-    request.session.licenceNo = `NS-SFO-${updatedAppResponse.data.id}`;
-    request.session.expiryDate = `30/11/${new Date().getFullYear()}`;
+    // Get the application number from the response's location header.
+    const applicationId = newAppResponse.headers.location.substr(newAppResponse.headers.location.lastIndexOf('/') + 1);
+
+    // Pad with leading zeroes as required.
+    const appId = applicationId.padStart(5, applicationId);
+
+    // Get the application ID from the location in the response.
+    request.session.licenceNo = `NS-SFO-${appId}`;
+
+    // If the month is December add 1 year to the expiry date.
+    request.session.expiryDate = `30/11/${new Date().getMonth() === 11 ? new Date().getFullYear() + 1 : new Date().getFullYear()}`
 
     // Let them know it all went well.
     return ReturnState.Positive;
