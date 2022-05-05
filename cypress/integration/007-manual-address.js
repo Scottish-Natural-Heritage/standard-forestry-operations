@@ -54,12 +54,12 @@ describe('choose address page', function () {
     cy.get('.govuk-error-summary ul li a')
       .should('contain', 'Enter the building and street')
       .and('contain', 'Enter the town or city')
-      .and('contain', 'Enter the county')
+      .and('contain', 'Enter the county');
 
     cy.get('form .govuk-form-group--error')
       .and('contain', 'Enter the building and street')
       .and('contain', 'Enter the town or city')
-      .and('contain', 'Enter the county')
+      .and('contain', 'Enter the county');
   });
 
   it('filled-out entries + main button should navigate to site location page', function () {
