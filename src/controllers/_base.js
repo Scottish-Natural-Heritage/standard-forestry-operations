@@ -1,5 +1,5 @@
 import express from 'express';
-import axios from 'axios';
+import Gazetteer from '../utils/gazetteer.js';
 import config from '../config.js';
 
 /**
@@ -66,44 +66,6 @@ const guardAllows = (session, options) => {
   return session.visitedPages.includes(options.back);
 };
 
-/**
- * Find addresses by postcode.
- *
- * @param {string} postcode The postcode to find addresses by.
- */
-const findAddressesByPostcode = async (postcode) => {
-  let apiResponse;
-
-  try {
-    // Lookup the postcode in our Gazetteer API.
-    apiResponse = await axios.get(config.gazetteerApiEndpoint, {
-      params: {
-        postcode
-      },
-      headers: {
-        Authorization: `Bearer ${config.gazetteerApiKey}`
-      },
-      timeout: 10_000
-    });
-  } catch (error) {
-    console.log(error);
-  }
-
-  // Grab just the json payload.
-  const apiData = apiResponse.data;
-
-  // A single string in the array rather than an array of objects indicates an
-  // error where no addresses have been found.
-  if (apiData.metadata.count === 0 || (apiData.results.length === 1 && typeof apiData.results[0] === 'string')) {
-    throw new Error('No matching addresses found.');
-  }
-
-  // Treat the json blob as a typed response.
-  const gazetteerResponse = apiData;
-
-  // Dig out the right array from the returned json blob.
-  return gazetteerResponse.results[0].address;
-};
 
 /**
  * Render this page and send it to the user.
@@ -119,7 +81,7 @@ const renderPage = async (request, response, options) => {
   request.session.postcode = 'IV12 5LE'; // Temporary hard-coded postcode
   if (options.path === 'choose-address' && request.session.postcode) {
     try {
-      const gazetteerAddresses = await findAddressesByPostcode(request.session.postcode);
+      const gazetteerAddresses = await Gazetteer.findAddressesByPostcode(request.session.postcode);
 
       request.session.uprnAddresses = [];
 
