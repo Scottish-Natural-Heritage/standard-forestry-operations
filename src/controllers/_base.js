@@ -1,5 +1,5 @@
 import express from 'express';
-import Gazetteer from '../utils/gazetteer.js';
+import { findAddressesByPostcode } from '../utils/gazetteer.js';
 import config from '../config.js';
 
 /**
@@ -78,10 +78,13 @@ const guardAllows = (session, options) => {
  * @param {string} [options.back] The path to the previous page.
  */
 const renderPage = async (request, response, options) => {
-  request.session.postcode = 'IV12 5LE'; // Temporary hard-coded postcode
-  if (options.path === 'choose-address' && request.session.postcode) {
+  //request.session.postcode = 'IV12 5LE'; // Temporary hard-coded postcode
+
+  //request.session.addressPostcode;
+
+  if (options.path === 'choose-address' && request.session.addressPostcode) {
     try {
-      const gazetteerAddresses = await Gazetteer.findAddressesByPostcode(request.session.postcode);
+      const gazetteerAddresses = await findAddressesByPostcode(request.session.addressPostcode);
 
       request.session.uprnAddresses = [];
 

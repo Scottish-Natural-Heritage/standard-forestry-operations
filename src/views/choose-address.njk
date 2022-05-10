@@ -21,13 +21,14 @@
     }) }}
 
     {{ govukButton({
-      text: "Continue",
-      classes: "naturescot-forward-button",
-      isStartButton: true
+    text: "Continue",
+    name:"addressFound",
+    value:"yes",
+    preventDoubleClick: true
     }) }}
   </form>
 
-  <form method="post">
+
     <input type="hidden" name="address" value="0">
 
     {{ govukButton({
@@ -37,6 +38,6 @@
       value:"no",
       preventDoubleClick: true
     }) }}
-  </form>
+
 
 {% endblock %}
