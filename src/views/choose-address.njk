@@ -9,28 +9,27 @@
   </h1>
 
   <form method="post">
-
-    {{ govukSelect({
-      id: "address",
-      name: "address",
-      classes: "govuk-!-width-full",
-      label: {
-        text: "Address"
-      },
-      items: model.uprnAddresses
-    }) }}
-
-    {{ govukButton({
-    text: "Continue",
-    name:"addressFound",
-    value:"yes",
-    preventDoubleClick: true
-    }) }}
+      {{ govukSelect({
+        id: "address",
+        name: "address",
+        classes: "govuk-!-width-full",
+        label: {
+          text: "Address"
+        },
+        items: model.uprnAddresses
+      }) }}
+      {{ govukButton({
+      text: "Continue",
+      classes: "naturescot-forward-button",
+      name:"addressFound",
+      value:"yes",
+      preventDoubleClick: true
+      }) }}
   </form>
 
 
+  <form method="post">
     <input type="hidden" name="address" value="0">
-
     {{ govukButton({
       text: "Address not found",
       classes: "govuk-button--secondary",
@@ -38,6 +37,6 @@
       value:"no",
       preventDoubleClick: true
     }) }}
-
+  </form>
 
 {% endblock %}

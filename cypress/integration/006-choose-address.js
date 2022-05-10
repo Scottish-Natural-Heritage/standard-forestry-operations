@@ -49,7 +49,7 @@ describe('choose address page', function () {
 
   it('main button should navigate to site location page', function () {
     cy.visit('/choose-address');
-    cy.get('#main-content form button.naturescot-forward-button').click();
+    cy.get('#main-content form button.naturescot-forward-button').eq(0).click();
     cy.url().should('include', '/site-location');
   });
 });

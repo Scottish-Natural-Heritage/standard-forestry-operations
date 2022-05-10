@@ -80,4 +80,4 @@ const findFullAddressesByUprn = async (uprn) => {
   return gazetteerResponse.results[0].address;
 };
 
-export { findAddressesByPostcode,  findFullAddressesByUprn };
+export {findAddressesByPostcode, findFullAddressesByUprn};

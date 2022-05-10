@@ -1,32 +1,19 @@
 import {ReturnState} from './_base.js';
-import { findFullAddressesByUprn } from '../utils/gazetteer.js';
-import { cleanNonNegativeInteger } from '../utils/form.js';
-import { cleanRadioBoolean } from '../utils/form.js';
-
-
+import {findFullAddressesByUprn} from '../utils/gazetteer.js';
+import {cleanNonNegativeInteger} from '../utils/form.js';
 
 const chooseAddressController = async (request) => {
   // Grab the form as a json object.
-  const formData = request.payload;
+  const formData = request.body;
 
-  if(formData.address) {
-    request.session.uprn = cleanNonNegativeInteger(formData.address);
-  } else {
-    request.session.uprn = 0;
-  }
-
-  // 0 is the value supplied when we get 'No records found.' back from the
-  // gazetteer search.
-  const invalidUprn = request.session.uprn === 0;
-
-  // The 'Address not found' button responds in a form similar to a 'no'
-  // radio-button.
-  const chosenManualAddress = !cleanRadioBoolean(formData.addressFound);
-  //const chosenManualAddress = cleanRadioBoolean(request.session.addressFound);
-
-  // If the visitor could not find their address in the list, take them to the
+  // Do we have a UPRN number? If so save it to the request's session.
+  request.session.uprn = cleanNonNegativeInteger(formData.address ?? undefined);
+  // If we have no UPRN set the boolean so we know where to go next.
+  const invalidUprn = request.session.uprn === 0 || request.session.uprn === undefined;
+  // If the visitor could not find their address in the list, or
+  // they clicked the `Address not found` button, take them to the
   // manual details page.
-  if (invalidUprn || chosenManualAddress) {
+  if (invalidUprn || request.body.addressFound === 'no') {
     return ReturnState.Secondary;
   }
 
@@ -55,16 +42,9 @@ const chooseAddressController = async (request) => {
     console.log(error);
   }
 
-  // Did the user tell us they need to enter a manual address?.
-  if (request.body.addressFound  === 'no') {
-    // Go down the 'SecondaryForward' path.
-    return ReturnState.Secondary;
-  }
-
   // Much like the start page, the only way out of the choose address page is onwards,
   // so return success and continue the form.
   return ReturnState.Positive;
 };
 
 export {chooseAddressController as default};
-
