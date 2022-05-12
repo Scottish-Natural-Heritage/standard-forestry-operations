@@ -33,11 +33,10 @@ const chooseAddressController = async (request) => {
     const addressLine1 = `${subBuildingName} ${organisationName} ${buildingNumber} ${buildingName}`;
 
     // Set and save the address values back to the visitors session.
-    request.session.uprnAddress = {};
-    request.session.uprnAddress.addressLine1 = addressLine1;
-    request.session.uprnAddress.addressLine2 = gazetteerAddresses[0].street_description;
-    request.session.uprnAddress.addressTown = gazetteerAddresses[0].post_town;
-    request.session.uprnAddress.addressCounty = gazetteerAddresses[0].administrative_area;
+    request.session.addressLine1 = addressLine1;
+    request.session.addressLine2 = gazetteerAddresses[0].street_description;
+    request.session.addressTown = gazetteerAddresses[0].post_town;
+    request.session.addressCounty = gazetteerAddresses[0].administrative_area;
   } catch (error) {
     console.log(error);
   }
