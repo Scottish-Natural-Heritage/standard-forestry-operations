@@ -1,3 +1,5 @@
+{% extends "_base.njk" %}
+
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -13,105 +15,110 @@ Standard Forestry Operations
     <h1 class="govuk-heading-l">
       Licence conditions
     </h1>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <p class="govuk-body">
+          This is not a licence. If your application is approved the conditions and notes shown here will form part of your licence.
+        </p>
 
-    <p>
-      This is not a licence. If your application is approved the conditions and notes shown here will form part of your licence.
-    </p>
+        <h2 class="govuk-heading-m">
+          1 – What the licence covers 
+        </h2>
+        <p class="govuk-body">
+          This licence only permits standard forestry operations within 20 metres of the setts and sett entrances as detailed in the permitted activities of this licence.
+        </p>
 
-    <h2 class="govuk-heading-m">
-      1 – What the licence covers 
-    </h2>
-    <p>This licence only permits standard forestry operations within 20 metres of the setts and sett entrances as detailed in the permitted activities of this licence. </p>
+        <h2 class="govuk-heading-m">
+          2 – What you must do
+        </h2>
+        <p class="govuk-body">
+          A copy of this licence must be held on site with other key site documentation.
+        </p>
+        <p class="govuk-body">
+          Protection zones must be set up and clearly marked around each sett extending at least 20 metres from each sett entrance.
+        </p>
+        <p class="govuk-body">
+          You must ensure that no vehicle access, including harvesting machines, is permitted within a protection zone (and therefore within 20 metres of any sett entrance).
+        </p>
+        <p class="govuk-body">
+          All sett entrances within the protection zone should be marked with canes, and preferably numbered.  At the end of each working day all sett entrances and paths must be checked to ensure they are not blocked.
+        </p>
+        <p class="govuk-body">
+          All work within protection zones must be carried out between 9am and 5pm in any one working day.
+        </p>
+        <p class="govuk-body">
+          Trees within protection zones must be felled and extracted by hand (including the use of a chainsaw) or by a harvesting machine operating from outside of the protection zone. Timber must be processed and stacked outside of the protection zone.
+        </p>
+        <p class="govuk-body">
+          At the end of each day, as far as is reasonably possible, brash and other materials arising from the works must be cleared from protection zones by either reaching in with the harvesting machine (from outwith the protection zone) or by hand and stacked outside of protection zones without blocking any badger paths.
+        </p>
+        <p class="govuk-body">
+          All badger paths must be kept clear wherever reasonably possible.
+        </p>
+        <p class="govuk-body">
+          Trees must be felled away from any sett entrances as far as possible and in such a way so as to minimise the risk of tunnels or sett entrances being damaged. All tree-felling must be carried out in accordance with the document entitled: “Forest Practice Guide 9: Forest Operations and Badger Setts” (Forestry Commission, 1995).
+        </p>
+        <p class="govuk-body">
+          Fires are not permitted within 50 metres of any sett entrance.
+        </p>
+        <p class="govuk-body">
+          All reasonable precautions must be taken to ensure that disturbance is kept to a minimum and any works do not damage any part of a badger sett or injure or kill badgers.
+        </p>
 
-    <h2 class="govuk-heading-m">
-      2 – What you must do
-    </h2>
-    <p>
-      A copy of this licence must be held on site with other key site documentation.
-    </p>
-    <p>
-      Protection zones must be set up and clearly marked around each sett extending at least 20 metres from each sett entrance.
-    </p>
-    <p>
-      You must ensure that no vehicle access, including harvesting machines, is permitted within a protection zone (and therefore within 20 metres of any sett entrance).
-    </p>
-    <p>
-      All sett entrances within the protection zone should be marked with canes, and preferably numbered.  At the end of each working day all sett entrances and paths must be checked to ensure they are not blocked.
-    </p>
-    <p>
-      All work within protection zones must be carried out between 9am and 5pm in any one working day.
-    </p>
-    <p>
-      Trees within protection zones must be felled and extracted by hand (including the use of a chainsaw) or by a harvesting machine operating from outside of the protection zone. Timber must be processed and stacked outside of the protection zone.
-    </p>
-    <p>
-      At the end of each day, as far as is reasonably possible, brash and other materials arising from the works must be cleared from protection zones by either reaching in with the harvesting machine (from outwith the protection zone) or by hand and stacked outside of protection zones without blocking any badger paths.
-    </p>
-    <p>
-      All badger paths must be kept clear wherever reasonably possible.
-    </p>
-    <p>
-      Trees must be felled away from any sett entrances as far as possible and in such a way so as to minimise the risk of tunnels or sett entrances being damaged. All tree-felling must be carried out in accordance with the document entitled: “Forest Practice Guide 9: Forest Operations and Badger Setts” (Forestry Commission, 1995).
-    </p>
-    <p>
-      Fires are not permitted within 50 metres of any sett entrance.
-    </p>
-    <p>
-      All reasonable precautions must be taken to ensure that disturbance is kept to a minimum and any works do not damage any part of a badger sett or injure or kill badgers.
-    </p>
+        <h2 class="govuk-heading-m">
+          3 – Recording and reporting requirements 
+        </h2>
+        <p class="govuk-body">
+          You must keep details of actions you or your representative take under this licence throughout the licence period.
+        </p>
+        <p class="govuk-body">
+          You must take and keep for your records two photographs of each sett listed in the permitted activities of this licence. The first should show the sett entrance before works commenced, and a final photograph of the sett entrance after works have been completed. You must submit at least one before and one after photograph (of the same sett entrance) as part of your licence return.
+        </p>
+        <p class="govuk-body">
+          You must record the dates on which the works were undertaken, whether the licence terms and conditions were met and provide these as part of your licence return.
+        </p>
+        <p class="govuk-body">
+          You must provide these details to NatureScot within one month of this licence expiring or otherwise coming to an end. 
+        </p>
 
-    <h2 class="govuk-heading-m">
-      3 – Recording and reporting requirements 
-    </h2>
-    <p>
-      You must keep details of actions you or your representative take under this licence throughout the licence period.
-    </p>
-    <p>
-      You must take and keep for your records two photographs of each sett listed in the permitted activities of this licence. The first should show the sett entrance before works commenced, and a final photograph of the sett entrance after works have been completed. You must submit at least one before and one after photograph (of the same sett entrance) as part of your licence return.
-    </p>
-    <p>
-      You must record the dates on which the works were undertaken, whether the licence terms and conditions were met and provide these as part of your licence return.
-    </p>
-    <p>
-      You must provide these details to NatureScot within one month of this licence expiring or otherwise coming to an end. 
-    </p>
+        <h2 class="govuk-heading-m">
+          4 – General 
+        </h2>
+        <p class="govuk-body">
+          It is your responsibility to ensure you have read and understood the terms and conditions of this licence before carrying out any activities permitted by it.
+        </p>
+        <p class="govuk-body">
+          You may appoint agents to operate under the terms of this licence. You must ensure that all such persons including contractors, sub-contractors, forest workers and machine operatives are briefed on the presence of badgers, locations of setts, the specific requirements of this licence and the conditions of this licence. 
+        </p>
+        <p class="govuk-body">
+          This licence can only be used if all other statutory permissions are in place.
+        </p>
+        <p class="govuk-body">
+          NatureScot reserves the right to accompany any person acting under the authority of this licence. NatureScot may contact you to provide us with information for compliance checking purposes. At least 10 days prior to us conducting a routine compliance check, we will contact you requesting the specific information we require in order to carry out the check. If you wish to appoint a person to be contacted to provide this information and facilitate compliance checks, you can do so, so long as this has been agreed between the you and the appointed person in advance.
+        </p>
 
-    <h2 class="govuk-heading-m">
-      4 – General 
-    </h2>
-    <p>
-      It is your responsibility to ensure you have read and understood the terms and conditions of this licence before carrying out any activities permitted by it.
-    </p>
-    <p>
-      You may appoint agents to operate under the terms of this licence. You must ensure that all such persons including contractors, sub-contractors, forest workers and machine operatives are briefed on the presence of badgers, locations of setts, the specific requirements of this licence and the conditions of this licence. 
-    </p>
-    <p>
-      This licence can only be used if all other statutory permissions are in place.
-    </p>
-    <p>
-      NatureScot reserves the right to accompany any person acting under the authority of this licence. NatureScot may contact you to provide us with information for compliance checking purposes. At least 10 days prior to us conducting a routine compliance check, we will contact you requesting the specific information we require in order to carry out the check. If you wish to appoint a person to be contacted to provide this information and facilitate compliance checks, you can do so, so long as this has been agreed between the you and the appointed person in advance.
-    </p>
-
-    <h3 class="govuk-heading-l">
-      Advisory notes
-    </h3>
-    <p>
-      This licence is granted subject to compliance with the conditions as specified. Anything done otherwise than in accordance with the terms of this licence may constitute an offence. 
-    </p>
-    <p>
-      Agents may work independently. It is your responsibility to ensure that agents have the appropriate training and experience and that they understand the terms and conditions of this licence. 
-    </p>
-    <p>
-      Nothing in this licence shall confer any right of entry on to land or property. 
-    </p>
-    <p>
-      This licence may be modified or revoked at any time by NatureScot. 
-    </p>
-    <p>
-      This licence only permits the activities specified in the Permitted activities of this licence.  It does not permit any other actions that would otherwise be illegal.
-    </p>
-    <p>
-      In exceptional circumstances, the NatureScot Licensing Team may permit forestry works affecting badgers to continue up until 14th December of the permitted year, provided the conditions of this licence are still met.  Justification must be provided for works over-running and there must be no satisfactory alternative. The licence holder must contact NatureScot Licensing as early as possible to discuss the standard forestry operations licence extension.  Any further over-running of forestry works affecting badgers beyond 14th December will not be licensed.
-    </p>
+        <h3 class="govuk-heading-l">
+          Advisory notes
+        </h3>
+        <p class="govuk-body">
+          This licence is granted subject to compliance with the conditions as specified. Anything done otherwise than in accordance with the terms of this licence may constitute an offence. 
+        </p>
+        <p class="govuk-body">
+          Agents may work independently. It is your responsibility to ensure that agents have the appropriate training and experience and that they understand the terms and conditions of this licence. 
+        </p>
+        <p class="govuk-body">
+          Nothing in this licence shall confer any right of entry on to land or property. 
+        </p>
+        <p class="govuk-body">
+          This licence may be modified or revoked at any time by NatureScot. 
+        </p>
+        <p class="govuk-body">
+          This licence only permits the activities specified in the Permitted activities of this licence.  It does not permit any other actions that would otherwise be illegal.
+        </p>
+        <p class="govuk-body">
+          In exceptional circumstances, the NatureScot Licensing Team may permit forestry works affecting badgers to continue up until 14th December of the permitted year, provided the conditions of this licence are still met.  Justification must be provided for works over-running and there must be no satisfactory alternative. The licence holder must contact NatureScot Licensing as early as possible to discuss the standard forestry operations licence extension.  Any further over-running of forestry works affecting badgers beyond 14th December will not be licensed.
+        </p>
+      </div>
+    </div>
 
   {% endblock %}
