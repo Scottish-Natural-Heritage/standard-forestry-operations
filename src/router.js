@@ -13,6 +13,7 @@ import ManualAddressController from './controllers/manual-address.js';
 import SiteLocationController from './controllers/site-location.js';
 import SettDetailsController from './controllers/sett-details.js';
 import ConfirmController from './controllers/confirm.js';
+import LicenceConditions from './controllers/licence-conditions.js';
 
 // Configure all of the pages and routes.
 
@@ -30,6 +31,12 @@ router.use(
     back: 'start',
     positiveForward: 'conviction',
     controller: BeforeYouStartController
+  })
+);
+
+router.use(
+  Page({
+    path: 'licence-conditions'
   })
 );
 
