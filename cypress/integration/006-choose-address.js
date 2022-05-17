@@ -49,6 +49,7 @@ describe('choose address page Good postcode scenario', function () {
 
   it('main button should navigate to site location page if valid address is chosen', function () {
     cy.visit('/choose-address');
+
     cy.get('select[name=address]').select('10092032547');
     cy.get('button.govuk-button[name=addressFound][value=yes]').click();
     cy.url().should('include', '/site-location');
