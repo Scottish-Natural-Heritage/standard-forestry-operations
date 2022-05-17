@@ -1,6 +1,7 @@
 {% extends "_base.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
 
 {% block content %}
   <h1 class="govuk-heading-xl">
@@ -8,15 +9,27 @@
   </h1>
 
   <form method="post">
-    {{ govukButton({
+      {{ govukSelect({
+        id: "address",
+        name: "address",
+        classes: "govuk-!-width-full",
+        label: {
+          text: "Address"
+        },
+        items: model.uprnAddresses
+      }) }}
+      {{ govukButton({
       text: "Continue",
-      classes: "naturescot-forward-button"
-    }) }}
+      classes: "naturescot-forward-button",
+      name:"addressFound",
+      value:"yes",
+      preventDoubleClick: true
+      }) }}
   </form>
+
 
   <form method="post">
     <input type="hidden" name="address" value="0">
-
     {{ govukButton({
       text: "Address not found",
       classes: "govuk-button--secondary",

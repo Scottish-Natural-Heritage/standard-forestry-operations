@@ -1,5 +1,5 @@
 import express from 'express';
-
+import {findAddressesByPostcode} from '../utils/gazetteer.js';
 import config from '../config.js';
 
 /**
@@ -76,7 +76,26 @@ const guardAllows = (session, options) => {
  * @param {string} options.path The path to this page.
  * @param {string} [options.back] The path to the previous page.
  */
-const renderPage = (request, response, options) => {
+const renderPage = async (request, response, options) => {
+  if (options.path === 'choose-address' && request.session.addressPostcode) {
+    try {
+      const gazetteerAddresses = await findAddressesByPostcode(request.session.addressPostcode);
+
+      request.session.uprnAddresses = [];
+
+      request.session.uprnAddresses = gazetteerAddresses.map((address) => {
+        return {
+          value: address.uprn,
+          text: address.summary_address,
+          selected: address.uprn === request.session.uprn ? request.session.uprn : undefined
+        };
+      });
+    } catch (error) {
+      console.log(error);
+      request.session.uprnAddresses = [{value: 0, text: 'No addresses found.', selected: true}];
+    }
+  }
+
   if (guardAllows(request.session, options)) {
     saveVisitedPage(request.session, options.path);
     response.render(`${options.path}.njk`, {
