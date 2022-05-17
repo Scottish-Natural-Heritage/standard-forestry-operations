@@ -15,10 +15,11 @@
     "postmap-preview": "rm dist/layers*.png dist/marker-icon*.png",
     "build": "npm run scss && npm run assets && npm run map-preview",
     "prestart": "npm run build",
+    "start:mock": "node src/server-mock.js",
     "start": "node --experimental-modules src/server.js",
     "dev": "SFO_PORT=3999 COOKIE_PREFIX=_ nodemon --exec \"npm run lint && npm run start\" -e js,njk,scss --ignore build/ --ignore dist/ --ignore cypress/",
     "cy:run": "cypress run",
-    "test": "SFO_PORT=3002 SFO_PATH_PREFIX=standard-forestry-operations COOKIE_PREFIX=_ start-server-and-test start http://localhost:3002/standard-forestry-operations/health cy:run",
+    "test": "SFO_PORT=3002 SFO_PATH_PREFIX=standard-forestry-operations COOKIE_PREFIX=_ PC_LOOKUP_API_URL=http://mock-gazetteer-api/endpoint start-server-and-test start:mock http://localhost:3002/standard-forestry-operations/health cy:run",
     "cy:open": "cypress open"
   },
   "engines": {
@@ -48,6 +49,7 @@
     "cypress": "^4.3.0",
     "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-jsdoc": "^22.1.0",
+    "axios-mock-adapter": "^1.20.0",
     "nodemon": "^2.0.2",
     "prettier": "^2.0.4",
     "start-server-and-test": "^1.10.11",

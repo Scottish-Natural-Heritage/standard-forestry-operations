@@ -31,10 +31,13 @@ describe('Confirm page ', function () {
     cy.get('#main-content form button.naturescot-forward-button').click();
     // ~GET `/postcode`~
     // POST `/postcode`
+    cy.get('input[type=text][name=addressPostcode]').type('IV3 8NW');
     cy.get('#main-content form button.naturescot-forward-button').click();
     // ~GET `/choose-address`~
+    // FILL the form
+    cy.get('select[name=address]').select('10092032547');
     // POST `/choose-address`
-    cy.get('#main-content form button.naturescot-forward-button').click();
+    cy.get('button.govuk-button[name=addressFound][value=yes]').click();
     // ~GET `/site-location`~
     // POST add to `/site-location`
     cy.get('#main-content form button.naturescot-button--add').click();

@@ -34,12 +34,26 @@ describe('Postcode page', function () {
 
   it('should allow access if the user visits all the pages in order', function () {
     cy.visit('/postcode');
-    cy.get('h1').should('contain', 'Postcode');
+    cy.get('h1').should('contain', 'What is your postcode?');
   });
 
-  it('main button should navigate to Postcode', function () {
-    cy.visit('/postcode');
-    cy.get('#main-content form button.naturescot-forward-button').click();
-    cy.url().should('include', '/choose-address');
+  it('throws error after a blank submission', () => {
+    cy.get('button.govuk-button').click();
+    cy.get('h1').contains('postcode', {matchCase: false});
+    cy.get('.govuk-error-summary__title').contains('problem', {matchCase: false});
+  });
+
+  it('throws error after an invalid submission', () => {
+    cy.get('input[type=text][name=addressPostcode]').type('XM4');
+    cy.get('button.govuk-button').click();
+    cy.get('h1').contains('postcode', {matchCase: false});
+    cy.get('.govuk-error-summary__title').contains('problem', {matchCase: false});
+  });
+
+  it('takes us to choose-address after a successful form submission', () => {
+    cy.get('input[type=text][name=addressPostcode]').type('IV3 8NW');
+    cy.get('button.govuk-button').click();
+    cy.get('h1').contains('choose', {matchCase: false});
+    cy.get('h1').contains('address', {matchCase: false});
   });
 });

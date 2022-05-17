@@ -52,6 +52,7 @@ ENV SFO_PORT 3002
 ENV SFO_PATH_PREFIX standard-forestry-operations
 
 # these variables are for overriding and they only matter during run
+ENV PC_LOOKUP_API_KEY override_this_value
 ENV SFO_SESSION_SECRET override_this_value
 ENV SFO_API_URL override_this_value
 

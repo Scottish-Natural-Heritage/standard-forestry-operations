@@ -35,6 +35,12 @@ router.use(
 
 router.use(
   Page({
+    path: 'licence-conditions'
+  })
+);
+
+router.use(
+  Page({
     path: 'conviction',
     back: 'before-you-start',
     positiveForward: 'details',
