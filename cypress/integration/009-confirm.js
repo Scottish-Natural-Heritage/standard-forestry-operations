@@ -57,6 +57,6 @@ describe('Confirm page ', function () {
 
   it('should allow access if the user visits all the pages in order', function () {
     cy.visit('/confirm');
-    cy.get('h1').should('contain', 'answers before sending');
+    cy.get('h1').should('contain', 'Check your answers');
   });
 });
