@@ -1,0 +1,57 @@
+{% extends "_base.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% set postcodeErrorMessage %}
+  {% if model.emptyPostcodeError %}
+    Enter a postcode
+  {% elif model.invalidPostcodeError %}
+    Enter a valid postcode
+  {% else %}
+    {# Blank. Not an error. #}
+  {% endif %}
+{% endset -%}
+
+{% block content %}
+
+{% if model.postcodeError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+      {
+        text: "Please enter a postcode.",
+        href: "#addressPostcode-error"
+      } if model.emptyPostcodeError,
+      {
+        text: "Please enter a valid postcode.",
+        href: "#addressPostcode-error"
+      } if model.invalidPostcodeError
+      ]
+    }) }}
+  {% endif %}
+
+<form method="post">
+  <div class="govuk-width-container ">
+    <h1 class="govuk-heading-xl">
+      What is your postcode?
+    </h1>
+
+    {{ govukInput({
+      classes: "govuk-!-width-one-half",
+      id: "addressPostcode",
+      name: "addressPostcode",
+      value: model.addressPostcode,
+      errorMessage: {
+        text: postcodeErrorMessage
+      } if model.postcodeError
+    }) }}
+
+    {{ govukButton({
+      text: "Continue",
+      classes: "naturescot-forward-button"
+    }) }}
+  </div>
+</form>
+{% endblock %}

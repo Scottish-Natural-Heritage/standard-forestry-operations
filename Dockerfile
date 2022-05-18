@@ -2,8 +2,8 @@
 # Builder Stage
 ################################################################################
 
-# we're deploying to the lts-alpine image, so do our building on it too
-FROM node:lts-alpine as builder
+# we're deploying to the node:16-alpine image, so do our building on it too
+FROM node:16-alpine as builder
 
 # node-gyp runs as part of the npm install, so we need to install dependencies
 # we need git for cypress as it's using a custom version of requests that
@@ -31,8 +31,8 @@ RUN npm ci && npm prune --production
 # Deployable Image
 ################################################################################
 
-# we built on the lts-alpine image, so we need to deploy on it too
-FROM node:lts-alpine
+# we built on the node:16-alpine image, so we need to deploy on it too
+FROM node:16-alpine
 
 # drop back to the non-privileged user for run-time
 WORKDIR /home/node
@@ -52,6 +52,7 @@ ENV SFO_PORT 3002
 ENV SFO_PATH_PREFIX standard-forestry-operations
 
 # these variables are for overriding and they only matter during run
+ENV PC_LOOKUP_API_KEY override_this_value
 ENV SFO_SESSION_SECRET override_this_value
 ENV SFO_API_URL override_this_value
 

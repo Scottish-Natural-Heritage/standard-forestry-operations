@@ -13,14 +13,8 @@ describe('Site Location page ', function () {
     // POST `/start`
     cy.get('#main-content form button.naturescot-forward-button').click();
 
-    // ~GET `/gdpr`~
-    // POST `/gdpr`
-    cy.get('#main-content form button.naturescot-forward-button').click();
-
-    // ~GET `/other`~
-    // CLICK self
-    cy.get('#main-content form input[type="radio"][value="self"]').click();
-    // POST `/other`
+    // ~GET `/before-you-start``~
+    // POST `/before-you-start``
     cy.get('#main-content form button.naturescot-forward-button').click();
 
     // ~GET `/conviction`~
@@ -28,27 +22,22 @@ describe('Site Location page ', function () {
     cy.get('#main-content form input[type="radio"][value="no"]').click();
     // POST `/conviction`
     cy.get('#main-content form button.naturescot-forward-button').click();
-
-    // ~GET `/eligible`~
-    // POST `/eligible`
-    cy.get('#main-content form button.naturescot-forward-button').click();
-
-    // ~GET `/comply`~
-    // CLICK yes
-    cy.get('#main-content form input[type="checkbox"]#comply').click();
-    // POST `/comply`
-    cy.get('#main-content form button.naturescot-forward-button').click();
-
     // ~GET `/details`~
     // FILL the form
     cy.get('input[type="text"]#full-name').type('Nature Scot', {delay: 1});
-    cy.get('input[type="text"]#address-line-1').type('Great Glen House', {delay: 1});
-    cy.get('input[type="text"]#address-town').type('Inverness', {delay: 1});
-    cy.get('input[type="text"]#address-postcode').type('IV3 8NW', {delay: 1});
-    cy.get('input[type="tel"]#phone-number').type('01463 725 000', {delay: 1});
     cy.get('input[type="text"]#email-address').type('licensing@nature.scot', {delay: 1});
+    cy.get('input[type="tel"]#phone-number').type('01463 725 000', {delay: 1});
     // POST `/details`
     cy.get('#main-content form button.naturescot-forward-button').click();
+    // ~GET `/postcode`~
+    // POST `/postcode`
+    cy.get('input[type=text][name=addressPostcode]').type('IV3 8NW');
+    cy.get('#main-content form button.naturescot-forward-button').click();
+    // ~GET `/choose-address`~
+    // FILL the form
+    cy.get('select[name=address]').select('10092032547');
+    // POST `/choose-address`
+    cy.get('button.govuk-button[name=addressFound][value=yes]').click();
   });
 
   it('should allow access if the user visits all the pages in order', function () {

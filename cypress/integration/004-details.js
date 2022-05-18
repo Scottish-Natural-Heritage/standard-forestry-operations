@@ -13,14 +13,8 @@ describe('Details page ', function () {
     // POST `/start`
     cy.get('#main-content form button.naturescot-forward-button').click();
 
-    // ~GET `/gdpr`~
-    // POST `/gdpr`
-    cy.get('#main-content form button.naturescot-forward-button').click();
-
-    // ~GET `/other`~
-    // CLICK self
-    cy.get('#main-content form input[type="radio"][value="self"]').click();
-    // POST `/other`
+    // ~GET `/before-you-start``~
+    // POST `/before-you-start``
     cy.get('#main-content form button.naturescot-forward-button').click();
 
     // ~GET `/conviction`~
@@ -28,21 +22,11 @@ describe('Details page ', function () {
     cy.get('#main-content form input[type="radio"][value="no"]').click();
     // POST `/conviction`
     cy.get('#main-content form button.naturescot-forward-button').click();
-
-    // ~GET `/eligible`~
-    // POST `/eligible`
-    cy.get('#main-content form button.naturescot-forward-button').click();
-
-    // ~GET `/comply`~
-    // CLICK yes
-    cy.get('#main-content form input[type="checkbox"]#comply').click();
-    // POST `/comply`
-    cy.get('#main-content form button.naturescot-forward-button').click();
   });
 
   it('should allow access if the user visits all the pages in order', function () {
     cy.visit('/details');
-    cy.get('h1').should('contain', 'personal details');
+    cy.get('h1').should('contain', 'What are your details?');
   });
 
   it('blank entries + main button should navigate to same page with error', function () {
@@ -54,33 +38,24 @@ describe('Details page ', function () {
 
     cy.get('.govuk-error-summary ul li a')
       .should('contain', 'Enter your full name')
-      .and('contain', 'Enter your building and street')
-      .and('contain', 'Enter your town')
-      .and('contain', 'Enter your postcode')
-      .and('contain', 'Enter your phone number')
-      .and('contain', 'Enter your email address');
+      .and('contain', 'Enter your email address')
+      .and('contain', 'Enter your phone number');
 
     cy.get('form fieldset .govuk-form-group--error')
       .and('contain', 'Enter your full name')
-      .and('contain', 'Enter your building and street')
-      .and('contain', 'Enter your town')
-      .and('contain', 'Enter your postcode')
-      .and('contain', 'Enter your phone number')
-      .and('contain', 'Enter your email address');
+      .and('contain', 'Enter your email address')
+      .and('contain', 'Enter your phone number');
   });
 
   it('filled-out entries + main button should navigate to site location page', function () {
     cy.visit('/details');
 
     cy.get('input[type="text"]#full-name').type('Nature Scot');
-    cy.get('input[type="text"]#address-line-1').type('Great Glen House');
-    cy.get('input[type="text"]#address-town').type('Inverness');
-    cy.get('input[type="text"]#address-postcode').type('IV3 8NW');
-    cy.get('input[type="tel"]#phone-number').type('01463 725 000');
     cy.get('input[type="text"]#email-address').type('licensing@nature.scot');
+    cy.get('input[type="tel"]#phone-number').type('01463 725 000');
 
     cy.get('#main-content form button.naturescot-forward-button').click();
 
-    cy.url().should('include', '/site-location');
+    cy.url().should('include', '/postcode');
   });
 });
