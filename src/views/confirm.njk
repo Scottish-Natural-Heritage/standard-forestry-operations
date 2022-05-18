@@ -1,304 +1,252 @@
 {% extends "_base.njk" %}
 
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 {% block content %}
+
+{% if model.complyError %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "Something went wrong when submitting your application - Try again.",
+          href: "#comply-error"
+        } if model.apiError,
+        {
+          text: "You must confirm that you have provided up to date information and agree with the licence conditions and privacy policy.",
+          href: "#comply-error"
+        } if model.complyError
+      ]
+    }) }}
+  {% endif %}
+
+  <h1 class="govuk-heading-xl">
+    Check your answers
+  </h1>
+
+  <h2 class="govuk-heading-m">
+    Licence Holder details
+  </h2>
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: {
+          text: "Name"
+        },
+        value: {
+          text: model.fullName
+        },
+        actions: {
+          items: [
+            {
+              href: pathPrefix + "/details#full-name",
+              text: "Change",
+              visuallyHiddenText: "name"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Company or Organisation"
+        },
+        value: {
+          text: model.companyOrganisation
+        },
+        actions: {
+          items: [
+            {
+              href: pathPrefix + "/details#company-organisation",
+              text: "Change",
+              visuallyHiddenText: "company or organisation"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Email address"
+        },
+        value: {
+          text: model.emailAddress
+        },
+        actions: {
+          items: [
+            {
+              href: pathPrefix + "/details#email-address",
+              text: "Change",
+              visuallyHiddenText: "email address"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Phone Number"
+        },
+        value: {
+          text: model.phoneNumber
+        },
+        actions: {
+          items: [
+            {
+              href: pathPrefix + "/details#phone-number",
+              text: "Change",
+              visuallyHiddenText: "contact details"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Address"
+        },
+        value: {
+          text: model.addressLine1
+        },
+        actions: {
+          items: [
+            {
+              href: pathPrefix + "/postcode#address-postcode",
+              text: "Change",
+              visuallyHiddenText: "contact information"
+            }
+          ]
+        },
+        classes: "naturescot-summary-list__condensed-first-row"
+      },
+      {
+        key: {
+          text: ""
+        },
+        value: {
+          text: model.addressLine2
+        },
+        classes: "naturescot-summary-list__condensed-row"
+      },
+      {
+        key: {
+          text: ""
+        },
+        value: {
+          text: model.addressTown
+        },
+        classes: "naturescot-summary-list__condensed-row"
+      },
+      {
+        key: {
+          text: ""
+        },
+        value: {
+          text: model.addressCounty
+        },
+        classes: "naturescot-summary-list__condensed-row"
+      },
+      {
+        key: {
+          text: ""
+        },
+        value: {
+          text: model.addressPostcode
+        },
+        classes: "naturescot-summary-list__condensed-last-row"
+      },
+      {
+        key: {
+          text: "Criminal Convictions"
+        },
+        value: {
+          text: "I have not been convicted of a wildlife crime." if model.conviction === false
+        },
+        actions: {
+          items: [
+            {
+              href: pathPrefix + "/conviction#conviction",
+              text: "Change",
+              visuallyHiddenText: "convictions"
+            }
+          ]
+        }
+      }
+    ]
+  }) }}
+
+  <h2 class="govuk-heading-m">
+    Site details
+  </h2>
+
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: {
+          text: "Setts"
+        },
+        value: {
+          html: model.displaySetts
+        },
+        actions: {
+          items: [
+            {
+              href: pathPrefix + "/site-location#sett-details",
+              text: "Change",
+              visuallyHiddenText: "setts"
+            }
+          ]
+        }
+      }
+    ]
+  }) }}
+
+  <h2 class="govuk-heading-m">
+    Declaration
+  </h2>
+
+  <h3 class="govuk-heading-s">
+    I confirm that:
+  </h3>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>The information I've provided is up to date and correct</li>
+    <li>I agree to comply with the
+      <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="{{pathPrefix}}/licence-conditions">
+        licence conditions&nbsp;(opens in new tab)
+      </a>
+    </li>
+    <li>I agree with the
+      <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.nature.scot/privacy-policy">
+        privacy policy&nbsp;(opens in new tab)</a>
+        of this service
+    </li>
+  </ul>
+
   <form method="post">
-    <h1 class="govuk-heading-xl">
-      Check your answers before sending your application
-    </h1>
-
-    <h2 class="govuk-heading-m">
-      Application details
-    </h2>
-
-    {{ govukSummaryList({
-      rows: [
+    {{ govukCheckboxes({
+    idPrefix: "comply",
+    name: "comply",
+    fieldset: {
+      legend: {
+        text: "Yes, I confirm",
+        classes: "govuk-fieldset__legend--s"
+      }
+    },
+    errorMessage: {
+        text: "You must confirm that the information you have submitted is correct and that you agree with the licence conditions and privacy policy."
+      } if model.complyError,
+      items: [
         {
-          key: {
-            text: "Licence Holder"
-          },
-          value: {
-            text: "I will be the named licence holder." if model.other === false
-          },
-          actions: {
-            items: [
-              {
-                href: pathPrefix + "/other#other",
-                text: "Change",
-                visuallyHiddenText: "who will be the named licence holder."
-              }
-            ]
-          }
-        },
-        {
-          key: {
-            text: "Criminal Convictions"
-          },
-          value: {
-            text: "I have not been convicted of a wildlife crime." if model.conviction === false
-          },
-          actions: {
-            items: [
-              {
-                href: pathPrefix + "/conviction#conviction",
-                text: "Change",
-                visuallyHiddenText: "convictions"
-              }
-            ]
-          }
-        },
-        {
-          key: {
-            text: "Comply with Terms"
-          },
-          value: {
-            text: "I agree to comply with the terms and conditions of the Standard Forestry Operations licence." if model.comply
-          },
-          actions: {
-            items: [
-              {
-                href: pathPrefix + "/comply#comply",
-                text: "Change",
-                visuallyHiddenText: "agreement to comply with the terms and conditions"
-              }
-            ]
-          }
+          value: "yes",
+          text: "Yes, I confirm",
+          checked: model.comply === true
         }
-      ]
+    ]
     }) }}
-
-    <h2 class="govuk-heading-m">
-      Personal details
-    </h2>
-
-    {{ govukSummaryList({
-      rows: [
-        {
-          key: {
-            text: "Name"
-          },
-          value: {
-            text: model.fullName
-          },
-          actions: {
-            items: [
-              {
-                href: pathPrefix + "/details#full-name",
-                text: "Change",
-                visuallyHiddenText: "name"
-              }
-            ]
-          }
-        },
-        {
-          key: {
-            text: "Company or Organisation"
-          },
-          value: {
-            text: model.companyOrganisation
-          },
-          actions: {
-            items: [
-              {
-                href: pathPrefix + "/details#company-organisation",
-                text: "Change",
-                visuallyHiddenText: "company or organisation"
-              }
-            ]
-          }
-        },
-        {
-          key: {
-            text: "Address"
-          },
-          value: {
-            text: model.addressLine1
-          },
-          actions: {
-            items: [
-              {
-                href: pathPrefix + "/details#address-line-1",
-                text: "Change",
-                visuallyHiddenText: "contact information"
-              }
-            ]
-          },
-          classes: "naturescot-summary-list__condensed-first-row"
-        },
-        {
-          key: {
-            text: ""
-          },
-          value: {
-            text: model.addressLine2
-          },
-          classes: "naturescot-summary-list__condensed-row"
-        },
-        {
-          key: {
-            text: ""
-          },
-          value: {
-            text: model.addressTown
-          },
-          classes: "naturescot-summary-list__condensed-row"
-        },
-        {
-          key: {
-            text: ""
-          },
-          value: {
-            text: model.addressCounty
-          },
-          classes: "naturescot-summary-list__condensed-row"
-        },
-        {
-          key: {
-            text: ""
-          },
-          value: {
-            text: model.addressPostcode
-          },
-          classes: "naturescot-summary-list__condensed-last-row"
-        },
-        {
-          key: {
-            text: "Contact details"
-          },
-          value: {
-            text: model.phoneNumber
-          },
-          actions: {
-            items: [
-              {
-                href: pathPrefix + "/details#phone-number",
-                text: "Change",
-                visuallyHiddenText: "contact details"
-              }
-            ]
-          },
-          classes: "naturescot-summary-list__condensed-first-row"
-        },
-        {
-          key: {
-            text: ""
-          },
-          value: {
-            text: model.emailAddress
-          },
-          classes: "naturescot-summary-list__condensed-last-row"
-        }
-      ]
-    }) }}
-
-    <h2 class="govuk-heading-m">
-      Site details
-    </h2>
-
-    {{ govukSummaryList({
-      rows: [
-        {
-          key: {
-            text: "Setts"
-          },
-          value: {
-            html: model.displaySetts
-          },
-          actions: {
-            items: [
-              {
-                href: pathPrefix + "/site-location#sett-details",
-                text: "Change",
-                visuallyHiddenText: "setts"
-              }
-            ]
-          }
-        }
-      ]
-    }) }}
-
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-
-        <h2 class="govuk-heading-m">
-          Now send your application
-        </h2>
-
-        <p class="govuk-body">
-          It is your responsibility to ensure that the information you have provided
-          is correct before sending this application.
-        </p>
-
-        <p class="govuk-body">
-          By submitting this application you confirm that you are wanting to fell or
-          harvest between 1 July and 30 November and that there will be no vehicular
-          access or heavy machinery used within 20 metres of a badger sett.
-        </p>
-
-        {{ govukWarningText({
-          text: "If you are convicted of a wildlife crime you must inform us.",
-          iconFallbackText: "Warning"
-        }) }}
-
-        {{ govukAccordion({
-          id: "crimeExplanations",
-              items: [
-                {
-                  heading: {
-                    text: "What is a wildlife crime?"
-                  },
-                  content: {
-                    html: '' +
-                    '<p class="govuk-body">' +
-                    '  "Wildlife crime" means any offence under' +
-                    '  the Wildlife &amp; Countryside Act 1981,' +
-                    '  the Conservation (Natural Habitats &amp;c.) Regulations 1994,' +
-                    '  the Protection of Badgers Act 1992,' +
-                    '  the Protection of Wild Mammals (Scotland) Act 2002,' +
-                    '  Deer (Scotland) Act 1996,' +
-                    '  Agriculture (Scotland) Act 1948,' +
-                    '  the Animal Health &amp; Welfare (Scotland) Act 2006,' +
-                    '  the Protection of Animals (Scotland) Act 1912' +
-                    '  and' +
-                    '  the Wild Mammals (Protection) Act 1996' +
-                    '  (all as amended).' +
-                    '</p>'
-                  },
-                  expanded: false
-                },
-                {
-                  heading: {
-                    text: "What does convicted mean?"
-                  },
-                  content: {
-                    html: '' +
-                    '<p class="govuk-body">'+
-                    '  "Convicted" means convicted of a wildlife crime on or after 1 January 2015 unless,' +
-                    '  in respect of that offence, they are a rehabilitated person (for the purposes of ' +
-                    '  the Rehabilitation of Offenders Act 1974 and that conviction is spent), or a court ' +
-                    '  discharged them absolutely.' +
-                    '</p>' +
-                    '<p class="govuk-body">' +
-                    '  Any person not able to use the Standard Forestry Operations licence can still apply ' +
-                    '  for an individual licence.' +
-                    '</p>'
-                  },
-                  expanded: false
-                }
-              ]
-        })}}
-
-      </div>
-    </div>
 
     {{ govukButton({
       text: "Accept and send",
       classes: "naturescot-forward-button"
     }) }}
-
   </form>
 {% endblock %}
