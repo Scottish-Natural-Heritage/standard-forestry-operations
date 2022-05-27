@@ -3,53 +3,39 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% block content %}
   {{ govukPanel({
-    titleHtml: "Application complete<br><br>Licence granted",
-    html: "Your licence number is<br><strong>"+model.licenceNo+"</strong><br><br>" +
-          "Expiry date<br><strong>"+model.expiryDate+"</strong>"
+    titleHtml: "Application complete<br>",
+    html: "Your reference number is<br><strong>" + model.licenceNo + "</strong>"
   }) }}
-
-  <p class="govuk-body">
-    We have sent you an email containing your licence.
-  </p>
 
   <h2 class="govuk-heading-m">
     What happens next
   </h2>
 
- <p class="govuk-body">
-    You must comply with the conditions of your licence.
+  <p class="govuk-body">
+    You will be sent an email containing your licence.
   </p>
 
   <p class="govuk-body">
-    You must submit a return within one month of works being completed
-    using <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="http://gateway.snh.gov.uk/go/?id=30">this form&nbsp;(opens in new tab)</a>.
+    You must comply with the conditions of your licence.<br><br>
+    You must submit a return within one month of works being completed using   <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.nature.scot/doc/licence-return-form-badger-standard-forestry-operations">
+        this form</a> (opens in new tab)
   </p>
 
-  <p class="govuk-body">
-    Please make sure you keep a record of:
-  </p>
+  <!-- The page content -->
+  <p class="govuk-body">Please make sure you keep a record of:</p>
+
+  <!-- Add a list  -->
   <ul class="govuk-list govuk-list--bullet">
-    <li>
-      the date the works were undertaken
-    </li>
-    <li>
-      a clear photograph of one sett before works commence
-    </li>
-    <li>
-      a clear photograph of the same sett as soon as works are
-      completed clearly showing the protection zone
-    </li>
-    <li>
-      whether the licence conditions were met
-    </li>
+    <li>the dates the works were undertaken</li>
+    <li>a clear photograph of one sett before works commence</li>
+    <li>a clear photograph of the same sett as soon as works are completed clearly showing the protection zone</li>
+    <li>whether the licence conditions were met</li>
   </ul>
 
-  <p class="govuk-body">
-      If you need assistance with this service, contact the NatureScot Licensing Team
-  </p>
+<p class="govuk-body">If you need to get in touch contact the NatureScot Licensing Team, quoting your reference number.</p>
 
   <h3 class="govuk-heading-s">
-      Email
+    Email
   </h3>
 
   <ul class="govuk-list">
