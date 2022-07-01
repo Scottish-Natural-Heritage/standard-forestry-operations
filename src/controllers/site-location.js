@@ -3,7 +3,7 @@ import {ReturnState} from './_base.js';
 const removeIndex = (array, index) => {
   const before = array.slice(0, index);
   const after = array.slice(index + 1, array.length);
-  return before.concat(after);
+  return [...before, ...after];
 };
 
 const buildDisplaySetts = (session) => {

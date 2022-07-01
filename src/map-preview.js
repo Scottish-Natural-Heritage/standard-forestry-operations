@@ -7,7 +7,7 @@ import './map-preview.css';
 // Import Leaflet
 import L from 'leaflet';
 import proj from 'proj4';
-import 'proj4leaflet';
+import 'proj4leaflet'; // eslint-disable-line import/no-unassigned-import
 
 import * as MapUtils from './map-utils.js';
 
@@ -151,8 +151,8 @@ window.initMapPreview = (mapElement, overlayElement, setts) => {
         ),
       );
 
-      let overlay;
-      overlay = typeof overlayElement === 'string' ? document.querySelector(`#${overlayElement}`) : overlayElement;
+      const overlay =
+        typeof overlayElement === 'string' ? document.querySelector(`#${overlayElement}`) : overlayElement;
 
       // We're already setting 'display: flex' at the id level, so for CSS
       // specificity to override this, we need to set it on the element.

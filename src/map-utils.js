@@ -145,6 +145,7 @@ const digitsEastNorth = (gridRef) => {
  * @returns {number[]} An array containing an easting and a northing.
  */
 const sumEastNorths = (...eastNorths) => {
+  // eslint-disable-next-line unicorn/no-array-reduce
   const hasAnInvalidEastNorth = eastNorths.reduce((foundInvalid, eastNorth) => {
     return foundInvalid || eastNorth === undefined || eastNorth.length !== 2;
   }, false);
@@ -153,6 +154,7 @@ const sumEastNorths = (...eastNorths) => {
     return undefined;
   }
 
+  // eslint-disable-next-line unicorn/no-array-reduce
   return eastNorths.reduce(
     (sum, eastNorth) => {
       return [sum[0] + eastNorth[0], sum[1] + eastNorth[1]];
