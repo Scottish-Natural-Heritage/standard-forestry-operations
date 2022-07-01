@@ -10,4 +10,4 @@
 // ***********************************************************
 
 // Import commands.js
-import './commands'; // eslint-disable-line import/no-unassigned-import
+import './commands.js'; // eslint-disable-line import/no-unassigned-import

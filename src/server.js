@@ -1,5 +1,3 @@
-'use strict';
-
 // Load the config.
 import config from './config.js';
 

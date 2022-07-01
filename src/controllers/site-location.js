@@ -21,7 +21,7 @@ const buildDisplaySetts = (session) => {
       <tbody class="govuk-table__body">
   `);
 
-  session.setts.forEach((sett) => {
+  for (const sett of session.setts) {
     table.push(`
       <tr class="govuk-table__row">
         <th scope="row" class="govuk-table__header">${sett.id}</th>
@@ -29,7 +29,7 @@ const buildDisplaySetts = (session) => {
         <td class="govuk-table__cell">${sett.entrances}</td>
       </tr>
     `);
-  });
+  }
 
   table.push(`
       </tbody>
@@ -62,8 +62,8 @@ const siteLocationController = (request) => {
   const continueMode = formKeys.filter((key) => key.startsWith('continue')).length === 1;
 
   if (editMode) {
-    const editKeys = formKeys.filter((key) => key.startsWith('edit-'));
-    const editIndex = Number.parseInt(editKeys[0].split('edit-')[1], 10);
+    const editKey = formKeys.find((key) => key.startsWith('edit-'));
+    const editIndex = Number.parseInt(editKey.split('edit-')[1], 10);
 
     request.session.currentSettIndex = editIndex;
 
@@ -80,8 +80,8 @@ const siteLocationController = (request) => {
   }
 
   if (deleteMode) {
-    const deleteKeys = formKeys.filter((key) => key.startsWith('delete-'));
-    const deleteIndex = Number.parseInt(deleteKeys[0].split('delete-')[1], 10);
+    const deleteKey = formKeys.find((key) => key.startsWith('delete-'));
+    const deleteIndex = Number.parseInt(deleteKey.split('delete-')[1], 10);
 
     request.session.setts = removeIndex(request.session.setts, deleteIndex);
 

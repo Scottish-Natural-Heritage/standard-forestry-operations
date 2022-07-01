@@ -115,7 +115,7 @@ const settDetailsController = (request) => {
     const newSett = {
       id: formatId(request.body.currentSettId.trim()),
       gridReference: formatGridReference(request.body.currentGridReference),
-      entrances: Number.parseInt(request.body.currentEntrances, 10)
+      entrances: Number.parseInt(request.body.currentEntrances, 10),
     };
 
     if (!Array.isArray(request.session.setts)) {
@@ -126,11 +126,11 @@ const settDetailsController = (request) => {
   } else {
     request.session.setts[request.session.currentSettIndex].id = formatId(request.body.currentSettId.trim());
     request.session.setts[request.session.currentSettIndex].gridReference = formatGridReference(
-      request.body.currentGridReference
+      request.body.currentGridReference,
     );
     request.session.setts[request.session.currentSettIndex].entrances = Number.parseInt(
       request.body.currentEntrances,
-      10
+      10,
     );
   }
 

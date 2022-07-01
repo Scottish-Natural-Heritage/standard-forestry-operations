@@ -1,3 +1,5 @@
+import process from 'process';
+
 // Grab our config from the env vars, or set some defaults if they're missing.
 const config = Object.freeze({
   port: process.env.SFO_PORT || 3002,
@@ -7,7 +9,7 @@ const config = Object.freeze({
   pathPrefix: process.env.SFO_PATH_PREFIX ? `/${process.env.SFO_PATH_PREFIX}` : '/standard-forestry-operations',
   cookiePrefix: process.env.COOKIE_PREFIX || '_',
   gazetteerApiEndpoint: process.env.PC_LOOKUP_API_URL || 'https://cagmap.snh.gov.uk/gazetteer',
-  gazetteerApiKey: process.env.PC_LOOKUP_API_KEY ?? ''
+  gazetteerApiKey: process.env.PC_LOOKUP_API_KEY ?? '',
 });
 
 export {config as default};

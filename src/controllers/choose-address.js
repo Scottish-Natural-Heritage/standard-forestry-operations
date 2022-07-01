@@ -1,6 +1,6 @@
-import {ReturnState} from './_base.js';
 import {findFullAddressesByUprn} from '../utils/gazetteer.js';
 import {cleanNonNegativeInteger} from '../utils/form.js';
+import {ReturnState} from './_base.js';
 
 const chooseAddressController = async (request) => {
   // Grab the form as a json object.
