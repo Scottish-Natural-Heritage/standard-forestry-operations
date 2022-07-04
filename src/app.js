@@ -1,5 +1,5 @@
-import {fileURLToPath} from 'url';
-import path from 'path';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
 import express from 'express';
 import morgan from 'morgan';
 import nunjucks from 'nunjucks';
@@ -24,7 +24,7 @@ app.use(morgan('combined', {stream: logger.stream}));
 
 nunjucks.configure(['src/views', 'node_modules/naturescot-frontend', 'node_modules/govuk-frontend'], {
   autoescape: true,
-  express: app
+  express: app,
 });
 
 /**
@@ -57,24 +57,27 @@ app.use(
       httpOnly: true,
       // We're re-writing all cookies to be secure on the proxy, so between here
       // and there it doesn't need to be.
-      secure: false
+      secure: false,
     },
     store: new MemoryStore({
-      checkPeriod: sessionDuration
+      checkPeriod: sessionDuration,
     }),
     secret: config.sessionSecret,
     resave: true,
-    saveUninitialized: false
-  })
+    saveUninitialized: false,
+  }),
 );
 
 app.use(
   `${config.pathPrefix}/dist`,
-  express.static(path.join(__dirname, '..', '/dist'), {immutable: true, maxAge: '30 minutes'})
+  express.static(path.join(__dirname, '..', '/dist'), {immutable: true, maxAge: '30 minutes'}),
 );
 app.use(
   `${config.pathPrefix}/govuk-frontend`,
-  express.static(path.join(__dirname, '..', '/node_modules/govuk-frontend/govuk'), {immutable: true, maxAge: '3 hours'})
+  express.static(path.join(__dirname, '..', '/node_modules/govuk-frontend/govuk'), {
+    immutable: true,
+    maxAge: '3 hours',
+  }),
 );
 
 // `health` is a simple health-check end-point to test whether the service is
@@ -101,7 +104,7 @@ app.all(`${config.pathPrefix}/`, (request, response) => {
 // javascript file to do it.
 app.get(`${config.pathPrefix}/init.js`, (request, response) => {
   response.set('Content-type', 'application/javascript').render(`_init.js.njk`, {
-    model: request.session
+    model: request.session,
   });
 });
 

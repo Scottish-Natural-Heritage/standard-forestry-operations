@@ -27,7 +27,7 @@ const confirmController = async (request) => {
         addressCounty: request.session.addressCounty,
         uprn: request.session.uprn ? request.session.uprn : undefined,
         setts: request.session.setts,
-        complyWithTerms: request.session.comply
+        complyWithTerms: request.session.comply,
       };
 
       // Send the back-end our application.

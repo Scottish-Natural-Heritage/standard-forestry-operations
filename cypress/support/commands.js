@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-empty-file */
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -23,3 +25,5 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+/* eslint-enable unicorn/no-empty-file */

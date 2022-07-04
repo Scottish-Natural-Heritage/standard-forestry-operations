@@ -1,5 +1,5 @@
-import {ReturnState} from './_base.js';
 import utils from 'naturescot-utils';
+import {ReturnState} from './_base.js';
 
 /**
  * Clean the incoming POST request body to make it more compatible with the
@@ -17,7 +17,7 @@ const cleanInput = (body) => {
     addressLine2: body.addressLine2 === undefined ? undefined : body.addressLine2.trim(),
     addressTown: body.addressTown === undefined ? undefined : body.addressTown.trim(),
     addressCounty: body.addressCounty === undefined ? undefined : body.addressCounty.trim(),
-    addressPostcode: body.addressPostcode === undefined ? undefined : body.addressPostcode.trim()
+    addressPostcode: body.addressPostcode === undefined ? undefined : body.addressPostcode.trim(),
   };
 };
 
