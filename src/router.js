@@ -1,5 +1,4 @@
 import express from 'express';
-const router = express.Router();
 
 // Import all the controllers.
 import {Page} from './controllers/_base.js';
@@ -14,14 +13,16 @@ import SiteLocationController from './controllers/site-location.js';
 import SettDetailsController from './controllers/sett-details.js';
 import ConfirmController from './controllers/confirm.js';
 
+const router = express.Router();
+
 // Configure all of the pages and routes.
 
 router.use(
   Page({
     path: 'start',
     positiveForward: 'before-you-start',
-    controller: StartController
-  })
+    controller: StartController,
+  }),
 );
 
 router.use(
@@ -29,14 +30,14 @@ router.use(
     path: 'before-you-start',
     back: 'start',
     positiveForward: 'conviction',
-    controller: BeforeYouStartController
-  })
+    controller: BeforeYouStartController,
+  }),
 );
 
 router.use(
   Page({
-    path: 'licence-conditions'
-  })
+    path: 'licence-conditions',
+  }),
 );
 
 router.use(
@@ -45,8 +46,8 @@ router.use(
     back: 'before-you-start',
     positiveForward: 'details',
     negativeForward: 'conviction-stop',
-    controller: ConvictionController
-  })
+    controller: ConvictionController,
+  }),
 );
 
 router.use(
@@ -54,8 +55,8 @@ router.use(
     path: 'details',
     back: 'conviction',
     positiveForward: 'postcode',
-    controller: DetailsController
-  })
+    controller: DetailsController,
+  }),
 );
 
 router.use(
@@ -63,8 +64,8 @@ router.use(
     path: 'postcode',
     back: 'details',
     positiveForward: 'choose-address',
-    controller: PostcodeController
-  })
+    controller: PostcodeController,
+  }),
 );
 
 router.use(
@@ -73,8 +74,8 @@ router.use(
     back: 'postcode',
     positiveForward: 'site-location',
     secondaryForward: 'manual-address',
-    controller: ChooseAddressController
-  })
+    controller: ChooseAddressController,
+  }),
 );
 
 router.use(
@@ -82,8 +83,8 @@ router.use(
     path: 'manual-address',
     back: 'choose-address',
     positiveForward: 'site-location',
-    controller: ManualAddressController
-  })
+    controller: ManualAddressController,
+  }),
 );
 
 router.use(
@@ -92,8 +93,8 @@ router.use(
     back: 'choose-address',
     secondaryForward: 'sett-details',
     positiveForward: 'confirm',
-    controller: SiteLocationController
-  })
+    controller: SiteLocationController,
+  }),
 );
 
 router.use(
@@ -101,8 +102,8 @@ router.use(
     path: 'sett-details',
     back: 'site-location',
     positiveForward: 'site-location',
-    controller: SettDetailsController
-  })
+    controller: SettDetailsController,
+  }),
 );
 
 router.use(
@@ -110,27 +111,27 @@ router.use(
     path: 'confirm',
     back: 'site-location',
     positiveForward: 'success',
-    controller: ConfirmController
-  })
+    controller: ConfirmController,
+  }),
 );
 
 router.use(
   Page({
-    path: 'success'
-  })
+    path: 'success',
+  }),
 );
 
 router.use(
   Page({
     path: 'conviction-stop',
-    back: 'conviction'
-  })
+    back: 'conviction',
+  }),
 );
 
 router.use(
   Page({
-    path: 'accessibility'
-  })
+    path: 'accessibility',
+  }),
 );
 
 export {router as default};

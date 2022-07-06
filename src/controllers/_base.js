@@ -39,7 +39,6 @@ const saveVisitedPage = (session, page) => {
  * @param {object} options An object containing this page's options.
  * @param {string} [options.back] The page 'before' our current page in the
  * application.
- *
  * @returns {boolean} Whether the visitor is allowed to visit their current page.
  */
 const guardAllows = (session, options) => {
@@ -87,7 +86,7 @@ const renderPage = async (request, response, options) => {
         return {
           value: address.uprn,
           text: address.summary_address,
-          selected: address.uprn === request.session.uprn ? request.session.uprn : undefined
+          selected: address.uprn === request.session.uprn ? request.session.uprn : undefined,
         };
       });
     } catch (error) {
@@ -102,7 +101,7 @@ const renderPage = async (request, response, options) => {
       hostPrefix: config.hostPrefix,
       pathPrefix: config.pathPrefix,
       backUrl: options.back,
-      model: request.session
+      model: request.session,
     });
     return;
   }
@@ -126,7 +125,7 @@ const ReturnState = Object.freeze({
   Negative: 2,
   Error: 3,
   Secondary: 4,
-  SameAgain: 5
+  SameAgain: 5,
 });
 
 /**
@@ -147,7 +146,6 @@ const ReturnState = Object.freeze({
  * the controller's opinion is appropriate.
  * @param {Function} [options.controller] The logic to process page requests and
  * decide what action to take next.
- *
  * @returns {express.Router} An express Router middleware.
  */
 const Page = (options) => {
@@ -168,14 +166,28 @@ const Page = (options) => {
     let decision;
     try {
       decision = await options.controller(request, options);
-      if (decision === ReturnState.Positive) {
-        response.redirect(`${config.pathPrefix}/${options.positiveForward}`);
-      } else if (decision === ReturnState.Negative) {
-        response.redirect(`${config.pathPrefix}/${options.negativeForward}`);
-      } else if (decision === ReturnState.Secondary) {
-        response.redirect(`${config.pathPrefix}/${options.secondaryForward}`);
-      } else {
-        renderPage(request, response, options);
+      switch (decision) {
+        case ReturnState.Positive: {
+          response.redirect(`${config.pathPrefix}/${options.positiveForward}`);
+
+          break;
+        }
+
+        case ReturnState.Negative: {
+          response.redirect(`${config.pathPrefix}/${options.negativeForward}`);
+
+          break;
+        }
+
+        case ReturnState.Secondary: {
+          response.redirect(`${config.pathPrefix}/${options.secondaryForward}`);
+
+          break;
+        }
+
+        default: {
+          renderPage(request, response, options);
+        }
       }
     } catch (error) {
       console.log(error);

@@ -1,8 +1,8 @@
 // Import Leaflet's CSS
-import 'leaflet/dist/leaflet.css'; // eslint-disable-line import/no-unassigned-import
+import 'leaflet/dist/leaflet.css';
 
 // Import Our CSS
-import './map-preview.css'; // eslint-disable-line import/no-unassigned-import
+import './map-preview.css';
 
 // Import Leaflet
 import L from 'leaflet';
@@ -58,7 +58,7 @@ const naturescotIcon = L.icon({
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAApCAYAAADAk4LOAAABHUlEQVRYw71WywkDIRCdQmzEQrymB+sI7DU9GEgFgdz2nFsKsIUQyMloWIIsRmfUmQfDsq47j/npA2jgcLyZaC6ajxYy89u6gV7En23B8T9L+yzFuSI4L5EpTGp6CXIiwxEBLqKJBD+iUpEDg1lyFKfLPZyvj++TFM1W7Orm5Pj5eocc6T2tI4gMbANVJagBQeSaqdpHsEf63kxZqwYYtGoEI6nCpkwsEpGaiHQX/5yITLzY2SVyCovdJ9jDEmmmdQW7QQKHERJ6kERjFcvaSbBSZJFhqcUEYeF7FWT/4BGUJIVE9erhBUmwjIhuxRoFoZ1XGAViODXMQKWdPcxCpZ0tzERRhcxGoZ0XDhI1tW0Rd40DLmTtrIETPbX4AOxTDkP3T13KAAAAAElFTkSuQmCC',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
-  popupAnchor: [0, -31]
+  popupAnchor: [0, -31],
 });
 
 /**
@@ -70,7 +70,7 @@ const naturescotIcon = L.icon({
  */
 const buildAndBindMap = (element) => {
   const osCRS = new L.Proj.CRS('EPSG:27700', MapUtils.osProjString, {
-    resolutions: [1000, 500, 200, 100, 50, 25, 10, 5, 2.5, 1.25]
+    resolutions: [1000, 500, 200, 100, 50, 25, 10, 5, 2.5, 1.25],
   });
 
   const natureScotOsTiles = L.tileLayer.wms(
@@ -83,8 +83,8 @@ const buildAndBindMap = (element) => {
       continuousWorld: true,
       transparent: true,
       version: '1.3.0',
-      attribution: `Contains OS data &copy; Crown copyright and database rights [${new Date().getFullYear()}]`
-    }
+      attribution: `Contains OS data &copy; Crown copyright and database rights [${new Date().getFullYear()}]`,
+    },
   );
 
   const map = new L.map(element, {
@@ -100,7 +100,7 @@ const buildAndBindMap = (element) => {
     boxZoom: false,
     doubleClickZoom: false,
     dragging: false,
-    scrollWheelZoom: false
+    scrollWheelZoom: false,
   });
 
   return map;
@@ -121,7 +121,7 @@ const buildAndBindMap = (element) => {
 window.initMapPreview = (mapElement, overlayElement, setts) => {
   const map = buildAndBindMap(mapElement);
 
-  map.setView([57.45086, -3.90576], 2);
+  map.setView([57.450_86, -3.905_76], 2);
 
   if (setts !== undefined) {
     // Loop over all the Setts.
@@ -138,25 +138,21 @@ window.initMapPreview = (mapElement, overlayElement, setts) => {
       return marker;
     });
 
-    markers.forEach((marker) => {
+    for (const marker of markers) {
       map.addLayer(marker);
-    });
+    }
 
     if (markers.length > 0) {
       map.fitBounds(
         L.latLngBounds(
           markers.map((marker) => {
             return marker.getLatLng();
-          })
-        )
+          }),
+        ),
       );
 
-      let overlay;
-      if (typeof overlayElement === 'string') {
-        overlay = document.querySelector(`#${overlayElement}`);
-      } else {
-        overlay = overlayElement;
-      }
+      const overlay =
+        typeof overlayElement === 'string' ? document.querySelector(`#${overlayElement}`) : overlayElement;
 
       // We're already setting 'display: flex' at the id level, so for CSS
       // specificity to override this, we need to set it on the element.

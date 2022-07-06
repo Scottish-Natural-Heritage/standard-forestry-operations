@@ -14,10 +14,10 @@ const firstLetterToEastNorth = (letter) => {
   // Define the eastings and northings of each 500km tile.
   const firstLetterEastNorth = {
     S: [0, 0],
-    T: [500000, 0],
-    N: [0, 500000],
-    O: [500000, 500000],
-    H: [0, 1000000]
+    T: [500_000, 0],
+    N: [0, 500_000],
+    O: [500_000, 500_000],
+    H: [0, 1_000_000],
   };
 
   // Check the letter corresponds with a valid 500km tile.
@@ -45,34 +45,34 @@ const secondLetterToEastNorth = (letter) => {
   // Define the easting and northing offset of each 100km tile.
   const secondLetterEastNorth = {
     V: [0, 0],
-    W: [100000, 0],
-    X: [200000, 0],
-    Y: [300000, 0],
-    Z: [400000, 0],
+    W: [100_000, 0],
+    X: [200_000, 0],
+    Y: [300_000, 0],
+    Z: [400_000, 0],
 
-    Q: [0, 100000],
-    R: [100000, 100000],
-    S: [200000, 100000],
-    T: [300000, 100000],
-    U: [400000, 100000],
+    Q: [0, 100_000],
+    R: [100_000, 100_000],
+    S: [200_000, 100_000],
+    T: [300_000, 100_000],
+    U: [400_000, 100_000],
 
-    L: [0, 200000],
-    M: [100000, 200000],
-    N: [200000, 200000],
-    O: [300000, 200000],
-    P: [400000, 200000],
+    L: [0, 200_000],
+    M: [100_000, 200_000],
+    N: [200_000, 200_000],
+    O: [300_000, 200_000],
+    P: [400_000, 200_000],
 
-    F: [0, 300000],
-    G: [100000, 300000],
-    H: [200000, 300000],
-    J: [300000, 300000],
-    K: [400000, 300000],
+    F: [0, 300_000],
+    G: [100_000, 300_000],
+    H: [200_000, 300_000],
+    J: [300_000, 300_000],
+    K: [400_000, 300_000],
 
-    A: [0, 400000],
-    B: [100000, 400000],
-    C: [200000, 400000],
-    D: [300000, 400000],
-    E: [400000, 400000]
+    A: [0, 400_000],
+    B: [100_000, 400_000],
+    C: [200_000, 400_000],
+    D: [300_000, 400_000],
+    E: [400_000, 400_000],
   };
 
   // Check the letter corresponds with a valid 100km tile.
@@ -114,7 +114,7 @@ const digitsEastNorth = (gridRef) => {
 
   // NH64 ~= 10km
   if (eastString.length === 1) {
-    return [east * 10000, north * 10000];
+    return [east * 10_000, north * 10_000];
   }
 
   // NH6344 ~= 1km
@@ -145,6 +145,7 @@ const digitsEastNorth = (gridRef) => {
  * @returns {number[]} An array containing an easting and a northing.
  */
 const sumEastNorths = (...eastNorths) => {
+  // eslint-disable-next-line unicorn/no-array-reduce
   const hasAnInvalidEastNorth = eastNorths.reduce((foundInvalid, eastNorth) => {
     return foundInvalid || eastNorth === undefined || eastNorth.length !== 2;
   }, false);
@@ -153,11 +154,12 @@ const sumEastNorths = (...eastNorths) => {
     return undefined;
   }
 
+  // eslint-disable-next-line unicorn/no-array-reduce
   return eastNorths.reduce(
     (sum, eastNorth) => {
       return [sum[0] + eastNorth[0], sum[1] + eastNorth[1]];
     },
-    [0, 0]
+    [0, 0],
   );
 };
 
