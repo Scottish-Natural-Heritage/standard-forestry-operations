@@ -14,21 +14,21 @@ const validSettId = (settId) => {
 
 const uniqueSettId = (currentSettId, previousSettList) => {
   // If sett list's length is 0, return true, ie it is unique.
-  if (previousSettList.length === 0) {
+  if (previousSettList === undefined) {
     return true;
   }
 
-  // If sett list's length is >= 1, loop through the list of sett objects.
+  // If sett list's length is > 0, loop through the list of sett objects.
   if (previousSettList.length > 0) {
-    previousSettList.forEach((sett) => {
+    for (const sett of previousSettList) {
       if (sett.id === currentSettId) {
         // Return false if current sett id matches one already entered.
         return false;
       }
+    }
 
-      // Return true if it does not match another sett id.
-      return true;
-    });
+    // Return true if it does not match another sett id.
+    return true;
   }
 };
 
