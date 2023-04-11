@@ -19,15 +19,16 @@ const uniqueSettId = (currentSettId, previousSettList) => {
   }
 
   // If sett list's length is >= 1, loop through the list of sett objects.
-  if (previousSettList.length >= 1) {
+  if (previousSettList.length > 0) {
     previousSettList.forEach((sett) => {
       if (sett.id === currentSettId) {
         // Return false if current sett id matches one already entered.
         return false;
       }
+
       // Return true if it does not match another sett id.
       return true;
-    })
+    });
   }
 };
 
@@ -113,11 +114,13 @@ const validEntrances = (entrances) => {
 
 const settDetailsController = (request) => {
   request.session.currentSettIdError = !validSettId(request.body.currentSettId);
+  request.session.uniqueSettIdError = !uniqueSettId(request.body.currentSettId, request.session.setts);
   request.session.currentGridReferenceError = !validGridReference(request.body.currentGridReference);
   request.session.currentEntrancesError = !validEntrances(request.body.currentEntrances);
 
   request.session.settDetailsError =
     request.session.currentSettIdError ||
+    request.session.uniqueSettIdError ||
     request.session.currentGridReferenceError ||
     request.session.currentEntrancesError;
 
