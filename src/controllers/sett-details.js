@@ -12,6 +12,25 @@ const validSettId = (settId) => {
   return true;
 };
 
+const uniqueSettId = (currentSettId, previousSettList) => {
+  // If sett list's length is 0, return true, ie it is unique.
+  if (previousSettList.length === 0) {
+    return true;
+  }
+
+  // If sett list's length is >= 1, loop through the list of sett objects.
+  if (previousSettList.length >= 1) {
+    previousSettList.forEach((sett) => {
+      if (sett.id === currentSettId) {
+        // Return false if current sett id matches one already entered.
+        return false;
+      }
+      // Return true if it does not match another sett id.
+      return true;
+    })
+  }
+};
+
 /**
  * Clean a string to remove any non-grid-ref characters.
  *
@@ -123,6 +142,7 @@ const settDetailsController = (request) => {
     }
 
     request.session.setts.push(newSett);
+    console.log(request.session);
   } else {
     request.session.setts[request.session.currentSettIndex].id = formatId(request.body.currentSettId.trim());
     request.session.setts[request.session.currentSettIndex].gridReference = formatGridReference(
