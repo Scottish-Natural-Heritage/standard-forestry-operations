@@ -17,15 +17,15 @@ const validSettId = (settId) => {
  *
  * @param {string} currentSettId A user supplied sett Id.
  * @param {Array.<object>} previousSettArray An array of sett information already entered during this session.
- * @returns {boolean} True is the sett Id is unique.
+ * @returns {boolean} True if the sett Id is unique.
  */
 const uniqueSettId = (currentSettId, previousSettArray) => {
-  // If sett list's length is 0, return true, ie it is unique.
+  // If sett array is undefined, return true, ie it is unique as no setts have been entered yet.
   if (previousSettArray === undefined) {
     return true;
   }
 
-  // If sett list's length is > 0, loop through the list of sett objects.
+  // If sett array's length is > 0, loop through the sett objects.
   if (previousSettArray.length > 0) {
     for (const sett of previousSettArray) {
       if (sett.id === currentSettId) {
