@@ -13,7 +13,7 @@ const validSettId = (settId) => {
 };
 
 /**
- * Check a sett ID against any previously entered during the session for duplicates.
+ * Check a sett ID for duplicates against any previously entered during the session.
  *
  * @param {string} currentSettId A user supplied sett Id.
  * @param {Array.<object>} previousSettArray An array of sett information already entered during this session.
