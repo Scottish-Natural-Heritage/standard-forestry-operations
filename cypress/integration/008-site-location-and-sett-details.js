@@ -35,16 +35,9 @@ describe('Site Location page ', function () {
     cy.get('#main-content form button.naturescot-forward-button').click();
     // ~GET `/choose-address`~
     // FILL the form
-    // Cy.get('select[name=address]').select('10092032547');
+    cy.get('select[name=address]').select('10092032547');
     // POST `/choose-address`
-    // Cy.get('button.govuk-button[name=addressFound][value=yes]').click();
-    // Address not found
-    cy.get('#main-content form button.govuk-button--secondary').click();
-    // /manual-address
-    cy.get('input[type=text]#addressLine1').type('Nature Scot');
-    cy.get('input[type=text]#addressTown').type('Nature Scot');
-    cy.get('input[type=text]#addressCounty').type('Nature Scot');
-    cy.get('#main-content form button.naturescot-forward-button').click();
+    cy.get('button.govuk-button[name=addressFound][value=yes]').click();
   });
 
   it('should allow access if the user visits all the pages in order', function () {
