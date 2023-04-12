@@ -110,4 +110,30 @@ describe('Site Location page ', function () {
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/confirm');
   });
+
+  it('add a second sett with the same name as the first should give an error', function () {
+    cy.visit('/site-location');
+    cy.get('#main-content form button.naturescot-button--add').click();
+    cy.url().should('include', '/sett-details');
+
+    // Enter a first sett.
+    cy.get('input[type="text"]#current-sett-id').type('ABC123');
+    cy.get('input[type="text"]#current-grid-reference').type('NH60004000');
+    cy.get('input[type="text"]#current-entrances').type('3');
+
+    cy.get('#main-content form button.naturescot-forward-button').click();
+    cy.url().should('include', '/site-location');
+
+    cy.get('#main-content form button.naturescot-button--add').click();
+    cy.url().should('include', '/sett-details');
+
+    // Enter a second sett with the same details.
+    cy.get('input[type="text"]#current-sett-id').type('ABC123');
+    cy.get('input[type="text"]#current-grid-reference').type('NH60004000');
+    cy.get('input[type="text"]#current-entrances').type('3');
+
+    cy.get('#main-content form button.naturescot-forward-button').click();
+    cy.url().should('include', '/sett-details');
+    cy.get('.govuk-error-summary ul li a').should('contain', 'Enter a different Sett name');
+  });
 });
