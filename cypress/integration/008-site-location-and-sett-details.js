@@ -134,6 +134,6 @@ describe('Site Location page ', function () {
 
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/sett-details');
-    cy.get('.govuk-error-summary ul li a').should('contain', 'Enter a different Sett name');
+    cy.get('.govuk-error-summary ul li a').should('contain', 'Enter a different Sett ID');
   });
 });
