@@ -152,7 +152,6 @@ const settDetailsController = (request) => {
     }
 
     request.session.setts.push(newSett);
-    console.log(request.session);
   } else {
     request.session.setts[request.session.currentSettIndex].id = formatId(request.body.currentSettId.trim());
     request.session.setts[request.session.currentSettIndex].gridReference = formatGridReference(
