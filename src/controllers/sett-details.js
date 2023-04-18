@@ -13,6 +13,33 @@ const validSettId = (settId) => {
 };
 
 /**
+ * Check a sett ID for duplicates against any previously entered during the session.
+ *
+ * @param {string} currentSettId A user supplied sett Id.
+ * @param {Array.<object>} previousSettArray An array of sett information already entered during this session.
+ * @returns {boolean} True if the sett Id is unique.
+ */
+const uniqueSettId = (currentSettId, previousSettArray) => {
+  // If sett array is undefined, return true, ie it is unique as no setts have been entered yet.
+  if (previousSettArray === undefined) {
+    return true;
+  }
+
+  // If sett array's length is > 0, loop through the sett objects.
+  if (previousSettArray.length > 0) {
+    for (const sett of previousSettArray) {
+      if (sett.id === currentSettId) {
+        // Return false if current sett id matches one already entered.
+        return false;
+      }
+    }
+
+    // Return true if it does not match another sett id.
+    return true;
+  }
+};
+
+/**
  * Clean a string to remove any non-grid-ref characters.
  *
  * Takes something like '-NH_6400 4800__' and returns 'NH64004800'.
@@ -94,11 +121,13 @@ const validEntrances = (entrances) => {
 
 const settDetailsController = (request) => {
   request.session.currentSettIdError = !validSettId(request.body.currentSettId);
+  request.session.uniqueSettIdError = !uniqueSettId(request.body.currentSettId, request.session.setts);
   request.session.currentGridReferenceError = !validGridReference(request.body.currentGridReference);
   request.session.currentEntrancesError = !validEntrances(request.body.currentEntrances);
 
   request.session.settDetailsError =
     request.session.currentSettIdError ||
+    request.session.uniqueSettIdError ||
     request.session.currentGridReferenceError ||
     request.session.currentEntrancesError;
 

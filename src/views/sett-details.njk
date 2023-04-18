@@ -22,7 +22,11 @@
         {
           text: "Enter the number of Entrances",
           href: "#current-entrances-error"
-        } if model.currentEntrancesError
+        } if model.currentEntrancesError,
+        {
+          text: "Enter a different Sett ID",
+          href: "#unique-sett-id-error"
+        } if model.uniqueSettIdError
       ]
     }) }}
   {% endif %}
