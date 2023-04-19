@@ -37,7 +37,7 @@ const confirmController = async (request) => {
       const appNo = newAppResponse.headers.location.slice(newAppResponse.headers.location.lastIndexOf('/') + 1);
 
       // Pad with leading zeroes as required.
-      const appId = appNo.padStart(5, appNo);
+      const appId = appNo.padStart(5, 0);
 
       // Get the application ID from the location in the response.
       request.session.licenceNo = `NS-SFO-${appId}`;
