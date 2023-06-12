@@ -8,8 +8,7 @@ const config = Object.freeze({
   hostPrefix: process.env.SFO_HOST_PREFIX || `http://localhost:${process.env.SFO_PORT}`,
   pathPrefix: process.env.SFO_PATH_PREFIX ? `/${process.env.SFO_PATH_PREFIX}` : '/standard-forestry-operations',
   cookiePrefix: process.env.COOKIE_PREFIX || '__Secure',
-  gazetteerApiEndpoint: process.env.PC_LOOKUP_API_URL || 'https://cagmap.snh.gov.uk/gazetteer',
-  gazetteerApiKey: process.env.PC_LOOKUP_API_KEY ?? '',
+  gazetteerApiEndpoint: process.env.PC_LOOKUP_API_URL || '',
 });
 
 export {config as default};
