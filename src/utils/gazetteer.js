@@ -15,9 +15,6 @@ const findAddressesByPostcode = async (postcode) => {
       params: {
         postcode,
       },
-      headers: {
-        Authorization: `Bearer ${config.gazetteerApiKey}`,
-      },
       timeout: 10_000,
     });
   } catch (error) {
@@ -54,9 +51,6 @@ const findFullAddressesByUprn = async (uprn) => {
       params: {
         uprn,
         fieldset: 'all',
-      },
-      headers: {
-        Authorization: `Bearer ${config.gazetteerApiKey}`,
       },
       timeout: 10_000,
     });
