@@ -65,6 +65,8 @@ const siteLocationController = (request) => {
     const editKey = formKeys.find((key) => key.startsWith('edit-'));
     const editIndex = Number.parseInt(editKey.split('edit-')[1], 10);
 
+    request.session.editMode = true;
+
     request.session.currentSettIndex = editIndex;
 
     request.session.currentSettId = unFormatId(request.session.setts[editIndex].id);
