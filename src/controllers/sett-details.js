@@ -34,6 +34,7 @@ const uniqueSettId = (currentSettId, previousSettArray) => {
         return false;
       }
     }
+
     // Return true if it does not match another sett id.
     return true;
   }
@@ -160,11 +161,11 @@ const settDetailsController = (request) => {
   } else {
     request.session.setts[request.session.currentSettIndex].id = formatId(request.body.currentSettId.trim());
     request.session.setts[request.session.currentSettIndex].gridReference = formatGridReference(
-      request.body.currentGridReference
+      request.body.currentGridReference,
     );
     request.session.setts[request.session.currentSettIndex].entrances = Number.parseInt(
       request.body.currentEntrances,
-      10
+      10,
     );
   }
 
