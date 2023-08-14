@@ -31,6 +31,16 @@
     }) }}
   {% endif %}
 
+  {% set settIdErrorMessage %}
+    {% if model.currentSettIdError %}
+      Enter a Sett ID
+    {% elif model.uniqueSettIdError %}
+      Enter a different Sett ID
+    {% else %}
+      {# Blank. Not an error. #}
+    {% endif %}
+  {% endset -%}
+
   <form method="post">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
@@ -58,11 +68,8 @@
         name: "currentSettId",
         value: model.currentSettId,
         errorMessage: {
-          text: "Enter a Sett ID"
-        } if model.currentSettIdError,
-        attributes: {
-          spellcheck: "false"
-        }
+          text: settIdErrorMessage
+        } if model.settIdError
       }) }}
 
       {{ govukInput({

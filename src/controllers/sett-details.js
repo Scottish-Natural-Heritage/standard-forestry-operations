@@ -21,6 +21,7 @@ const validSettId = (settId) => {
  */
 const uniqueSettId = (currentSettId, previousSettArray) => {
   // If sett array is undefined, return true, ie it is unique as no setts have been entered yet.
+
   if (previousSettArray === undefined) {
     return true;
   }
@@ -121,9 +122,14 @@ const validEntrances = (entrances) => {
 
 const settDetailsController = (request) => {
   request.session.currentSettIdError = !validSettId(request.body.currentSettId);
-  request.session.uniqueSettIdError = !uniqueSettId(request.body.currentSettId, request.session.setts);
+  if (request.session.editMode === false) {
+    request.session.uniqueSettIdError = !uniqueSettId(request.body.currentSettId, request.session.setts);
+  }
+
   request.session.currentGridReferenceError = !validGridReference(request.body.currentGridReference);
   request.session.currentEntrancesError = !validEntrances(request.body.currentEntrances);
+
+  request.session.settIdError = request.session.currentSettIdError || request.session.uniqueSettIdError;
 
   request.session.settDetailsError =
     request.session.currentSettIdError ||
@@ -165,6 +171,7 @@ const settDetailsController = (request) => {
 
   request.session.settDetailsError = false;
   request.session.settCountError = false;
+  request.session.editMode = false;
   return ReturnState.Positive;
 };
 
