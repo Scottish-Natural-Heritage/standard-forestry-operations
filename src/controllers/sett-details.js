@@ -16,20 +16,20 @@ const validSettId = (settId) => {
  * Check a sett ID for duplicates against any previously entered during the session.
  *
  * @param {string} currentSettId A user supplied sett Id.
- * @param {Array.<object>} previousSettArray An array of sett information already entered during this session.
+ * @param {string[]} settIds An array of sett ids already entered during this session.
  * @returns {boolean} True if the sett Id is unique.
  */
-const uniqueSettId = (currentSettId, previousSettArray) => {
+const uniqueSettId = (currentSettId, settIds) => {
   // If sett array is undefined, return true, ie it is unique as no setts have been entered yet.
 
-  if (previousSettArray === undefined) {
+  if (settIds === undefined) {
     return true;
   }
 
   // If sett array's length is > 0, loop through the sett objects.
-  if (previousSettArray.length > 0) {
-    for (const sett of previousSettArray) {
-      if (sett.id === currentSettId) {
+  if (settIds.length > 0) {
+    for (const id of settIds) {
+      if (id === currentSettId) {
         // Return false if current sett id matches one already entered.
         return false;
       }
@@ -120,11 +120,25 @@ const validEntrances = (entrances) => {
   return true;
 };
 
+/**
+ * Creates an array of sett ids excluding the one being edited.
+ *
+ * @param {any} session Current session data.
+ * @returns {string[]} An array of sett Ids.
+ */
+const getIdList = (session) => {
+  return session.setts
+    .filter((sett) => {
+      return sett.editable === false;
+    })
+    .map((sett) => {
+      return sett.id;
+    });
+};
+
 const settDetailsController = (request) => {
   request.session.currentSettIdError = !validSettId(request.body.currentSettId);
-  if (request.session.editMode === false) {
-    request.session.uniqueSettIdError = !uniqueSettId(request.body.currentSettId, request.session.setts);
-  }
+  request.session.uniqueSettIdError = !uniqueSettId(request.body.currentSettId, request.session.settsIdList);
 
   request.session.currentGridReferenceError = !validGridReference(request.body.currentGridReference);
   request.session.currentEntrancesError = !validEntrances(request.body.currentEntrances);
@@ -151,6 +165,7 @@ const settDetailsController = (request) => {
       id: formatId(request.body.currentSettId.trim()),
       gridReference: formatGridReference(request.body.currentGridReference),
       entrances: Number.parseInt(request.body.currentEntrances, 10),
+      editable: false,
     };
 
     if (!Array.isArray(request.session.setts)) {
@@ -159,19 +174,18 @@ const settDetailsController = (request) => {
 
     request.session.setts.push(newSett);
   } else {
-    request.session.setts[request.session.currentSettIndex].id = formatId(request.body.currentSettId.trim());
-    request.session.setts[request.session.currentSettIndex].gridReference = formatGridReference(
-      request.body.currentGridReference,
-    );
-    request.session.setts[request.session.currentSettIndex].entrances = Number.parseInt(
-      request.body.currentEntrances,
-      10,
-    );
+    const currentSett = request.session.setts[request.session.currentSettIndex];
+    [currentSett.id, currentSett.gridReference, currentSett.entrances, currentSett.editable] = [
+      formatId(request.body.currentSettId.trim()),
+      formatGridReference(request.body.currentGridReference),
+      Number.parseInt(request.body.currentEntrances, 10),
+      false,
+    ];
   }
 
+  request.session.settsIdList = getIdList(request.session);
   request.session.settDetailsError = false;
   request.session.settCountError = false;
-  request.session.editMode = false;
   return ReturnState.Positive;
 };
 

@@ -40,6 +40,22 @@ const buildDisplaySetts = (session) => {
 };
 
 /**
+ * Creates an array of sett ids excluding the one being edited.
+ *
+ * @param {any} session Current session data.
+ * @returns {string[]} An array of sett Ids.
+ */
+const getIdList = (session) => {
+  return session.setts
+    .filter((sett) => {
+      return sett.editable === false;
+    })
+    .map((sett) => {
+      return sett.id;
+    });
+};
+
+/**
  * Dirty a string to re-add any html-ish characters.
  *
  * Takes something like
@@ -65,11 +81,14 @@ const siteLocationController = (request) => {
     const editKey = formKeys.find((key) => key.startsWith('edit-'));
     const editIndex = Number.parseInt(editKey.split('edit-')[1], 10);
 
-    request.session.editMode = true;
-
     request.session.currentSettIndex = editIndex;
 
     request.session.currentSettId = unFormatId(request.session.setts[editIndex].id);
+
+    request.session.setts[editIndex].editable = true;
+
+    request.session.settsIdList = getIdList(request.session);
+
     request.session.currentGridReference = request.session.setts[editIndex].gridReference;
     request.session.currentEntrances = request.session.setts[editIndex].entrances;
 
@@ -92,6 +111,10 @@ const siteLocationController = (request) => {
 
   if (addMode) {
     request.session.currentSettIndex = -1;
+
+    if (request.session.setts !== undefined && request.session.setts.length > 0) {
+      request.session.settsIdList = getIdList(request.session);
+    }
 
     request.session.currentSettId = '';
     request.session.currentGridReference = '';
