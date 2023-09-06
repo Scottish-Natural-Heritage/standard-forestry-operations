@@ -68,6 +68,9 @@ const siteLocationController = (request) => {
     request.session.currentSettIndex = editIndex;
 
     request.session.currentSettId = unFormatId(request.session.setts[editIndex].id);
+
+    request.session.setts[editIndex].editable = true;
+
     request.session.currentGridReference = request.session.setts[editIndex].gridReference;
     request.session.currentEntrances = request.session.setts[editIndex].entrances;
 
