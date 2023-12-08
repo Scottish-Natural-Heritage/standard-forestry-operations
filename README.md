@@ -8,6 +8,8 @@ Apply for a Standard Forestry Operations licence
 npm run dev
 ```
 
+If using `npm run start:mock` then the COOKIE_PREFIX must be manually set to `_` in src/config.js
+
 ## Test
 
 ```sh
