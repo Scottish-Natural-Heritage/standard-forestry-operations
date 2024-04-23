@@ -70,21 +70,21 @@ app.use(
     secret: config.sessionSecret,
     resave: true,
     saveUninitialized: false,
-  })
+  }),
 );
 
 /* eslint-enable no-unneeded-ternary */
 
 app.use(
   `${config.pathPrefix}/dist`,
-  express.static(path.join(__dirname, '..', '/dist'), {immutable: true, maxAge: '30 minutes'})
+  express.static(path.join(__dirname, '..', '/dist'), {immutable: true, maxAge: '30 minutes'}),
 );
 app.use(
   `${config.pathPrefix}/govuk-frontend`,
   express.static(path.join(__dirname, '..', '/node_modules/govuk-frontend/govuk'), {
     immutable: true,
     maxAge: '3 hours',
-  })
+  }),
 );
 
 // `health` is a simple health-check end-point to test whether the service is
