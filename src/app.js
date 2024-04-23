@@ -1,5 +1,6 @@
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
+import process from 'node:process';
 import express from 'express';
 import morgan from 'morgan';
 import nunjucks from 'nunjucks';
@@ -45,6 +46,9 @@ const sessionDuration = 20.1 * 60 * 60 * 1000;
 
 app.set('trust proxy', 1); // Trust first proxy
 
+// Disabling as makes the code's intention more obvious.
+/* eslint-disable no-unneeded-ternary */
+
 app.use(
   session({
     // Using the __Secure- prefix to protect our cookies as per
@@ -55,9 +59,10 @@ app.use(
       maxAge: sessionDuration,
       path: `${config.pathPrefix}/`,
       httpOnly: true,
-      // We're re-writing all cookies to be secure on the proxy, so between here
-      // and there it doesn't need to be.
-      secure: false,
+      // We need to set the secure attribute to true as Caddy doesn't
+      // currently rewrite the attribute for us in the way Nginx did.
+      // If we're running tests don't set it as it'll break Cypress.
+      secure: process.env.UNDER_TEST ? false : true,
     },
     store: new MemoryStore({
       checkPeriod: sessionDuration,
@@ -65,19 +70,21 @@ app.use(
     secret: config.sessionSecret,
     resave: true,
     saveUninitialized: false,
-  }),
+  })
 );
+
+/* eslint-enable no-unneeded-ternary */
 
 app.use(
   `${config.pathPrefix}/dist`,
-  express.static(path.join(__dirname, '..', '/dist'), {immutable: true, maxAge: '30 minutes'}),
+  express.static(path.join(__dirname, '..', '/dist'), {immutable: true, maxAge: '30 minutes'})
 );
 app.use(
   `${config.pathPrefix}/govuk-frontend`,
   express.static(path.join(__dirname, '..', '/node_modules/govuk-frontend/govuk'), {
     immutable: true,
     maxAge: '3 hours',
-  }),
+  })
 );
 
 // `health` is a simple health-check end-point to test whether the service is
