@@ -19,7 +19,7 @@
     "start": "node --experimental-modules src/server.js",
     "dev": "SFO_PORT=3999 COOKIE_PREFIX=_ nodemon --exec \"npm run lint && npm run start\" -e js,njk,scss --ignore build/ --ignore dist/ --ignore cypress/",
     "cy:run": "cypress run",
-    "test": "SFO_PORT=3002 SFO_PATH_PREFIX=standard-forestry-operations COOKIE_PREFIX=_ PC_LOOKUP_API_URL=http://mock-gazetteer-api/endpoint start-server-and-test start:mock http://localhost:3002/standard-forestry-operations/health cy:run",
+    "test": "UNDER_TEST=true SFO_PORT=3002 SFO_PATH_PREFIX=standard-forestry-operations COOKIE_PREFIX=_ PC_LOOKUP_API_URL=http://mock-gazetteer-api/endpoint start-server-and-test start:mock http://localhost:3002/standard-forestry-operations/health cy:run",
     "cy:open": "cypress open"
   },
   "engines": {
@@ -53,9 +53,9 @@
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-editorconfig": "^3.2.0",
     "eslint-plugin-jsdoc": "^39.3.3",
-    "nodemon": "^2.0.18",
+    "nodemon": "^3.1.0",
     "prettier": "^2.7.1",
-    "start-server-and-test": "^1.14.0",
+    "start-server-and-test": "^2.0.3",
     "xo": "^0.50.0"
   },
   "xo": {
