@@ -1,6 +1,5 @@
 // Load the config.
 import config from './config.js';
-
 // Load the app.
 import app from './app.js';
 

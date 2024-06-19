@@ -6,7 +6,6 @@ import morgan from 'morgan';
 import nunjucks from 'nunjucks';
 import session from 'express-session';
 import memorystore from 'memorystore';
-
 import config from './config.js';
 import logger from './logger.js';
 import router from './router.js';

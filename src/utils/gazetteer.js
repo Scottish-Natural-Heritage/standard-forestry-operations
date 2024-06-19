@@ -3,7 +3,6 @@ import config from '../config.js';
 
 /**
  * Find addresses by postcode.
- *
  * @param {string} postcode The postcode to find addresses by.
  */
 const findAddressesByPostcode = async (postcode) => {
@@ -39,7 +38,6 @@ const findAddressesByPostcode = async (postcode) => {
 
 /**
  * Find addresses by postcode.
- *
  * @param {number} uprn The UPRN to find addresses by.
  */
 const findFullAddressesByUprn = async (uprn) => {

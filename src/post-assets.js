@@ -3,7 +3,6 @@ import Jimp from 'jimp';
 /**
  * Create a 'small' version of the NatureScot logo as a favicon or for when
  * someone bookmarks the page or saves it to their smartphone's home screen.
- *
  * @param {any} fileName The file name of the logo file.
  * @param {any} size The size of the logo file.
  */
@@ -19,7 +18,6 @@ const buildIcon = async (fileName, size) => {
 /**
  * Create a padded version of the NatureScot logo for when someone shares the
  * page on facebook, twitter, whatsapp, imessage, etc.
- *
  * @param {any} fileName The file name of the logo file.
  */
 const buildSocial = async (fileName) => {
@@ -41,15 +39,15 @@ const buildSocial = async (fileName) => {
 async function main() {
   try {
     // This image has been copied in to place by the `assets` npm stage.
-    const srcFile = './dist/naturescot-logo.png';
+    const sourceFile = './dist/naturescot-logo.png';
 
     // Build the social share image.
-    const newSocial = await buildSocial(srcFile);
+    const newSocial = await buildSocial(sourceFile);
     await newSocial.writeAsync(`./dist/naturescot-opengraph-image.png`);
 
     // Build all the fav & home screen icons.
     for await (const size of [192, 180, 167, 152, 120]) {
-      const newIcon = await buildIcon(srcFile, size);
+      const newIcon = await buildIcon(sourceFile, size);
       await newIcon.writeAsync(`./dist/icon-${size}x${size}.png`);
     }
   } catch (error) {
@@ -57,4 +55,4 @@ async function main() {
   }
 }
 
-main();
+await main();

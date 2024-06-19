@@ -1,6 +1,5 @@
 /**
  * Cleans and sanitises a 'yes'/'no' pair of radio buttons.
- *
  * @param {string | undefined} dirty A form field that should be 'yes',
  * 'no' or undefined as set by a pair of radio buttons.
  * @returns {boolean | undefined} True if dirty is 'yes', false if dirty is
@@ -20,7 +19,6 @@ const cleanRadioBoolean = (dirty) => {
 
 /**
  * Cleans and sanitises a string form field.
- *
  * @param {string | undefined} dirty A user-entered string from an
  * incoming form.
  * @returns {string | undefined} A trimmed string, or undefined.
@@ -36,7 +34,6 @@ const cleanInputString = (dirty) => {
 /**
  * Process a string in to either it's non-negative integer `number`
  * representation or return `undefined`.
- *
  * @param {string | undefined} dirtyValue The user's supplied integer value.
  * @returns {number | undefined} The cleaned, non-negative, integer value.
  */
