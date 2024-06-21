@@ -4,7 +4,6 @@ import {ReturnState} from './_base.js';
 /**
  * Clean the incoming postcode to make it more compatible with the
  * database and its validation rules.
- *
  * @param {any} body The incoming request's body.
  * @returns {any} A json object that's just got our cleaned up postcode in it.
  */

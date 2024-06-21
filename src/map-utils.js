@@ -1,7 +1,6 @@
 /**
  * Get the easting and northing of the bottom-left corner of the first letter
  * (500km tile) of a grid reference.
- *
  * @param {string} letter The first letter of a grid reference.
  * @returns {number[]} An array containing an easting and a northing.
  */
@@ -32,7 +31,6 @@ const firstLetterToEastNorth = (letter) => {
 /**
  * Get the easting and northing offset of the bottom-left corner of the second
  * letter (100km tile) of a grid reference.
- *
  * @param {string} letter The second letter of a grid reference.
  * @returns {number[]} An array containing an easting and a northing.
  */
@@ -86,18 +84,22 @@ const secondLetterToEastNorth = (letter) => {
 
 /**
  * Get the easting and northing offset of the digits of a grid reference.
- *
- * @param {string} gridRef A grid reference.
+ * @param {string} gridReference A grid reference.
  * @returns {number[]} An array containing an easting and a northing.
  */
-const digitsEastNorth = (gridRef) => {
+const digitsEastNorth = (gridReference) => {
   // Check we've got something between NH64 and NH6380644032 as input.
-  if (gridRef === undefined || gridRef.length < 4 || gridRef.length > 12 || gridRef.length % 2 !== 0) {
+  if (
+    gridReference === undefined ||
+    gridReference.length < 4 ||
+    gridReference.length > 12 ||
+    gridReference.length % 2 !== 0
+  ) {
     return undefined;
   }
 
   // Strip the letters from the front of the grid ref, keeping the digits.
-  const nonLetters = gridRef.slice(2);
+  const nonLetters = gridReference.slice(2);
 
   // Get the two numeric halves of the grid ref.
   const eastString = nonLetters.slice(0, nonLetters.length / 2);
@@ -139,7 +141,6 @@ const digitsEastNorth = (gridRef) => {
 /**
  * Take a number of arrays, each containing an easting and a northing, and
  * return a summed easting and northing.
- *
  * @param  {...number[]} eastNorths A number of arrays, each containing an easting and
  * a northing.
  * @returns {number[]} An array containing an easting and a northing.
@@ -165,19 +166,18 @@ const sumEastNorths = (...eastNorths) => {
 
 /**
  * Convert an OS Grid Reference to an array containing its easting and northing.
- *
- * @param {string} gridRef An OS Grid Reference, eg. NH63804403.
+ * @param {string} gridReference An OS Grid Reference, eg. NH63804403.
  * @returns {number[]} An array containing an easting and a northing.
  */
-const gridRefToEastNorth = (gridRef) => {
+const gridReferenceToEastNorth = (gridReference) => {
   // Get the 500km tile easting and northing of the grid ref.
-  const first = firstLetterToEastNorth(gridRef.charAt(0));
+  const first = firstLetterToEastNorth(gridReference.charAt(0));
 
   // Get the 100km tile easting and northing of the grid ref.
-  const second = secondLetterToEastNorth(gridRef.charAt(1));
+  const second = secondLetterToEastNorth(gridReference.charAt(1));
 
   // Get the easting an northing for the digits of the grid ref.
-  const rest = digitsEastNorth(gridRef);
+  const rest = digitsEastNorth(gridReference);
 
   // Add all three eastings and northings together to get the final answer.
   return sumEastNorths(first, second, rest);
@@ -193,4 +193,4 @@ const osProjString =
   '+units=m ' + // Metres
   '+no_defs';
 
-export {gridRefToEastNorth, osProjString};
+export {gridReferenceToEastNorth as gridRefToEastNorth, osProjString};

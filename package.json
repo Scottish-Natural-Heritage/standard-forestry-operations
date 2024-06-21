@@ -8,6 +8,7 @@
   "type": "module",
   "scripts": {
     "lint": "xo",
+    "lint:code:fix": "xo --fix",
     "scss": "node --experimental-modules src/scss.js",
     "assets": "cp node_modules/naturescot-frontend/naturescot/assets/images/naturescot-logo.png dist/ && cp -R src/assets/* dist/",
     "postassets": "node --experimental-modules src/post-assets.js",
@@ -49,14 +50,14 @@
     "@babel/core": "^7.18.6",
     "@babel/eslint-parser": "^7.18.2",
     "axios-mock-adapter": "^1.21.1",
-    "cypress": "^4.3.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-editorconfig": "^3.2.0",
-    "eslint-plugin-jsdoc": "^39.3.3",
+    "cypress": "^13.12.0",
+    "eslint-plugin-cypress": "^3.3.0",
+    "eslint-plugin-editorconfig": "^4.0.3",
+    "eslint-plugin-jsdoc": "^48.2.12",
     "nodemon": "^3.1.0",
-    "prettier": "^2.7.1",
+    "prettier": "^3.3.2",
     "start-server-and-test": "^2.0.3",
-    "xo": "^0.50.0"
+    "xo": "^0.58.0"
   },
   "xo": {
     "space": 2,

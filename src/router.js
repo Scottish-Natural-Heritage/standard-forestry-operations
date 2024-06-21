@@ -1,5 +1,4 @@
 import express from 'express';
-
 // Import all the controllers.
 import {Page} from './controllers/_base.js';
 import StartController from './controllers/start.js';

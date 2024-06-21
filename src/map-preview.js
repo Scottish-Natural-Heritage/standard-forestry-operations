@@ -1,20 +1,16 @@
 // Import Leaflet's CSS
 import 'leaflet/dist/leaflet.css';
-
-// Import Our CSS
-import './map-preview.css';
-
 // Import Leaflet
 import L from 'leaflet';
 import proj from 'proj4';
 import 'proj4leaflet'; // eslint-disable-line import/no-unassigned-import
-
+// Import Our CSS
+import './map-preview.css';
 import * as MapUtils from './map-utils.js';
 
 /**
  * Render a 'Sett' object, which contains an ID, Grid Reference and
  * number of Entrances into some HTML for the LeafletJS Marker popup.
- *
  * @param {object} sett A Sett.
  * @param {string} sett.id The ID of the Sett.
  * @param {string} sett.gridReference The Grid Reference of the Sett.
@@ -63,7 +59,6 @@ const naturescotIcon = L.icon({
 
 /**
  * Create the LeafletJS map and bind it to the supplied element.
- *
  * @param {string | HTMLElement} element ID of the map HTML-Element as string or
  * the map HTML-ELement itself.
  * @returns {L.Map} The LeafletJS map.
@@ -108,7 +103,6 @@ const buildAndBindMap = (element) => {
 
 /**
  * Do everything required to display the map.
- *
  * @param {string | HTMLElement} mapElement ID of the map HTML-Element as string
  * or the map HTML-ELement itself.
  * @param {string | HTMLElement} overlayElement ID of the overlay HTML-Element
