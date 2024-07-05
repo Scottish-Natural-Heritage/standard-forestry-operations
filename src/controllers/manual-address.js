@@ -61,19 +61,19 @@ const manualAddressController = (request) => {
   // Check for any forbidden characters in the user's input.
   request.session.invalidCharAddressLine1 = validation.hasInvalidCharacters(
     cleanForm.addressLine1,
-    validation.invalidCharacters
+    validation.invalidCharacters,
   );
   request.session.invalidCharAddressLine2 = validation.hasInvalidCharacters(
     cleanForm.addressLine2,
-    validation.invalidCharacters
+    validation.invalidCharacters,
   );
   request.session.invalidCharAddressTown = validation.hasInvalidCharacters(
     cleanForm.addressTown,
-    validation.invalidCharacters
+    validation.invalidCharacters,
   );
   request.session.invalidCharAddressCounty = validation.hasInvalidCharacters(
     cleanForm.addressCounty,
-    validation.invalidCharacters
+    validation.invalidCharacters,
   );
 
   // Check that any of the fields are invalid.

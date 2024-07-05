@@ -90,37 +90,37 @@ describe('choose address page', function () {
     cy.get('.govuk-error-summary ul li a')
       .should(
         'contain',
-        'Address line 1 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Address line 1 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       )
       .and(
         'contain',
-        'Address line 2 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Address line 2 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       )
       .and(
         'contain',
-        'Town or city must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Town or city must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       )
       .and(
         'contain',
-        'County must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'County must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       );
 
     cy.get('form .govuk-form-group--error')
       .and(
         'contain',
-        'Address line 1 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Address line 1 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       )
       .and(
         'contain',
-        'Address line 2 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Address line 2 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       )
       .and(
         'contain',
-        'Town or city must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Town or city must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       )
       .and(
         'contain',
-        'County must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'County must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       );
   });
 });

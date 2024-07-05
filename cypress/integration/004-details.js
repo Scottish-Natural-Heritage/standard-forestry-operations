@@ -76,29 +76,29 @@ describe('Details page ', function () {
     cy.get('.govuk-error-summary ul li a')
       .should(
         'contain',
-        'Full name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Full name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       )
       .and(
         'contain',
-        'Telephone number must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Telephone number must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       )
       .and(
         'contain',
-        'Organisation must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Organisation must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       );
 
     cy.get('form fieldset .govuk-form-group--error')
       .and(
         'contain',
-        'Full name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Full name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       )
       .and(
         'contain',
-        'Telephone number must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Telephone number must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       )
       .and(
         'contain',
-        'Organisation must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+        'Organisation must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
       );
   });
 });

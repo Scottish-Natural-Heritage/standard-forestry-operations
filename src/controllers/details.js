@@ -60,11 +60,11 @@ const detailsController = (request) => {
   request.session.invalidCharsName = validation.hasInvalidCharacters(cleanForm.fullName, validation.invalidCharacters);
   request.session.invalidCharsOrganisation = validation.hasInvalidCharacters(
     cleanForm.companyOrganisation,
-    validation.invalidCharacters
+    validation.invalidCharacters,
   );
   request.session.invalidCharsPhoneNumber = validation.hasInvalidCharacters(
     cleanForm.phoneNumber,
-    validation.invalidCharacters
+    validation.invalidCharacters,
   );
 
   // Check that any of the fields are invalid.
