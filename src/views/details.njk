@@ -4,6 +4,23 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set nameErrors %}
+  {% if model.nameError %}
+    Enter your full name
+    {% elif model.invalidCharsName %}
+    Full name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes
+  {% endif %}
+{% endset -%}
+
+{% set phoneNumberErrors %}
+  {% if model.phoneError %}
+    Enter your phone number
+    {% elif model.invalidCharsPhoneNumber %}
+    Telephone number must only include letters a to z, and special characters such as hyphens, spaces and apostrophes
+  {% endif %}
+{% endset -%}
+
 {% block content %}
 
   {% if model.detailsError %}
@@ -21,7 +38,19 @@
         {
           text: "Enter your email address",
           href: "#email-address-error"
-        } if model.emailError
+        } if model.emailError,
+        {
+          text: "Full name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+          href: "#full-name-error"
+        } if model.invalidCharsName,
+        {
+          text: "Telephone number must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+          href: "#phone-number-error"
+        } if model.invalidCharsPhoneNumber,
+        {
+          text: "Organisation must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+          href: "#company-organisation-error"
+        } if model.invalidCharsOrganisation
       ]
     }) }}
   {% endif %}
@@ -45,8 +74,8 @@
         name: "fullName",
         value: model.fullName,
         errorMessage: {
-          text: "Enter your full name"
-        } if model.nameError,
+          html: nameErrors
+        } if model.nameError or model.invalidCharsName,
         autocomplete: "name",
         attributes: {
           spellcheck: "false"
@@ -62,6 +91,9 @@
         name: "companyOrganisation",
         value: model.companyOrganisation,
         autocomplete: "organization",
+        errorMessage: {
+          text: "Organisation must only include letters a to z, and special characters such as hyphens, spaces and apostrophes"
+        } if model.invalidCharsOrganisation,
         attributes: {
           spellcheck: "false"
         }
@@ -91,8 +123,8 @@
         name: "phoneNumber",
         value: model.phoneNumber,
         errorMessage: {
-          text: "Enter your phone number"
-        } if model.phoneError,
+          html: phoneNumberErrors
+        } if model.phoneError or model.invalidCharsPhoneNumber,
         type: "tel",
         autocomplete: "tel"
       }) }}
