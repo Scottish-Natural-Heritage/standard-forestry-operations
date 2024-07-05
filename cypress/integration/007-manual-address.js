@@ -73,4 +73,54 @@ describe('choose address page', function () {
 
     cy.url().should('include', '/site-location');
   });
+
+  it('forbidden characters should generate errors', function () {
+    cy.visit('/manual-address');
+
+    cy.get('input[type="text"]#addressLine1').type('<a href="">FakeNastyLink</a>');
+    cy.get('input[type="text"]#addressLine2').type('<a href="">FakeNastyLink</a>');
+    cy.get('input[type="text"]#addressTown').type('<a href="">FakeNastyLink</a>');
+    cy.get('input[type="text"]#addressCounty').type('<a href="">FakeNastyLink</a>');
+
+    cy.get('#main-content form button.naturescot-forward-button').click();
+    cy.url().should('include', '/manual-address');
+
+    cy.get('h2#error-summary-title').should('contain', 'There is a problem');
+
+    cy.get('.govuk-error-summary ul li a')
+      .should(
+        'contain',
+        'Address line 1 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+      )
+      .and(
+        'contain',
+        'Address line 2 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+      )
+      .and(
+        'contain',
+        'Town or city must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+      )
+      .and(
+        'contain',
+        'County must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+      );
+
+    cy.get('form .govuk-form-group--error')
+      .and(
+        'contain',
+        'Address line 1 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+      )
+      .and(
+        'contain',
+        'Address line 2 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+      )
+      .and(
+        'contain',
+        'Town or city must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+      )
+      .and(
+        'contain',
+        'County must only include letters a to z, and special characters such as hyphens, spaces and apostrophes'
+      );
+  });
 });
