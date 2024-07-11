@@ -154,4 +154,27 @@ describe('Site Location page ', function () {
     cy.get('#main-content form button.naturescot-forward-button').click();
     cy.url().should('include', '/site-location');
   });
+
+  it('forbidden characters should generate errors', function () {
+    cy.visit('/site-location');
+    cy.get('#main-content form button.naturescot-button--add').click();
+    cy.url().should('include', '/sett-details');
+
+    cy.get('input[type="text"]#current-sett-id').type('<a href="">FakeNastyLink</a>');
+    cy.get('input[type="text"]#current-grid-reference').type('NH60004000');
+    cy.get('input[type="text"]#current-entrances').type('3');
+
+    cy.get('#main-content form button.naturescot-forward-button').click();
+    cy.url().should('include', '/sett-details');
+
+    cy.get('.govuk-error-summary ul li a').should(
+      'contain',
+      'Sett ID must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
+    );
+
+    cy.get('form .govuk-form-group--error').and(
+      'contain',
+      'Sett ID must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
+    );
+  });
 });

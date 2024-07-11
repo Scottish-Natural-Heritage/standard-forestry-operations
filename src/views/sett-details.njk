@@ -26,7 +26,11 @@
         {
           text: "Enter a different Sett ID",
           href: "#unique-sett-id-error"
-        } if model.uniqueSettIdError
+        } if model.uniqueSettIdError,
+        {
+          text: "Sett ID must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+          href: "#current-sett-id-error"
+        } if model.invalidCharsSettId
       ]
     }) }}
   {% endif %}
@@ -36,6 +40,8 @@
       Enter a Sett ID
     {% elif model.uniqueSettIdError %}
       Enter a different Sett ID
+    {% elif model.invalidCharsSettId %}
+      Sett ID must only include letters a to z, and special characters such as hyphens, spaces and apostrophes
     {% else %}
       {# Blank. Not an error. #}
     {% endif %}
@@ -69,7 +75,7 @@
         value: model.currentSettId,
         errorMessage: {
           text: settIdErrorMessage
-        } if model.settIdError
+        } if model.settIdError or model.invalidCharsSettId
       }) }}
 
       {{ govukInput({

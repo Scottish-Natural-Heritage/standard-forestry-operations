@@ -1,3 +1,4 @@
+import validation from '../utils/validation.js';
 import {ReturnState} from './_base.js';
 
 const validSettId = (settId) => {
@@ -128,11 +129,17 @@ const settDetailsController = (request) => {
 
   request.session.settIdError = request.session.currentSettIdError || request.session.uniqueSettIdError;
 
+  request.session.invalidCharsSettId = validation.hasInvalidCharacters(
+    request.body.currentSettId,
+    validation.invalidCharacters,
+  );
+
   request.session.settDetailsError =
     request.session.currentSettIdError ||
     request.session.uniqueSettIdError ||
     request.session.currentGridReferenceError ||
-    request.session.currentEntrancesError;
+    request.session.currentEntrancesError ||
+    request.session.invalidCharsSettId;
 
   if (request.session.settDetailsError) {
     request.session.currentSettId = request.body.currentSettId.trim();
