@@ -12,6 +12,30 @@
   {% endif %}
 {% endset -%}
 
+{% set addressLine1Errors %}
+  {% if model.addressLine1Error %}
+    <p>Enter the building and street</p>
+  {% elif model.invalidCharAddressLine1 %}
+    <p>Address line 1 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes</p>
+  {% endif %}
+{% endset -%}
+
+{% set addressTownErrors %}
+  {% if model.addressTownError %}
+    <p>Enter the town or city</p>
+  {% elif model.invalidCharAddressTown %}
+    <p>Town or city must only include letters a to z, and special characters such as hyphens, spaces and apostrophes</p>
+  {% endif %}
+{% endset -%}
+
+{% set addressCountyErrors %}
+  {% if model.addressCountyError %}
+    <p>Enter the county</p>
+  {% elif model.invalidCharAddressCounty %}
+    <p>County must only include letters a to z, and special characters such as hyphens, spaces and apostrophes</p>
+  {% endif %}
+{% endset -%}
+
 {% block content %}
   <h1 class="govuk-heading-xl">
     What is your address?
@@ -40,7 +64,23 @@
         {
           text: "Enter a valid postcode",
           href: "#postcode"
-        } if model.invalidPostcodeError
+        } if model.invalidPostcodeError,
+        {
+          text: "Address line 1 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+          href: "#addressLine1"
+        } if model.invalidCharAddressLine1,
+        {
+          text: "Address line 2 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+          href: "#addressLine2"
+        } if model.invalidCharAddressLine2,
+        {
+          text: "Town or city must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+          href: "#addressTown"
+        } if model.invalidCharAddressTown,
+        {
+          text: "County must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+          href: "#addressCounty"
+        } if model.invalidCharAddressCounty
       ]
     })}}
   {% endif %}
@@ -58,8 +98,8 @@
       spellcheck: false,
       autocomplete: "address-line1",
       errorMessage: {
-        text: "Enter the building and street"
-      } if model.addressLine1Error
+        html: addressLine1Errors
+      } if model.addressLine1Error or model.invalidCharAddressLine1
     }) }}
 
     {{ govukInput({
@@ -71,7 +111,10 @@
       },
       value: model.addressLine2,
       spellcheck: false,
-      autocomplete: "address-line2"
+      autocomplete: "address-line2",
+      errorMessage: {
+        text: "Address line 2 must only include letters a to z, and special characters such as hyphens, spaces and apostrophes"
+      } if model.invalidCharAddressLine2
     }) }}
 
     {{ govukInput({
@@ -85,8 +128,8 @@
       spellcheck: false,
       autocomplete: "address-level2",
       errorMessage: {
-        text: "Enter the town or city"
-      } if model.addressTownError
+        html: addressTownErrors
+      } if model.addressTownError or model.invalidCharAddressTown
     }) }}
 
     {{ govukInput({
@@ -100,8 +143,8 @@
       spellcheck: false,
       autocomplete: "address-level1",
       errorMessage: {
-        text: "Enter the county"
-      } if model.addressCountyError
+        html: addressCountyErrors
+      } if model.addressCountyError or model.invalidCharAddressCounty
     }) }}
 
     {{ govukInput({

@@ -1,4 +1,5 @@
 import utils from 'naturescot-utils';
+import validation from '../utils/validation.js';
 import {ReturnState} from './_base.js';
 
 /**
@@ -24,6 +25,9 @@ const detailsController = (request) => {
   request.session.nameError = false;
   request.session.phoneError = false;
   request.session.emailError = false;
+  request.session.invalidCharsName = false;
+  request.session.invalidCharsOrganisation = false;
+  request.session.invalidCharsPhoneNumber = false;
   // Clean up the user's input before we store it in the session.
   const cleanForm = cleanInput(request.body);
   request.session.fullName = cleanForm.fullName;
@@ -51,8 +55,25 @@ const detailsController = (request) => {
     }
   }
 
+  // Check no forbidden characters exist in the user's details.
+  request.session.invalidCharsName = validation.hasInvalidCharacters(cleanForm.fullName, validation.invalidCharacters);
+  request.session.invalidCharsOrganisation = validation.hasInvalidCharacters(
+    cleanForm.companyOrganisation,
+    validation.invalidCharacters,
+  );
+  request.session.invalidCharsPhoneNumber = validation.hasInvalidCharacters(
+    cleanForm.phoneNumber,
+    validation.invalidCharacters,
+  );
+
   // Check that any of the fields are invalid.
-  request.session.detailsError = request.session.nameError || request.session.phoneError || request.session.emailError;
+  request.session.detailsError =
+    request.session.nameError ||
+    request.session.phoneError ||
+    request.session.emailError ||
+    request.session.invalidCharsName ||
+    request.session.invalidCharsOrganisation ||
+    request.session.invalidCharsPhoneNumber;
 
   // If we've seen an error in any of the fields, our visitor needs to go back
   // and fix them.
