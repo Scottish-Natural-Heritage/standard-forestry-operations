@@ -5,7 +5,6 @@ import {ReturnState} from './_base.js';
 /**
  * Clean the incoming POST request body to make it more compatible with the
  * database and its validation rules.
- *
  * @param {object} body The incoming request's body.
  * @returns {any} A json object that's just got our cleaned up fields on it.
  */

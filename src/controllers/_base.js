@@ -7,7 +7,6 @@ import config from '../config.js';
  *
  * This will be used to guard access to other pages. This allows us to ensure
  * visitor's can't jump ahead and miss out answers in their registration.
- *
  * @param {object} session An `express-session` object holding our visitor's
  * session.
  * @param {Array} [session.visitedPages] An array of our visitor's previously
@@ -31,7 +30,6 @@ const saveVisitedPage = (session, page) => {
  * check if this page's 'back' link is in that list and kick them out if it
  * isn't. If this page doesn't have a 'back' link then we treat is as a start
  * page and always allow access.
- *
  * @param {object} session An `express-session` object holding our visitor's
  * session.
  * @param {Array} session.visitedPages An array of our visitor's previously
@@ -67,7 +65,6 @@ const guardAllows = (session, options) => {
 
 /**
  * Render this page and send it to the user.
- *
  * @param {Request} request An express Request object.
  * @param {object} request.session The visitor's session.
  * @param {Response} response An express Response object.
@@ -134,7 +131,6 @@ const ReturnState = Object.freeze({
  *
  * This allows use to configure our list of pages and their logic to be cleanly
  * specified in the application's main router.
- *
  * @param {object} options A 'POJsO' containing the page's configuration.
  * @param {string} options.path The path to this page.
  * @param {string} [options.back] The path to the previous page.

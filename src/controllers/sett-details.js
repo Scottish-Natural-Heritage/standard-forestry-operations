@@ -15,7 +15,6 @@ const validSettId = (settId) => {
 
 /**
  * Check a sett ID for duplicates against any previously entered during the session.
- *
  * @param {string} currentSettId A user supplied sett Id.
  * @param {Array.<object>} setts An array of sett ids already entered during this session.
  * @returns {boolean} True if the sett Id is unique.
@@ -44,12 +43,11 @@ const uniqueSettId = (currentSettId, setts) => {
  * Clean a string to remove any non-grid-ref characters.
  *
  * Takes something like '-NH_6400 4800__' and returns 'NH64004800'.
- *
- * @param {string} gridRef A user supplied grid ref of dubious quality.
+ * @param {string} gridReference A user supplied grid ref of dubious quality.
  * @returns {string} A nice tidy version of the grid ref.
  */
-const formatGridReference = (gridRef) => {
-  return gridRef.toUpperCase().replace(/[^A-Z\d]/g, '');
+const formatGridReference = (gridReference) => {
+  return gridReference.toUpperCase().replaceAll(/[^A-Z\d]/g, '');
 };
 
 /**
@@ -58,12 +56,11 @@ const formatGridReference = (gridRef) => {
  * Takes something like
  * '<script>alert("hello");</script><p>this & that</p>' and returns
  * '&lt;script&gt;alert('hello');&lt;/script&gt;&lt;p&gt;this &amp; that&lt;/p&gt;'.
- *
  * @param {string} id A user supplied string of dubious quality.
  * @returns {string} A nice tidy version of the string.
  */
 const formatId = (id) => {
-  return id.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return id.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 };
 
 /**
@@ -71,34 +68,32 @@ const formatId = (id) => {
  *
  * We first tidy up the user input, so that it's close to being a grid ref,
  * then we check that what we have left is actually a grid ref.
- *
- * @param {string} gridRef A candidate grid ref.
+ * @param {string} gridReference A candidate grid ref.
  * @returns {boolean} True if this looks like a valid grid ref, otherwise false.
  */
-const validGridReference = (gridRef) => {
+const validGridReference = (gridReference) => {
   // Check to make sure we've got some input before we go any further.
-  if (gridRef === undefined) {
+  if (gridReference === undefined) {
     return false;
   }
 
   // Tidy up the grid ref so that it's likely to pass validation.
-  const formattedGridRef = formatGridReference(gridRef);
+  const formattedGridReference = formatGridReference(gridReference);
 
   // Later, we'll check that it's in the AA00000000 style, but we'll only be
   // checking for 8 or more digits, not an even number of digits, so we need
   // this one extra check.
-  if (formattedGridRef.length % 2 !== 0) {
+  if (formattedGridReference.length % 2 !== 0) {
     return false;
   }
 
   // Check that the gridRef is in the AA00000000 format, and fail them if
   // it's not.
-  return /^[A-Z]{2}\d{8,10}$/g.test(formattedGridRef);
+  return /^[A-Z]{2}\d{8,10}$/g.test(formattedGridReference);
 };
 
 /**
  * Check to see if the user supplied string looks like a number of entrances.
- *
  * @param {string} entrances A candidate number of entrances.
  * @returns {boolean} True if this looks like a valid number of entrances,
  * otherwise false.
