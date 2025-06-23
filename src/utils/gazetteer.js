@@ -3,7 +3,6 @@ import config from '../config.js';
 
 /**
  * Find addresses by postcode.
- *
  * @param {string} postcode The postcode to find addresses by.
  */
 const findAddressesByPostcode = async (postcode) => {
@@ -14,9 +13,6 @@ const findAddressesByPostcode = async (postcode) => {
     apiResponse = await axios.get(config.gazetteerApiEndpoint, {
       params: {
         postcode,
-      },
-      headers: {
-        Authorization: `Bearer ${config.gazetteerApiKey}`,
       },
       timeout: 10_000,
     });
@@ -42,7 +38,6 @@ const findAddressesByPostcode = async (postcode) => {
 
 /**
  * Find addresses by postcode.
- *
  * @param {number} uprn The UPRN to find addresses by.
  */
 const findFullAddressesByUprn = async (uprn) => {
@@ -54,9 +49,6 @@ const findFullAddressesByUprn = async (uprn) => {
       params: {
         uprn,
         fieldset: 'all',
-      },
-      headers: {
-        Authorization: `Bearer ${config.gazetteerApiKey}`,
       },
       timeout: 10_000,
     });

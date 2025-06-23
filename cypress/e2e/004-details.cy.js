@@ -58,4 +58,47 @@ describe('Details page ', function () {
 
     cy.url().should('include', '/postcode');
   });
+
+  it('forbidden characters should generate errors', function () {
+    cy.visit('/details');
+
+    cy.get('input[type="text"]#full-name').type('<a href="">FakeNastyLink</a>');
+    cy.get('input[type="text"]#email-address').type('licensing@nature.scot');
+    cy.get('input[type="tel"]#phone-number').type('<a href="">FakeNastyLink</a>');
+    cy.get('input[type="text"]#company-organisation').type('<a href="">FakeNastyLink</a>');
+
+    cy.get('#main-content form button.naturescot-forward-button').click();
+
+    cy.url().should('include', '/details');
+
+    cy.get('h2#error-summary-title').should('contain', 'There is a problem');
+
+    cy.get('.govuk-error-summary ul li a')
+      .should(
+        'contain',
+        'Full name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
+      )
+      .and(
+        'contain',
+        'Telephone number must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
+      )
+      .and(
+        'contain',
+        'Organisation must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
+      );
+
+    cy.get('form fieldset .govuk-form-group--error')
+      .and(
+        'contain',
+        'Full name must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
+      )
+      .and(
+        'contain',
+        'Telephone number must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
+      )
+      .and(
+        'contain',
+        'Organisation must only include letters a to z, and special characters such as hyphens, spaces and apostrophes',
+      );
+  });
 });

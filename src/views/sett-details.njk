@@ -22,10 +22,30 @@
         {
           text: "Enter the number of Entrances",
           href: "#current-entrances-error"
-        } if model.currentEntrancesError
+        } if model.currentEntrancesError,
+        {
+          text: "Enter a different Sett ID",
+          href: "#unique-sett-id-error"
+        } if model.uniqueSettIdError,
+        {
+          text: "Sett ID must only include letters a to z, and special characters such as hyphens, spaces and apostrophes",
+          href: "#current-sett-id-error"
+        } if model.invalidCharsSettId
       ]
     }) }}
   {% endif %}
+
+  {% set settIdErrorMessage %}
+    {% if model.currentSettIdError %}
+      Enter a Sett ID
+    {% elif model.uniqueSettIdError %}
+      Enter a different Sett ID
+    {% elif model.invalidCharsSettId %}
+      Sett ID must only include letters a to z, and special characters such as hyphens, spaces and apostrophes
+    {% else %}
+      {# Blank. Not an error. #}
+    {% endif %}
+  {% endset -%}
 
   <form method="post">
     <div class="govuk-grid-row">
@@ -54,11 +74,8 @@
         name: "currentSettId",
         value: model.currentSettId,
         errorMessage: {
-          text: "Enter a Sett ID"
-        } if model.currentSettIdError,
-        attributes: {
-          spellcheck: "false"
-        }
+          text: settIdErrorMessage
+        } if model.settIdError or model.invalidCharsSettId
       }) }}
 
       {{ govukInput({

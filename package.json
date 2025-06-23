@@ -8,6 +8,7 @@
   "type": "module",
   "scripts": {
     "lint": "xo",
+    "lint:code:fix": "xo --fix",
     "scss": "node --experimental-modules src/scss.js",
     "assets": "cp node_modules/naturescot-frontend/naturescot/assets/images/naturescot-logo.png dist/ && cp -R src/assets/* dist/",
     "postassets": "node --experimental-modules src/post-assets.js",
@@ -19,11 +20,11 @@
     "start": "node --experimental-modules src/server.js",
     "dev": "SFO_PORT=3999 COOKIE_PREFIX=_ nodemon --exec \"npm run lint && npm run start\" -e js,njk,scss --ignore build/ --ignore dist/ --ignore cypress/",
     "cy:run": "cypress run",
-    "test": "SFO_PORT=3002 SFO_PATH_PREFIX=standard-forestry-operations COOKIE_PREFIX=_ PC_LOOKUP_API_URL=http://mock-gazetteer-api/endpoint start-server-and-test start:mock http://localhost:3002/standard-forestry-operations/health cy:run",
+    "test": "UNDER_TEST=true SFO_PORT=3002 SFO_PATH_PREFIX=standard-forestry-operations COOKIE_PREFIX=_ PC_LOOKUP_API_URL=http://mock-gazetteer-api/endpoint start-server-and-test start:mock http://localhost:3002/standard-forestry-operations/health cy:run",
     "cy:open": "cypress open"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=20.0.0"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "dependencies": {
@@ -50,14 +51,14 @@
     "@babel/core": "^7.18.6",
     "@babel/eslint-parser": "^7.18.2",
     "axios-mock-adapter": "^1.21.1",
-    "cypress": "^4.3.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-editorconfig": "^3.2.0",
-    "eslint-plugin-jsdoc": "^39.3.3",
-    "nodemon": "^2.0.18",
-    "prettier": "^2.7.1",
-    "start-server-and-test": "^1.14.0",
-    "xo": "^0.50.0"
+    "cypress": "^13.12.0",
+    "eslint-plugin-cypress": "^3.3.0",
+    "eslint-plugin-editorconfig": "^4.0.3",
+    "eslint-plugin-jsdoc": "^48.2.12",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.3.2",
+    "start-server-and-test": "^2.0.3",
+    "xo": "^0.58.0"
   },
   "xo": {
     "space": 2,

@@ -25,7 +25,7 @@ const confirmController = async (request) => {
         addressLine2: request.session.addressLine2,
         addressTown: request.session.addressTown,
         addressCounty: request.session.addressCounty,
-        uprn: request.session.uprn ? request.session.uprn : undefined,
+        uprn: request.session?.uprn ?? undefined,
         setts: request.session.setts,
         complyWithTerms: request.session.comply,
       };
@@ -37,7 +37,7 @@ const confirmController = async (request) => {
       const appNo = newAppResponse.headers.location.slice(newAppResponse.headers.location.lastIndexOf('/') + 1);
 
       // Pad with leading zeroes as required.
-      const appId = appNo.padStart(5, appNo);
+      const appId = appNo.padStart(5, 0);
 
       // Get the application ID from the location in the response.
       request.session.licenceNo = `NS-SFO-${appId}`;
