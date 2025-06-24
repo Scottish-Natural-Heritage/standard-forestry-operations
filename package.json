@@ -33,7 +33,6 @@
     "express-session": "^1.17.3",
     "govuk-frontend": "^3.6.0",
     "jimp": "^1.6.0",
-    "jsonwebtoken": "^9.0.2",
     "leaflet": "^1.8.0",
     "memorystore": "^1.6.7",
     "morgan": "^1.10.0",
