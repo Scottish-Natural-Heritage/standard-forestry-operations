@@ -24,7 +24,7 @@
     "cy:open": "cypress open"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=24.0.0"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "dependencies": {
